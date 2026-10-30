@@ -1,13 +1,80 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Travlog</title>
         <link rel="stylesheet" href="src/styles/main.scss" />
     </head>
+
     <body>
-        <div>Hello World</div>
-        <script type="module" src="./src/script/index.js"></script>
+        <header class="site-header">
+            <div class="navbar container">
+                <a class="navbar__brand" href="#home" aria-label="Travlog Home">
+                    <img
+                        class="navbar__logo"
+                        src="/assets/images/logo.png"
+                        alt="Travlog Logo"
+                    />
+                </a>
+
+                <button
+                    class="navbar__toggle"
+                    type="button"
+                    aria-label="Open navigation menu"
+                    aria-controls="primary-navigation"
+                    aria-expanded="false"
+                >
+                    <span class="navbar__toggle-line"></span>
+                    <span class="navbar__toggle-line"></span>
+                    <span class="navbar__toggle-line"></span>
+                </button>
+
+                <nav
+                    id="primary-navigation"
+                    class="navbar__navigation"
+                    aria-label="Main navigation"
+                    inert
+                >
+                    <ul class="navbar__menu">
+                        <li class="navbar__item">
+                            <a
+                                class="navbar__link navbar__link--active"
+                                href="#home"
+                            >
+                                Home
+                            </a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="#discover"
+                                >Discover</a
+                            >
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="#deals"
+                                >Special Deals</a
+                            >
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="navbar__actions navbar__actions--mobile">
+                        <a class="btn" href="#login">Login</a>
+                        <a class="btn btn--primary" href="#signup">Sign Up</a>
+                    </div>
+                </nav>
+
+                <div class="navbar__backdrop" aria-hidden="true"></div>
+
+                <div class="navbar__actions navbar__actions--large" hidden>
+                    <a class="btn" href="#login">Login</a>
+                    <a class="btn btn--primary" href="#signup">Sign Up</a>
+                </div>
+            </div>
+        </header>
+
+        <script src="./src/script/navbar.js"></script>
     </body>
 </html>
