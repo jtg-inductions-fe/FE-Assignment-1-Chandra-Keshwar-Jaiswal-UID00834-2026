@@ -1,0 +1,232 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../components/button' as *;
+@use '../abstracts/functions' as *;
+
+.navbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem(16px);
+    z-index: 100;
+
+    &__brand {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        height: rem(40px);
+        width: rem(40px);
+        order: 1;
+    }
+
+    &__toggle {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: rem(12px);
+        border: 0;
+        border-radius: rem(8px);
+        background-color: $color-primary;
+        cursor: pointer;
+        z-index: 1002;
+    }
+
+    &__toggle-line {
+        display: block;
+        width: rem(20px);
+        height: rem(2px);
+        margin: rem(3px);
+        border-radius: rem(2px);
+        background-color: $color-white;
+    }
+
+    &__navigation {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        gap: rem(24px);
+        width: min(82%, rem(352px));
+        padding: rem(80px) rem(24px) rem(24px);
+        background-color: $color-white;
+        box-shadow: 0 0 2rem rgb(0 0 0 / 12%);
+        transform: translateX(100%);
+        visibility: hidden;
+        transition:
+            transform 300ms ease,
+            visibility 0s linear 300ms;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        gap: rem(16px);
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    &__link {
+        display: block;
+        padding: rem(12px);
+        color: $color-grey;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-primary;
+        }
+
+        &:focus-visible {
+            outline: 3px solid $color-primary;
+        }
+    }
+
+    &__link--active {
+        color: $color-black;
+        font-weight: bold;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: rem(16px);
+
+        &--mobile {
+            flex-direction: column;
+            align-items: stretch;
+            margin-top: auto;
+        }
+
+        &--large {
+            display: none;
+        }
+    }
+
+    &__backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        border: 0;
+        background: rgb(0 0 0 / 45%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity 300ms ease,
+            visibility 0s linear 300ms;
+    }
+
+    &.is-menu-open {
+        .navbar__navigation {
+            transform: translateX(0);
+            visibility: visible;
+            transition:
+                transform 300ms ease,
+                visibility 0s;
+        }
+
+        .navbar__backdrop {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition:
+                opacity 300ms ease,
+                visibility 0s;
+        }
+    }
+
+    &__toggle:focus-visible,
+    &__brand:focus-visible,
+    &__actions a:focus-visible {
+        outline: rem(3px) solid $color-primary;
+        outline-offset: rem(4px);
+    }
+}
+
+@include for-device-width('tablet') {
+    .navbar {
+        gap: 0.5rem;
+
+        &__toggle {
+            display: inline-flex;
+            order: 1;
+            flex-shrink: 0;
+        }
+
+        &__brand {
+            order: 2;
+        }
+
+        &__actions--large {
+            display: flex;
+            order: 3;
+            gap: rem(8px);
+            flex-shrink: 0;
+        }
+
+        &__actions--mobile {
+            display: none;
+        }
+
+        &__navigation {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+        }
+    }
+}
+
+@include for-device-width('desktop') {
+    .navbar {
+        gap: rem(32px);
+
+        &__brand {
+            order: 1;
+        }
+
+        &__toggle {
+            display: none;
+        }
+
+        &__navigation {
+            position: static;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: rem(32px);
+            width: auto;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            transform: none;
+            visibility: visible;
+            transition: none;
+            order: 2;
+        }
+
+        &__menu {
+            flex-direction: row;
+            align-items: center;
+            gap: rem(40px);
+        }
+
+        &__backdrop {
+            display: none;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navbar__navigation,
+    .navbar__backdrop {
+        transition: none;
+    }
+}
