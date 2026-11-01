@@ -8,8 +8,8 @@
     </head>
 
     <body>
-        <header class="site-header">
-            <div class="navbar container">
+        <header class="container">
+            <div class="navbar">
                 <a class="navbar__brand" href="#home" aria-label="Travlog Home">
                     <img
                         class="navbar__logo"
@@ -18,17 +18,20 @@
                     />
                 </a>
 
-                <button
-                    class="navbar__toggle"
-                    type="button"
-                    aria-label="Open navigation menu"
-                    aria-controls="primary-navigation"
-                    aria-expanded="false"
-                >
-                    <span class="navbar__toggle-line"></span>
-                    <span class="navbar__toggle-line"></span>
-                    <span class="navbar__toggle-line"></span>
-                </button>
+                <div class="navbar__toggle-wrapper">
+                    <button
+                        class="navbar__toggle"
+                        type="button"
+                        aria-label="Open navigation menu"
+                        aria-controls="primary-navigation"
+                        aria-expanded="false"
+                    >
+                        <img
+                            src="./public/assets/images/toggle.png"
+                            alt="Menu Icon"
+                        />
+                    </button>
+                </div>
 
                 <nav
                     id="primary-navigation"
@@ -60,21 +63,21 @@
                         </li>
                     </ul>
 
-                    <div class="navbar__actions navbar__actions--mobile">
-                        <a class="btn" href="#login">Login</a>
+                    <div class="navbar__drawer-buttons">
+                        <a class="btn" href="#login">Log In</a>
                         <a class="btn btn--primary" href="#signup">Sign Up</a>
                     </div>
                 </nav>
 
                 <div class="navbar__backdrop" aria-hidden="true"></div>
 
-                <div class="navbar__actions navbar__actions--large" hidden>
-                    <a class="btn" href="#login">Login</a>
+                <div class="navbar__buttons">
+                    <a class="btn" href="#login">Log In</a>
                     <a class="btn btn--primary" href="#signup">Sign Up</a>
                 </div>
             </div>
         </header>
 
-        <script src="./src/script/navbar.js"></script>
+        <script src="./src/script/index.js"></script>
     </body>
 </html>

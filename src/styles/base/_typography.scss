@@ -1,78 +1,99 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use '../abstracts' as abs;
 
-body {
-    font-family: $font-primary;
-    font-size: $size-base;
-    font-weight: $weight-regular;
-    line-height: $lh-base;
-    color: $color-grey;
-}
+.heading {
+    @include abs.fonts(
+        $size: abs.rem(24px),
+        $weight: abs.get(abs.$font-weight, bold),
+        $line-height: 1.2
+    );
 
-// Paragraphs
+    &--sm {
+        font-size: abs.rem(24px);
 
-p {
-    font-size: $size-body;
-    font-weight: $weight-regular;
-    line-height: $lh-base;
-}
-
-// Headings: Mobile defaults
-
-h1,
-h2,
-h3,
-h4 {
-    font-weight: $weight-bold;
-    line-height: $lh-heading;
-    color: $color-black;
-}
-
-h1 {
-    font-size: $size-h1;
-}
-
-h2 {
-    font-size: $size-h2;
-}
-
-h3 {
-    font-size: $size-h3;
-}
-
-h4 {
-    font-size: $size-h4;
-    font-weight: $weight-medium;
-}
-
-// Tablet typography
-
-@include for-device-width('tablet') {
-    h1 {
-        font-size: $size-h1-tablet;
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(28px);
+        }
     }
 
-    h2 {
-        font-size: $size-h2-tablet;
+    &--md {
+        font-size: abs.rem(32px);
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(40px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            font-size: abs.rem(44px);
+        }
     }
 
-    h3 {
-        font-size: $size-h3-tablet;
+    &--lg {
+        font-size: abs.rem(32px);
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(40px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            font-size: abs.rem(44px);
+        }
+    }
+
+    &--xl {
+        font-size: abs.rem(40px);
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(56px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            font-size: abs.rem(69px);
+        }
     }
 }
 
-// Desktop typography
+.subtitle {
+    @include abs.fonts(
+        $size: abs.rem(16px),
+        $weight: abs.get(abs.$font-weight, bold)
+    );
+    text-transform: uppercase;
+    letter-spacing: 1.2;
 
-@include for-device-width('desktop') {
-    h1 {
-        font-size: $size-h1-desktop;
+    &--sm {
+        font-size: abs.rem(16px);
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(23px);
+        }
+    }
+}
+
+.paragraph {
+    @include abs.fonts(
+        $size: abs.rem(16px),
+        $font: abs.get(abs.$font, secondary),
+        $weight: abs.get(abs.$font-weight, regular),
+        $line-height: 1.6
+    );
+
+    &--sm {
+        font-size: abs.rem(14px);
     }
 
-    h2 {
-        font-size: $size-h2-desktop;
+    &--md {
+        font-size: abs.rem(16px);
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(18px);
+        }
     }
 
-    h3 {
-        font-size: $size-h3-desktop;
+    &--lg {
+        font-size: abs.rem(18px);
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(23px);
+        }
     }
 }

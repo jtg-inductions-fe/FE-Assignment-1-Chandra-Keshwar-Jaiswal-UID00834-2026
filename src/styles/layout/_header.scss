@@ -1,232 +1,235 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
-@use '../components/button' as *;
-@use '../abstracts/functions' as *;
+@use '../abstracts' as abs;
+@use '../themes' as theme;
 
 .navbar {
+    @include abs.flex-mixin(space-between);
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: rem(16px);
     z-index: 100;
+    width: 100%;
 
+    @include abs.for-device-width('tablet') {
+        padding-block: abs.rem(32px);
+    }
+
+    // Brand
     &__brand {
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
-        height: rem(40px);
-        width: rem(40px);
+        width: abs.rem(40px);
+        height: abs.rem(40px);
         order: 1;
+
+        @include abs.for-device-width('tablet') {
+            order: 2;
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        @include abs.for-device-width('desktop') {
+            order: 1;
+            justify-content: flex-start;
+        }
+    }
+
+    // Hamburger
+    &__toggle-wrapper {
+        display: flex;
+        align-items: center;
+        order: 2;
+
+        @include abs.for-device-width('tablet') {
+            order: 1;
+            flex: 1;
+        }
+
+        @include abs.for-device-width('desktop') {
+            display: none;
+        }
     }
 
     &__toggle {
-        order: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: rem(12px);
-        border: 0;
-        border-radius: rem(8px);
-        background-color: $color-primary;
-        cursor: pointer;
+        @include abs.flex-mixin();
         z-index: 1002;
+        padding: abs.rem(4px);
+        border: 0;
+        border-radius: abs.rem(12px);
+        background-color: transparent;
+        cursor: pointer;
     }
 
-    &__toggle-line {
-        display: block;
-        width: rem(20px);
-        height: rem(2px);
-        margin: rem(3px);
-        border-radius: rem(2px);
-        background-color: $color-white;
-    }
-
+    // Navigation drawer
     &__navigation {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
         z-index: 1001;
-        display: flex;
-        flex-direction: column;
-        gap: rem(24px);
-        width: min(82%, rem(352px));
-        padding: rem(80px) rem(24px) rem(24px);
-        background-color: $color-white;
+
+        @include abs.flex-mixin(space-between, start, column, abs.rem(24px));
+
+        width: min(82%, abs.rem(352px));
+        padding: abs.rem(48px) abs.rem(24px) abs.rem(24px);
+        background-color: theme.$color-white;
         box-shadow: 0 0 2rem rgb(0 0 0 / 12%);
+
         transform: translateX(100%);
         visibility: hidden;
         transition:
-            transform 300ms ease,
-            visibility 0s linear 300ms;
+            transform 0.3s ease-in-out,
+            visibility 0.3s ease-in-out;
+
+        // Tablet drawer opens from the left
+        @include abs.for-device-width('tablet') {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        // Desktop navigation
+        @include abs.for-device-width('desktop') {
+            position: static;
+            flex: 2 1 0;
+            flex-direction: row;
+            gap: abs.rem(24px);
+            order: 2;
+
+            width: auto;
+            padding: 0;
+
+            transform: none;
+            visibility: visible;
+            box-shadow: none;
+            transition: none;
+        }
     }
 
+    // Navigation links
     &__menu {
-        display: flex;
-        flex-direction: column;
-        gap: rem(16px);
+        @include abs.flex-mixin(start, start, column, abs.rem(24px));
+
+        width: 100%;
+        height: 100%;
         padding: 0;
         margin: 0;
-        list-style: none;
-    }
+        overflow-y: auto;
 
-    &__link {
-        display: block;
-        padding: rem(12px);
-        color: $color-grey;
-        text-decoration: none;
-        cursor: pointer;
-
-        &:hover {
-            color: $color-primary;
-        }
-
-        &:focus-visible {
-            outline: 3px solid $color-primary;
+        @include abs.for-device-width('desktop') {
+            transform: translateX(-6px);
+            white-space: nowrap;
+            flex-direction: row;
+            align-items: center;
+            height: auto;
+            list-style: none;
+            justify-content: flex-start;
+            gap: abs.rem(64px);
         }
     }
 
-    &__link--active {
-        color: $color-black;
-        font-weight: bold;
-    }
+    // Login/signup inside mobile drawer
+    &__drawer-buttons {
+        @include abs.flex-mixin(center, stretch, column, abs.rem(12px));
 
-    &__actions {
-        display: flex;
-        align-items: center;
-        gap: rem(16px);
+        width: 100%;
+        margin: 0;
+        text-transform: capitalize;
 
-        &--mobile {
-            flex-direction: column;
-            align-items: stretch;
-            margin-top: auto;
-        }
-
-        &--large {
+        @include abs.for-device-width('tablet') {
             display: none;
         }
     }
 
+    // Background overlay
     &__backdrop {
         position: fixed;
         inset: 0;
         z-index: 1000;
-        border: 0;
-        background: rgb(0 0 0 / 45%);
+
+        background-color: rgb(0 0 0 / 50%);
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
+
         transition:
-            opacity 300ms ease,
-            visibility 0s linear 300ms;
+            opacity 0.3s ease-in-out,
+            visibility 0.3s ease-in-out;
+
+        @include abs.for-device-width('desktop') {
+            display: none;
+        }
     }
 
-    &.is-menu-open {
+    // Login/signup outside drawer
+    &__buttons {
+        @include abs.flex-mixin(flex-end, center, row);
+
+        display: none;
+        order: 3;
+
+        @include abs.for-device-width('tablet') {
+            display: flex;
+            flex: 1 1 0;
+        }
+    }
+
+    // Drawer open state
+    &.is-open {
         .navbar__navigation {
             transform: translateX(0);
             visibility: visible;
             transition:
-                transform 300ms ease,
-                visibility 0s;
+                transform 0.3s ease-in-out,
+                visibility 0.3s ease-in-out;
         }
 
         .navbar__backdrop {
             opacity: 1;
             visibility: visible;
-            pointer-events: auto;
             transition:
-                opacity 300ms ease,
-                visibility 0s;
+                opacity 0.3s ease-in-out,
+                visibility 0.3s ease-in-out;
         }
     }
 
-    &__toggle:focus-visible,
-    &__brand:focus-visible,
-    &__actions a:focus-visible {
-        outline: rem(3px) solid $color-primary;
-        outline-offset: rem(4px);
-    }
-}
+    // Logo focus
+    &__brand {
+        &:focus-visible {
+            outline: none;
 
-@include for-device-width('tablet') {
-    .navbar {
-        gap: 0.5rem;
-
-        &__toggle {
-            display: inline-flex;
-            order: 1;
-            flex-shrink: 0;
-        }
-
-        &__brand {
-            order: 2;
-        }
-
-        &__actions--large {
-            display: flex;
-            order: 3;
-            gap: rem(8px);
-            flex-shrink: 0;
-        }
-
-        &__actions--mobile {
-            display: none;
-        }
-
-        &__navigation {
-            right: auto;
-            left: 0;
-            transform: translateX(-100%);
+            .navbar__logo {
+                outline: 2px solid theme.$color-primary;
+                outline-offset: 3px;
+                border-radius: abs.rem(4px);
+            }
         }
     }
-}
 
-@include for-device-width('desktop') {
-    .navbar {
-        gap: rem(32px);
-
-        &__brand {
-            order: 1;
-        }
-
-        &__toggle {
-            display: none;
-        }
-
-        &__navigation {
-            position: static;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            gap: rem(32px);
-            width: auto;
-            padding: 0;
-            background: transparent;
-            box-shadow: none;
-            transform: none;
-            visibility: visible;
-            transition: none;
-            order: 2;
-        }
-
-        &__menu {
-            flex-direction: row;
-            align-items: center;
-            gap: rem(40px);
-        }
-
-        &__backdrop {
-            display: none;
+    // Hamburger focus
+    &__toggle {
+        &:focus-visible {
+            outline: 2px solid theme.$color-primary;
+            outline-offset: 3px;
+            border-radius: abs.rem(6px);
         }
     }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    .navbar__navigation,
-    .navbar__backdrop {
-        transition: none;
+    // Navigation link focus
+    &__link {
+        &:focus-visible {
+            outline: 2px solid theme.$color-primary;
+            outline-offset: 2px;
+            border-radius: abs.rem(4px);
+        }
+    }
+
+    // Login and signup focus
+    &__buttons,
+    &__drawer-buttons {
+        a {
+            &:focus-visible {
+                outline: 2px solid theme.$color-primary;
+                outline-offset: -3px;
+                border-radius: inherit;
+            }
+        }
     }
 }

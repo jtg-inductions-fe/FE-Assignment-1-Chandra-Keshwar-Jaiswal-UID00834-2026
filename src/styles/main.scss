@@ -1,4 +1,6 @@
-// TODO: Add styles as per the requirement
-@use './base/reset';
-@use './base/typography';
-@use './layout/header';
+@use './abstracts';
+@use './base';
+@use './vendors';
+@use './themes';
+@use './components';
+@use './layout';
