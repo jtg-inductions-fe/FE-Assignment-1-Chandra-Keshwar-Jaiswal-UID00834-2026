@@ -1,0 +1,78 @@
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+body {
+    font-family: $font-primary;
+    font-size: $size-base;
+    font-weight: $weight-regular;
+    line-height: $lh-base;
+    color: $color-grey;
+}
+
+// Paragraphs
+
+p {
+    font-size: $size-body;
+    font-weight: $weight-regular;
+    line-height: $lh-base;
+}
+
+// Headings: Mobile defaults
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: $weight-bold;
+    line-height: $lh-heading;
+    color: $color-black;
+}
+
+h1 {
+    font-size: $size-h1;
+}
+
+h2 {
+    font-size: $size-h2;
+}
+
+h3 {
+    font-size: $size-h3;
+}
+
+h4 {
+    font-size: $size-h4;
+    font-weight: $weight-medium;
+}
+
+// Tablet typography
+
+@include for-device-width('tablet') {
+    h1 {
+        font-size: $size-h1-tablet;
+    }
+
+    h2 {
+        font-size: $size-h2-tablet;
+    }
+
+    h3 {
+        font-size: $size-h3-tablet;
+    }
+}
+
+// Desktop typography
+
+@include for-device-width('desktop') {
+    h1 {
+        font-size: $size-h1-desktop;
+    }
+
+    h2 {
+        font-size: $size-h2-desktop;
+    }
+
+    h3 {
+        font-size: $size-h3-desktop;
+    }
+}
