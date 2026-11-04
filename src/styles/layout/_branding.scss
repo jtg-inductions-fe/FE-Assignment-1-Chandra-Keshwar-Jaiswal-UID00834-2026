@@ -8,6 +8,10 @@
     flex-direction: column;
     gap: abs.rem(32px);
 
+    @include abs.for-device-width('tablet') {
+        transform: translateY(-8px);
+    }
+
     &__row {
         @include abs.flex-mixin($gap: 27px);
     }
