@@ -1,0 +1,32 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.card {
+    &__wrapper {
+        width: 100%;
+        height: abs.rem(151px);
+        padding: abs.rem(32px);
+        border-radius: abs.rem(32px);
+        border: abs.rem(1px) solid #19182510;
+        @include abs.flex-mixin($gap: abs.rem(16px), $direction: column);
+    }
+
+    &__value {
+        font-weight: abs.get(abs.$font-weight, bold);
+        font-size: abs.rem(35px);
+        line-height: 1.2;
+        letter-spacing: 0;
+        color: theme.$color-orange;
+        text-align: center;
+    }
+
+    &__content {
+        font-family: abs.get(abs.$font, secondary);
+        font-size: abs.get(abs.$font-weight, regular);
+        font-size: abs.rem(18px);
+        text-align: center;
+        line-height: 1.6;
+        letter-spacing: 0;
+        color: theme.$color-black;
+    }
+}
