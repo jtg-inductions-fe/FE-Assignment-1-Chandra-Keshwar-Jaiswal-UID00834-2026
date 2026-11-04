@@ -8,7 +8,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: theme.$color-white;
+    background-color: transparent;
     color: theme.$color-black;
     font-weight: abs.get(abs.$font-weight, bold);
     text-decoration: none;
