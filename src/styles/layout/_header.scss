@@ -70,7 +70,7 @@
 
         width: min(82%, abs.rem(352px));
         padding: abs.rem(48px) abs.rem(24px) abs.rem(24px);
-        background-color: theme.$color-white;
+        background-color: transparent;
         box-shadow: 0 0 2rem rgb(0 0 0 / 12%);
 
         transform: translateX(100%);
