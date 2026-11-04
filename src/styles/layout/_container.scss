@@ -1,0 +1,14 @@
+@use '../abstracts' as abs;
+
+.container {
+    width: 100%;
+    padding-inline: abs.rem(16px);
+
+    @include abs.for-device-width('tablet') {
+        padding-inline: abs.rem(64px);
+    }
+
+    @include abs.for-device-width('desktop') {
+        padding-inline: abs.rem(130px) abs.rem(117px);
+    }
+}

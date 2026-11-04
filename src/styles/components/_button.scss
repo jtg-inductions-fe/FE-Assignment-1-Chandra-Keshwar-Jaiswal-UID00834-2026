@@ -1,0 +1,23 @@
+@use '../abstracts' as abs;
+@use '../themes/' as theme;
+
+.btn {
+    padding: abs.rem(16px) abs.rem(32px);
+    font-size: abs.rem(14px);
+    border-radius: abs.rem(100px);
+    // gap: abs.rem(8px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: theme.$color-white;
+    color: theme.$color-black;
+    font-weight: abs.get(abs.$font-weight, bold);
+    text-decoration: none;
+    line-height: 1.2;
+    @include abs.text-ellipsis;
+
+    &--primary {
+        background-color: theme.$color-primary;
+        color: theme.$color-white;
+    }
+}

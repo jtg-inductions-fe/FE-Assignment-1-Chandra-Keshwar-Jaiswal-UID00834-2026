@@ -1,0 +1,27 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.navbar__link {
+    @include abs.fonts(
+        $size: abs.rem(14px),
+        $color: theme.$color-grey,
+        $weight: abs.get(abs.$font-weight, regular)
+    );
+    text-decoration: none;
+    text-transform: capitalize;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+        color: theme.$color-primary;
+    }
+
+    &:focus-visible {
+        outline: abs.rem(3px) solid theme.$color-primary;
+    }
+
+    &--active {
+        color: theme.$color-black;
+        font-weight: abs.get(abs.$font-weight, bold);
+    }
+}

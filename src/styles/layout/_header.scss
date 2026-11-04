@@ -1,0 +1,235 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.navbar {
+    @include abs.flex-mixin(space-between);
+    position: relative;
+    z-index: 100;
+    width: 100%;
+
+    @include abs.for-device-width('tablet') {
+        padding-block: abs.rem(32px);
+    }
+
+    // Brand
+    &__brand {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        width: abs.rem(40px);
+        height: abs.rem(40px);
+        order: 1;
+
+        @include abs.for-device-width('tablet') {
+            order: 2;
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        @include abs.for-device-width('desktop') {
+            order: 1;
+            justify-content: flex-start;
+        }
+    }
+
+    // Hamburger
+    &__toggle-wrapper {
+        display: flex;
+        align-items: center;
+        order: 2;
+
+        @include abs.for-device-width('tablet') {
+            order: 1;
+            flex: 1;
+        }
+
+        @include abs.for-device-width('desktop') {
+            display: none;
+        }
+    }
+
+    &__toggle {
+        @include abs.flex-mixin();
+        z-index: 1002;
+        padding: abs.rem(4px);
+        border: 0;
+        border-radius: abs.rem(12px);
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    // Navigation drawer
+    &__navigation {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1001;
+
+        @include abs.flex-mixin(space-between, start, column, abs.rem(24px));
+
+        width: min(82%, abs.rem(352px));
+        padding: abs.rem(48px) abs.rem(24px) abs.rem(24px);
+        background-color: theme.$color-white;
+        box-shadow: 0 0 2rem rgb(0 0 0 / 12%);
+
+        transform: translateX(100%);
+        visibility: hidden;
+        transition:
+            transform 0.3s ease-in-out,
+            visibility 0.3s ease-in-out;
+
+        // Tablet drawer opens from the left
+        @include abs.for-device-width('tablet') {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        // Desktop navigation
+        @include abs.for-device-width('desktop') {
+            position: static;
+            flex: 2 1 0;
+            flex-direction: row;
+            gap: abs.rem(24px);
+            order: 2;
+
+            width: auto;
+            padding: 0;
+
+            transform: none;
+            visibility: visible;
+            box-shadow: none;
+            transition: none;
+        }
+    }
+
+    // Navigation links
+    &__menu {
+        @include abs.flex-mixin(start, start, column, abs.rem(24px));
+
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        overflow-y: auto;
+
+        @include abs.for-device-width('desktop') {
+            transform: translateX(-6px);
+            white-space: nowrap;
+            flex-direction: row;
+            align-items: center;
+            height: auto;
+            list-style: none;
+            justify-content: flex-start;
+            gap: abs.rem(64px);
+        }
+    }
+
+    // Login/signup inside mobile drawer
+    &__drawer-buttons {
+        @include abs.flex-mixin(center, stretch, column, abs.rem(12px));
+
+        width: 100%;
+        margin: 0;
+        text-transform: capitalize;
+
+        @include abs.for-device-width('tablet') {
+            display: none;
+        }
+    }
+
+    // Background overlay
+    &__backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+
+        background-color: rgb(0 0 0 / 50%);
+        opacity: 0;
+        visibility: hidden;
+
+        transition:
+            opacity 0.3s ease-in-out,
+            visibility 0.3s ease-in-out;
+
+        @include abs.for-device-width('desktop') {
+            display: none;
+        }
+    }
+
+    // Login/signup outside drawer
+    &__buttons {
+        @include abs.flex-mixin(flex-end, center, row);
+
+        display: none;
+        order: 3;
+
+        @include abs.for-device-width('tablet') {
+            display: flex;
+            flex: 1 1 0;
+        }
+    }
+
+    // Drawer open state
+    &.is-open {
+        .navbar__navigation {
+            transform: translateX(0);
+            visibility: visible;
+            transition:
+                transform 0.3s ease-in-out,
+                visibility 0.3s ease-in-out;
+        }
+
+        .navbar__backdrop {
+            opacity: 1;
+            visibility: visible;
+            transition:
+                opacity 0.3s ease-in-out,
+                visibility 0.3s ease-in-out;
+        }
+    }
+
+    // Logo focus
+    &__brand {
+        &:focus-visible {
+            outline: none;
+
+            .navbar__logo {
+                outline: 2px solid theme.$color-primary;
+                outline-offset: 3px;
+                border-radius: abs.rem(4px);
+            }
+        }
+    }
+
+    // Hamburger focus
+    &__toggle {
+        &:focus-visible {
+            outline: 2px solid theme.$color-primary;
+            outline-offset: 3px;
+            border-radius: abs.rem(6px);
+        }
+    }
+
+    // Navigation link focus
+    &__link {
+        &:focus-visible {
+            outline: 2px solid theme.$color-primary;
+            outline-offset: 2px;
+            border-radius: abs.rem(4px);
+        }
+    }
+
+    // Login and signup focus
+    &__buttons,
+    &__drawer-buttons {
+        a {
+            &:focus-visible {
+                outline: 2px solid theme.$color-primary;
+                outline-offset: -3px;
+                border-radius: inherit;
+            }
+        }
+    }
+}
