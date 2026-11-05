@@ -22,6 +22,29 @@
         transform: translateY(-4px);
     }
 
+    &__blur-div {
+        position: absolute;
+        z-index: 10;
+        display: none;
+        width: abs.rem(503.65px);
+        height: abs.rem(494.93px);
+        background-color: theme.$back-gradient-yellow;
+        border-radius: 50%;
+        pointer-events: none;
+
+        @include abs.for-device-width('tablet') {
+            display: block;
+            bottom: abs.rem(1382.44px);
+            right: abs.rem(-350px);
+            filter: blur(143px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            bottom: abs.rem(506.29px);
+            filter: blur(190px);
+        }
+    }
+
     &__image-wrapper {
         width: 100%;
         max-width: abs.rem(428px);
@@ -59,19 +82,24 @@
     &__subtitle {
         font-weight: abs.get(abs.$font-weight, bold);
         line-height: 1.2;
-        letter-spacing: 20%;
-        align-content: center;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
         color: theme.$color-secondary;
-        align-self: flex-start;
+        align-self: center;
+        text-align: center;
+
+        @include abs.for-device-width('desktop') {
+            align-self: flex-start;
+            text-align: left;
+        }
     }
 
     &__heading {
         margin-top: abs.rem(16px);
         color: theme.$color-black;
         line-height: 1.2;
-        text-align: center;
         width: 100%;
+        text-align: center;
 
         @include abs.for-device-width('desktop') {
             text-align: left;
