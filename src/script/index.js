@@ -1,3 +1,14 @@
+// Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/a11y';
+
+// Your carousel initialization
+import initTestimonialsCarousel from './modules/testimonial-carousel';
+
+initTestimonialsCarousel();
+
 const navbar = document.querySelector('.navbar');
 const menuButton = document.querySelector('.navbar__toggle');
 const navigation = document.getElementById('primary-navigation');

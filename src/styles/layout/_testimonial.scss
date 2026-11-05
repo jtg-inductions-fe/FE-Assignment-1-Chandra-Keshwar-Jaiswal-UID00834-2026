@@ -1,0 +1,236 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.testimonials {
+    position: relative;
+    width: 100%;
+    padding: abs.rem(64px) abs.rem(32px);
+
+    @include abs.flex-mixin($direction: column, $gap: abs.rem(48px));
+
+    @include abs.for-device-width('tablet') {
+        padding: 0;
+    }
+
+    @include abs.for-device-width('desktop') {
+        margin-inline: auto;
+        padding: abs.rem(64px);
+        max-width: abs.rem(1192px);
+    }
+
+    &__background-image {
+        display: none;
+        position: absolute;
+
+        top: 63%;
+        left: 50%;
+
+        width: abs.rem(1664px);
+        height: abs.rem(958px);
+
+        opacity: 0.1;
+
+        transform: translate(-50%, -50%);
+
+        pointer-events: none;
+        z-index: 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        @include abs.for-device-width('tablet') {
+            display: block;
+        }
+
+        @include abs.for-device-width('desktop') {
+            top: 73%;
+            left: 50%;
+        }
+    }
+
+    &__header {
+        text-align: center;
+        // margin-bottom: 64px;
+
+        .subtitle--sm {
+            color: theme.$color-secondary;
+            font-weight: abs.get(abs.$font-weight, bold);
+            text-transform: uppercase;
+            letter-spacing: abs.rem(3px);
+            line-height: 1.2;
+        }
+
+        .heading--lg {
+            margin-top: abs.rem(16px);
+            color: theme.$color-black;
+            font-weight: abs.get(abs.$font-weight, bold);
+            line-height: 1.2;
+        }
+    }
+
+    &__slider {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        transform: translateY(14px);
+        margin: 0;
+        overflow: hidden;
+        padding-bottom: abs.rem(40px);
+        @include abs.for-device-width('tablet') {
+            max-width: abs.rem(584px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            max-width: abs.rem(880px);
+        }
+    }
+
+    &__slide {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__card {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(56px));
+        height: auto;
+        text-align: center;
+
+        > p {
+            width: 100%;
+            margin-top: abs.rem(12px);
+            color: theme.$color-grey;
+            font-size: abs.rem(18px);
+            font-weight: 450;
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        &-info {
+            margin-top: abs.rem(12px);
+            @include abs.flex-mixin($direction: column, $gap: abs.rem(32px));
+            width: 100%;
+            > h3 {
+                font-size: abs.rem(26px);
+                line-height: 1.2;
+                color: theme.$color-grey;
+                text-align: center;
+                letter-spacing: 0;
+                font-weight: abs.get(abs.$font-weight, bold);
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &__highlighted-text {
+        color: theme.$color-orange;
+    }
+
+    &__avatar {
+        display: block;
+        width: abs.rem(128px);
+        height: abs.rem(128px);
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__rating {
+        @include abs.flex-mixin($gap: abs.rem(16px));
+    }
+
+    .testimonial__star {
+        display: block;
+        width: abs.rem(32px);
+        height: abs.rem(32px);
+        object-fit: contain;
+    }
+
+    // Navigation controls
+    &__controls {
+        position: absolute;
+        padding: 0 abs.rem(16px);
+        z-index: 2;
+        top: abs.rem(233px);
+        left: 0;
+        @include abs.flex-mixin($justify: space-between);
+        width: 100%;
+        pointer-events: none;
+        @include abs.for-device-width('tablet') {
+            padding: 0 abs.rem(64px);
+            top: abs.rem(352px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            padding: 0;
+            top: abs.rem(384px);
+        }
+    }
+
+    &__prev,
+    &__next {
+        @include abs.flex-mixin();
+        width: abs.rem(64px);
+        height: abs.rem(64px);
+        flex-shrink: 0;
+        border-radius: 50%;
+        background-color: theme.$color-white;
+        color: theme.$color-grey;
+        font-size: abs.rem(16px);
+        cursor: pointer;
+        pointer-events: auto;
+
+        transition:
+            background-color 0.25s ease,
+            color 0.25s ease,
+            box-shadow 0.25s ease,
+            opacity 0.25s ease;
+
+        &:hover {
+            background-color: theme.$color-primary;
+            color: theme.$color-white;
+            box-shadow: 0 12px 24px rgba(25, 24, 37, 0.15);
+        }
+
+        &.swiper-button-disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        @include abs.for-device-width('tablet') {
+            width: abs.rem(100px);
+            height: abs.rem(100px);
+            font-size: abs.rem(24px);
+        }
+    }
+
+    // Pagination
+    &__pagination {
+        margin-top: abs.rem(2px);
+        position: relative;
+        display: flex;
+        @include abs.flex-mixin($gap: abs.rem(24px));
+
+        .swiper-pagination-bullet {
+            width: abs.rem(24px);
+            height: abs.rem(24px);
+            margin: 0 !important;
+            border-radius: 50%;
+            background-color: #f0f0f2;
+            opacity: 1;
+
+            transition:
+                background-color 0.25s ease,
+                transform 0.25s ease;
+
+            &-active {
+                background-color: theme.$color-secondary;
+                transform: scale(1.05);
+            }
+        }
+    }
+}
