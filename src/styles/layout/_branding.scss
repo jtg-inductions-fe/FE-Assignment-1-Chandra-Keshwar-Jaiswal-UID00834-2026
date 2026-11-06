@@ -8,6 +8,10 @@
     flex-direction: column;
     gap: abs.rem(32px);
 
+    @include abs.for-device-width('tablet') {
+        transform: translateY(-8px);
+    }
+
     &__row {
         @include abs.flex-mixin($gap: 27px);
     }
@@ -30,17 +34,6 @@
     }
 
     @include abs.for-device-width('desktop') {
-        // flex-direction: row;
-        // align-items: center;
-        // justify-content: space-between;
-        // margin-top: 0;
-        // gap: abs.rem(100.72px);
-
-        // &__row {
-        //     display: contents;
-        //     gap: 100.72px;
-        // }
-
         flex-direction: row;
         align-items: center;
         gap: abs.rem(100.72px);
