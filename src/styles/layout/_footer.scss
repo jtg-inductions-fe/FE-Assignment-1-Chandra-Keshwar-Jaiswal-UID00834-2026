@@ -1,0 +1,184 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+@use 'sass:color';
+
+.footer {
+    position: relative;
+    padding: abs.rem(64px) abs.rem(32px);
+    @include abs.flex-mixin($direction: column, $gap: abs.rem(79px));
+
+    @include abs.for-device-width('tablet') {
+        gap: abs.rem(64px);
+        padding: abs.rem(64px) 0;
+        margin-inline: abs.rem(64px);
+        margin-top: abs.rem(120px);
+    }
+
+    @include abs.for-device-width('desktop') {
+        flex-direction: row;
+        margin-inline: abs.rem(130px) abs.rem(117px);
+        margin-top: abs.rem(160px);
+        padding: 0;
+        gap: 0;
+    }
+
+    &__header {
+        @include abs.flex-mixin(
+            $direction: column,
+            $gap: abs.rem(32px),
+            $align: flex-start
+        );
+    }
+
+    &__brand {
+        @include abs.flex-mixin($justify: flex-start, $gap: abs.rem(16px));
+
+        h2 {
+            color: theme.$color-black;
+        }
+    }
+
+    &__paragraph {
+        line-height: 1.6;
+        letter-spacing: 0;
+        color: theme.$color-grey;
+        font-weight: 450;
+
+        @include abs.for-device-width('tablet') {
+            font-size: abs.rem(24px);
+        }
+    }
+
+    &__icons {
+        @include abs.flex-mixin($justify: flex-start, $gap: abs.rem(32px));
+        @include abs.for-device-width('desktop') {
+            margin-top: abs.rem(32px);
+        }
+    }
+
+    &__content {
+        width: 100%;
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(79px));
+
+        @include abs.for-device-width('tablet') {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: abs.rem(32px);
+        }
+    }
+
+    &__accordian {
+        width: 100%;
+
+        &--active {
+            .footer__list {
+                max-height: abs.rem(300px);
+                opacity: 1;
+                visibility: visible;
+                margin-top: abs.rem(32px);
+            }
+
+            .footer__title {
+                img {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        @include abs.for-device-width('tablet') {
+            &--active {
+                .footer__list {
+                    max-height: none;
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+    &__list {
+        @include abs.flex-mixin(
+            $direction: column,
+            $gap: abs.rem(32px),
+            $align: flex-start
+        );
+
+        margin-top: 0;
+        list-style: none;
+        cursor: pointer;
+
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+
+        transition:
+            max-height 0.4s ease,
+            opacity 0.3s ease,
+            margin-top 0.4s ease,
+            visibility 0.3s ease;
+
+        a {
+            font-size: abs.rem(18px);
+            font-family: abs.get(abs.$font, secondary);
+            line-height: 1.6;
+            letter-spacing: 0;
+            text-decoration: none;
+            color: color.change(theme.$color-grey, $alpha: 0.75);
+        }
+
+        @include abs.for-device-width('tablet') {
+            max-height: none;
+            opacity: 1;
+            visibility: visible;
+            overflow: visible;
+            margin-top: abs.rem(32px);
+            transition: none;
+        }
+    }
+
+    &__title {
+        width: 100%;
+        @include abs.flex-mixin($justify: space-between);
+        font-size: abs.rem(24px);
+        line-height: 1.2;
+        white-space: nowrap;
+        letter-spacing: 0;
+        color: theme.$color-black;
+        font-weight: abs.get(abs.$font-weight, bold);
+
+        background-color: transparent;
+        outline: none;
+        border: none;
+        cursor: pointer;
+
+        img {
+            transition: transform 0.3s ease;
+        }
+
+        @include abs.for-device-width('tablet') {
+            cursor: default;
+
+            img {
+                display: none;
+            }
+        }
+    }
+
+    &__background {
+        display: none;
+
+        @include abs.for-device-width('tablet') {
+            position: absolute;
+            display: block;
+            top: abs.rem(212px);
+            right: abs.rem(-64px);
+        }
+
+        @include abs.for-device-width('desktop') {
+            right: abs.rem(-128px);
+            top: 0;
+        }
+    }
+}

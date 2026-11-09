@@ -38,7 +38,8 @@
             display: block;
         }
         @include abs.for-device-width('desktop') {
-            top: 73%;
+            width: 1440px;
+            top: 62%;
             left: 50%;
         }
     }
@@ -63,6 +64,7 @@
         padding-bottom: abs.rem(40px);
         @include abs.for-device-width('tablet') {
             max-width: abs.rem(584px);
+            transform: none;
         }
         @include abs.for-device-width('desktop') {
             max-width: abs.rem(880px);
@@ -133,11 +135,11 @@
         pointer-events: none;
         @include abs.for-device-width('tablet') {
             padding: 0 abs.rem(64px);
-            top: abs.rem(352px);
+            top: abs.rem(288px);
         }
         @include abs.for-device-width('desktop') {
             padding: 0;
-            top: abs.rem(384px);
+            top: abs.rem(336px);
         }
     }
 

@@ -61,6 +61,7 @@
         }
         @include abs.for-device-width('desktop') {
             padding: 0;
+            padding-top: abs.rem(18px);
         }
     }
 
