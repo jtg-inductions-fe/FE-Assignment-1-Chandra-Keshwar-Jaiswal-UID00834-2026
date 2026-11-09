@@ -22,8 +22,8 @@
         display: none;
         position: absolute;
 
-        top: 63%;
-        left: 50%;
+        top: 57%;
+        left: 49%;
 
         width: abs.rem(1664px);
         height: abs.rem(958px);
@@ -47,7 +47,8 @@
         }
 
         @include abs.for-device-width('desktop') {
-            top: 73%;
+            width: 1440px;
+            top: 62%;
             left: 50%;
         }
     }
@@ -60,14 +61,17 @@
             color: theme.$color-secondary;
             font-weight: abs.get(abs.$font-weight, bold);
             text-transform: uppercase;
-            letter-spacing: abs.rem(3px);
+            letter-spacing: 20%;
             line-height: 1.2;
+            text-align: center;
         }
 
         .heading--lg {
             margin-top: abs.rem(16px);
+            text-align: center;
             color: theme.$color-black;
             font-weight: abs.get(abs.$font-weight, bold);
+            letter-spacing: 0;
             line-height: 1.2;
         }
     }
@@ -82,6 +86,7 @@
         padding-bottom: abs.rem(40px);
         @include abs.for-device-width('tablet') {
             max-width: abs.rem(584px);
+            transform: none;
         }
 
         @include abs.for-device-width('desktop') {
@@ -108,6 +113,10 @@
             font-weight: 450;
             line-height: 1.6;
             letter-spacing: 0;
+
+            @include abs.for-device-width('tablet') {
+                font-size: abs.rem(24px);
+            }
         }
 
         &-info {
@@ -122,6 +131,10 @@
                 letter-spacing: 0;
                 font-weight: abs.get(abs.$font-weight, bold);
                 white-space: nowrap;
+            }
+
+            @include abs.for-device-width('tablet') {
+                margin-top: 0;
             }
         }
     }
@@ -162,12 +175,12 @@
         pointer-events: none;
         @include abs.for-device-width('tablet') {
             padding: 0 abs.rem(64px);
-            top: abs.rem(352px);
+            top: abs.rem(288px);
         }
 
         @include abs.for-device-width('desktop') {
             padding: 0;
-            top: abs.rem(384px);
+            top: abs.rem(336px);
         }
     }
 
