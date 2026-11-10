@@ -12,13 +12,17 @@
     }
 
     // Brand
-    &__brand {
+    &__icon {
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
         width: abs.rem(40px);
         height: abs.rem(40px);
         order: 1;
+        cursor: default;
+        img {
+            cursor: pointer;
+        }
 
         @include abs.for-device-width('tablet') {
             order: 2;
@@ -69,7 +73,7 @@
         @include abs.flex-mixin(space-between, start, column, abs.rem(24px));
 
         width: min(82%, abs.rem(352px));
-        padding: abs.rem(48px) abs.rem(24px) abs.rem(24px);
+        padding: abs.rem(100px) abs.rem(24px) abs.rem(24px);
         background-color: theme.$color-white;
         box-shadow: 0 0 2rem rgb(0 0 0 / 12%);
 
@@ -90,9 +94,8 @@
         @include abs.for-device-width('desktop') {
             position: static;
             flex: 2 1 0;
-            flex-direction: row;
-            gap: abs.rem(24px);
             order: 2;
+            background-color: transparent;
 
             width: auto;
             padding: 0;
@@ -172,7 +175,7 @@
     }
 
     // Drawer open state
-    &.is-open {
+    &--open {
         .navbar__navigation {
             transform: translateX(0);
             visibility: visible;
@@ -191,7 +194,7 @@
     }
 
     // Logo focus
-    &__brand {
+    &__logo {
         &:focus-visible {
             outline: none;
 
