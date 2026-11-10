@@ -75,10 +75,13 @@
         </header>
 
         <main class="container">
-            <section class="hero">
+            <section class="hero" aria-label="Travel destinations">
                 <div class="hero__blur-div" aria-hidden="true"></div>
 
-                <div class="hero__gallery">
+                <div
+                    class="hero__gallery"
+                    aria-label="Featured travel destinations"
+                >
                     <div class="hero__images">
                         <div
                             class="hero__image-wrapper hero__image-wrapper--one"
@@ -86,7 +89,7 @@
                             <img
                                 class="hero__image"
                                 src="/assets/images/travel-1.jpg"
-                                alt="Travel destination"
+                                alt="Beautiful coastal destination with white buildings and blue sea"
                             />
                         </div>
 
@@ -96,7 +99,7 @@
                             <img
                                 class="hero__image"
                                 src="/assets/images/travel-2.jpg"
-                                alt="Travel destination"
+                                alt="Traveler enjoying a mountain landscape"
                             />
                         </div>
 
@@ -106,23 +109,26 @@
                             <img
                                 class="hero__image"
                                 src="/assets/images/travel-3.jpg"
-                                alt="Travel destination"
+                                alt="Traveler exploring a city"
                             />
                         </div>
-                        <div class="hero__icon hero__icon--send">
-                            <img src="/assets/images/send.png" alt="" />
+
+                        <div
+                            class="hero__icon hero__icon--send"
+                            aria-hidden="true"
+                        >
+                            <img src="/assets/images/send.svg" alt="" />
                         </div>
 
-                        <div class="hero__icon hero__icon--add-user">
-                            <img src="/assets/images/add-user.png" alt="" />
+                        <div
+                            class="hero__icon hero__icon--add-user"
+                            aria-hidden="true"
+                        >
+                            <img src="/assets/images/add-user.svg" alt="" />
                         </div>
 
                         <div class="hero__top-places">
-                            <img
-                                class=""
-                                src="/assets/images/location.png"
-                                alt=""
-                            />
+                            <img src="/assets/images/location.svg" alt="" />
                             <span>Top Places</span>
                         </div>
                     </div>
@@ -138,6 +144,7 @@
                             class="hero__explore-icon"
                             src="/assets/images/briefcase.png"
                             alt=""
+                            aria-hidden="true"
                         />
                     </div>
 
@@ -189,6 +196,7 @@
                         <a
                             href="#get-started"
                             class="btn btn--primary hero__button hero__get-started-button"
+                            aria-label="Get started with your travel journey"
                         >
                             Get Started
                         </a>
@@ -196,19 +204,24 @@
                         <a
                             href="#watch-demo"
                             class="btn hero__button hero__demo-button"
+                            aria-label="Watch the travel website demo"
                         >
                             <img
                                 class="hero__play-icon"
                                 src="/assets/images/circle-play-solid-full.svg"
                                 alt=""
+                                aria-hidden="true"
                             />
                             Watch Demo
                         </a>
                     </div>
                 </div>
 
-                <div class="hero__triangles">
-                    <img src="/assets/images/side-triangles.png" alt="" />
+                <div class="hero__triangles" aria-hidden="true">
+                    <img
+                        src="/assets/images/side-triangles.png"
+                        alt="decorative-triangles"
+                    />
                 </div>
             </section>
         </main>

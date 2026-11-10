@@ -1,8 +1,10 @@
+@use 'sass:color';
 @use '../abstracts' as abs;
 @use '../themes' as theme;
 @use '../components' as comp;
 
 .hero {
+    position: relative;
     @include abs.flex-mixin(
         $justify: space-between,
         $direction: column,
@@ -27,7 +29,7 @@
         position: absolute;
         z-index: 10;
 
-        top: abs.rem(-36px);
+        top: abs.rem(-180px);
         left: abs.rem(-33px);
 
         width: abs.rem(272px);
@@ -41,7 +43,7 @@
         pointer-events: none;
 
         @include abs.for-device-width('tablet') {
-            top: abs.rem(-174px);
+            top: abs.rem(-350px);
             left: abs.rem(-163px);
 
             width: abs.rem(500px);
@@ -53,8 +55,8 @@
         @include abs.for-device-width('desktop') {
             width: abs.rem(503.65px);
             height: abs.rem(494.93px);
-            top: abs.rem(50px);
-            left: abs.rem(-50px);
+            top: abs.rem(-78px);
+            left: abs.rem(-162px);
             filter: blur(190px);
         }
     }
@@ -146,6 +148,12 @@
         padding: abs.rem(8.21px);
         border-radius: 50%;
 
+        box-shadow:
+            0 abs.rem(19px) abs.rem(19px) rgba(0, 0, 0, 0.09),
+            0 abs.rem(43px) abs.rem(26px) rgba(0, 0, 0, 0.05),
+            0 abs.rem(77px) abs.rem(31px) rgba(0, 0, 0, 0.01),
+            0 abs.rem(120px) abs.rem(34px) rgba(0, 0, 0, 0);
+
         img {
             display: block;
             width: 100%;
@@ -156,7 +164,6 @@
         @include abs.for-device-width('tablet') {
             width: abs.rem(64px);
             height: abs.rem(64px);
-
             padding: abs.rem(16px);
         }
     }
@@ -179,12 +186,25 @@
         position: absolute;
         top: 64.34%;
         right: -14%;
+
         background-color: theme.$color-white;
+
         padding: abs.rem(8.21px) abs.rem(16.43px);
         border-radius: abs.rem(51.33px);
 
+        box-shadow:
+            0 abs.rem(19px) abs.rem(19px) rgba(0, 0, 0, 0.09),
+            0 abs.rem(43px) abs.rem(26px) rgba(0, 0, 0, 0.05),
+            0 abs.rem(77px) abs.rem(31px) rgba(0, 0, 0, 0.01),
+            0 abs.rem(120px) abs.rem(34px) rgba(0, 0, 0, 0);
+
+        @include abs.flex-mixin($gap: abs.rem(4.11px));
+
         img {
-            inset: abs.rem(12.32px);
+            display: block;
+            width: abs.rem(12px);
+            height: abs.rem(12px);
+            object-fit: contain;
         }
 
         span {
@@ -192,7 +212,6 @@
             font-weight: abs.get(abs.$font-weight, bold);
             color: theme.$color-black;
         }
-        @include abs.flex-mixin($gap: abs.rem(4.11px));
 
         @include abs.for-device-width('tablet') {
             padding: abs.rem(16px) abs.rem(32px);
@@ -215,8 +234,16 @@
 
     &__explore {
         @include abs.flex-mixin($gap: abs.rem(16px));
+
         padding: abs.rem(16px) abs.rem(32px);
         border-radius: abs.rem(100px);
+
+        box-shadow:
+            0 0 0 0 rgba(0, 0, 0, 0.07),
+            0 abs.rem(34px) abs.rem(75px) 0 rgba(0, 0, 0, 0.07),
+            0 abs.rem(137px) abs.rem(137px) 0 rgba(0, 0, 0, 0.06),
+            0 abs.rem(308px) abs.rem(185px) 0 rgba(0, 0, 0, 0.04),
+            0 abs.rem(548px) abs.rem(219px) 0 rgba(0, 0, 0, 0.01);
 
         @include abs.for-device-width('desktop') {
             align-self: flex-start;
@@ -301,6 +328,7 @@
 
     &__paragraph {
         margin-top: abs.rem(24px);
+        font-style: abs.get(abs.$font, secondary);
 
         color: theme.$color-grey;
         text-align: center;
@@ -345,7 +373,7 @@
 
         @include abs.for-device-width('tablet') {
             flex-direction: row;
-            align-items: center;
+            align-items: flex-start;
             gap: abs.rem(16px);
             margin-top: abs.rem(43px);
         }
@@ -367,7 +395,30 @@
     &__get-started-button {
         background-color: theme.$color-primary;
         color: theme.$color-white;
-        box-shadow: 0 abs.rem(8px) abs.rem(24px) rgba(0, 0, 0, 0.6);
+        box-shadow:
+            0 0 0 0 rgba(0, 0, 0, 0.1),
+            0 abs.rem(5px) abs.rem(11px) rgba(0, 0, 0, 0.1),
+            0 abs.rem(20px) abs.rem(20px) rgba(0, 0, 0, 0.09),
+            0 abs.rem(45px) abs.rem(27px) rgba(0, 0, 0, 0.05),
+            0 abs.rem(81px) abs.rem(32px) rgba(0, 0, 0, 0.01),
+            0 abs.rem(126px) abs.rem(35px) rgba(0, 0, 0, 0);
+
+        &:hover {
+            background-color: color.adjust(
+                theme.$color-primary,
+                $lightness: -6%,
+                $alpha: -0.03
+            );
+
+            transform: translateY(abs.rem(-3px));
+
+            box-shadow: 0 abs.rem(14px) abs.rem(26px) rgba(0, 0, 0, 0.25);
+        }
+
+        &:active {
+            transform: translateY(0);
+            box-shadow: 0 abs.rem(4px) abs.rem(10px) rgba(0, 0, 0, 0.18);
+        }
     }
 
     &__demo-button {
@@ -378,8 +429,21 @@
         );
 
         min-height: abs.rem(64px);
-
+        background-color: theme.$color-white;
         border-radius: abs.rem(100px);
+        border: 1px solid #eeeeee;
+
+        &:hover {
+            background-color: color.adjust(theme.$color-white, $lightness: -3%);
+
+            transform: translateY(abs.rem(-3px));
+
+            box-shadow: 0 abs.rem(10px) abs.rem(22px) rgba(0, 0, 0, 0.12);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
     }
 
     &__play-icon {
@@ -410,15 +474,15 @@
             position: absolute;
             z-index: 0;
 
-            top: 127.5%;
-            left: 3.5%;
+            top: 89.5%;
+            left: -2.5%;
 
             pointer-events: none;
         }
 
         @include abs.for-device-width('desktop') {
-            top: 74.5%;
-            left: 2.98%;
+            top: 85.5%;
+            left: -7.25%;
         }
 
         img {
