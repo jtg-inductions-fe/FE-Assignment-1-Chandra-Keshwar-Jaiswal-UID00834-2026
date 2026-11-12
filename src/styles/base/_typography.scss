@@ -97,3 +97,59 @@
         }
     }
 }
+
+.wheel {
+    &__title {
+        @include abs.typography(20px, abs.get(abs.$font, secondary), 700, 1);
+    }
+
+    &__subtitle {
+        @include abs.typography(
+            12px,
+            abs.get(abs.$font, secondary),
+            600,
+            1,
+            10%
+        );
+    }
+
+    &__button {
+        @include abs.typography(14px, abs.get(abs.$font, ternary), 700, 1.2);
+    }
+
+    &__description {
+        @include abs.typography(12px, abs.get(abs.$font, secondary), 400, 1);
+    }
+
+    &__spin-label {
+        @include abs.typography(12px, abs.get(abs.$font, secondary), 700, 1);
+    }
+
+    &__spin-button {
+        @include abs.typography(
+            10px,
+            abs.get(abs.$font, secondary),
+            700,
+            1,
+            4%
+        );
+    }
+
+    &__deal-label {
+        @include abs.typography(14px, abs.get(abs.$font, secondary), 600, 1);
+    }
+
+    &__counter {
+        @include abs.typography(12px, abs.get(abs.$font, ternary), 500, 1.2);
+    }
+
+    &__deal-code {
+        @include abs.typography(
+            12px,
+            abs.get(abs.$font, monospace),
+            700,
+            1,
+            5%
+        );
+    }
+}

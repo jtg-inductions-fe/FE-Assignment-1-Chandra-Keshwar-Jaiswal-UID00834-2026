@@ -39,3 +39,19 @@
         @content;
     }
 }
+
+@mixin typography(
+    $size,
+    $family,
+    $weight: 400,
+    $line-height: 1,
+    $letter-spacing: 0,
+    $align: center
+) {
+    font-size: func.rem($size);
+    font-family: $family;
+    font-weight: $weight;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    text-align: $align;
+}
