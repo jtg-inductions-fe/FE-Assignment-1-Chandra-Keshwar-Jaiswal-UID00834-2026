@@ -1,0 +1,297 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.special-deals {
+    z-index: 40;
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0 auto;
+    width: abs.rem(360px);
+    padding: abs.rem(24px);
+    border: none;
+    border-top-left-radius: abs.rem(24px);
+    border-top-right-radius: abs.rem(24px);
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    &__close {
+        position: absolute;
+        top: abs.rem(16.5px);
+        right: abs.rem(15.5px);
+        padding: abs.rem(4px);
+        background-color: transparent;
+        border: none;
+    }
+
+    @include abs.for-device-width('tablet') {
+        inset: 50% auto auto 50%;
+        transform: translate(-50%, -50%);
+        border-radius: abs.rem(24px);
+    }
+}
+
+.wheel {
+    @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
+
+    &__header {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(8px));
+    }
+
+    &__subtitle {
+        @include abs.flex-mixin($gap: abs.rem(3.08px));
+        padding: abs.rem(0.5px);
+        color: theme.$color-accent-pink;
+    }
+
+    &__description {
+        color: theme.$color-cool-grey;
+    }
+
+    &__container {
+        position: relative;
+        width: abs.rem(227px);
+        padding-top: abs.rem(9px);
+        margin-inline: auto;
+    }
+
+    &__pointer {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 0;
+        transform: translateX(-50%);
+        border-left: abs.rem(8px) solid transparent;
+        border-right: abs.rem(8px) solid transparent;
+
+        &--loading {
+            border-top: abs.rem(15px) solid theme.$color-neutral-light;
+        }
+
+        &--spin {
+            border-top: abs.rem(15px) solid theme.$color-accent-pink;
+        }
+    }
+
+    &__interactive {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
+        width: 100%;
+    }
+
+    &__reward {
+        width: 100%;
+    }
+
+    &__reward-details {
+        width: 100%;
+    }
+
+    &__body {
+        position: relative;
+        width: abs.rem(227px);
+        height: abs.rem(227px);
+        box-sizing: border-box;
+        border-radius: 50%;
+        &--loading {
+            background-color: theme.$color-light-grey;
+
+            & > span {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        &--spin {
+            background: conic-gradient(
+                theme.$color-accent-violet 0deg 90deg,
+                theme.$color-accent-yellow 90deg 180deg,
+                theme.$color-accent-cyan 180deg 270deg,
+                theme.$color-accent-pink 270deg 360deg
+            );
+            border: 4px solid theme.$color-white;
+            box-shadow: 0 0 abs.rem(50px) abs.rem(7px) rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+    }
+
+    &__segments {
+        position: absolute;
+        inset: 0;
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background-color: theme.$color-white;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+    }
+
+    &__segment {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        &:nth-child(1) {
+            --angle: 45deg;
+        }
+
+        &:nth-child(2) {
+            --angle: 135deg;
+        }
+
+        &:nth-child(3) {
+            --angle: 225deg;
+        }
+
+        &:nth-child(4) {
+            --angle: 315deg;
+        }
+    }
+
+    &__segment-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: theme.$color-white;
+        width: abs.rem(65px);
+        text-align: center;
+        font-size: abs.rem(12px);
+        font-weight: 700;
+        line-height: 1.2;
+        transform: translate(-50%, -50%) rotate(var(--angle))
+            translateY(abs.rem(-72px));
+    }
+
+    &__spin-button {
+        position: absolute;
+        z-index: 3;
+        top: 50%;
+        left: 50%;
+        display: grid;
+        place-items: center;
+        width: abs.rem(43.79px);
+        height: abs.rem(43.79px);
+        transform: translate(-50%, -50%);
+        color: theme.$color-accent-pink;
+        background-color: theme.$color-white;
+        border: 2px solid theme.$color-accent-pink;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    &__footer {
+        width: 100%;
+    }
+
+    &__button {
+        @include abs.flex-mixin($gap: abs.rem(8px));
+        width: 100%;
+        height: abs.rem(49px);
+        padding: abs.rem(10px) abs.rem(32px);
+        background-color: transparent;
+        border: 1px solid theme.$color-light-grey;
+        border-radius: abs.rem(100px);
+    }
+
+    &__counter {
+        width: 18px;
+        height: 18px;
+        color: theme.$color-white;
+        background-color: theme.$color-primary;
+        border-radius: 50%;
+        line-height: abs.rem(18px);
+    }
+
+    &__reward {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(8px));
+    }
+
+    &__deal-code {
+        padding: abs.rem(4px) abs.rem(10px);
+        border-radius: abs.rem(8px);
+        border: 1px solid #e5e7eb;
+        background-color: theme.$color-white;
+    }
+}
+
+.deal {
+    &-section {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
+
+        &__list {
+            @include abs.flex-mixin($direction: column, $gap: abs.rem(10px));
+            width: 100%;
+        }
+
+        &__footer {
+            width: 100%;
+        }
+    }
+
+    &-card {
+        @include abs.flex-mixin($justify: space-between, $align: center);
+        width: 100%;
+        box-sizing: border-box;
+        padding: abs.rem(16px);
+        border: 1px solid rgba($color: theme.$color-accent-pink, $alpha: 0.2);
+        border-radius: abs.rem(16px);
+        background: linear-gradient(
+            100deg,
+            #fef6f8 0%,
+            #fbf5fb 55%,
+            #f9f5fe 100%
+        );
+
+        &--expired {
+            background: theme.$color-light-grey;
+            border: 1px solid rgba($color: theme.$color-black, $alpha: 0.2);
+            .wheel__description {
+                color: #999999;
+            }
+        }
+
+        &__content {
+            @include abs.flex-mixin(
+                $direction: column,
+                $align: flex-start,
+                $gap: abs.rem(3px)
+            );
+
+            & > p {
+                color: theme.$color-accent-violet;
+            }
+        }
+
+        &__actions {
+            @include abs.flex-mixin($gap: abs.rem(8px));
+            flex-shrink: 0;
+        }
+
+        &__copy-button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+    }
+}
