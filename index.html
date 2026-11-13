@@ -54,7 +54,11 @@
                             </a>
                         </li>
                         <li class="navbar__item">
-                            <a class="navbar__link" href="#deals">
+                            <a
+                                class="navbar__link"
+                                href="#deals"
+                                id="special-deals"
+                            >
                                 Special Deals
                             </a>
                         </li>
@@ -521,7 +525,7 @@
         <footer class="footer">
             <div class="footer__header">
                 <div class="footer__brand">
-                    <img src="./public/assets/images/logo.png" alt="Logo" />
+                    <img src="./public/assets/images/logo.svg" alt="Logo" />
                     <h2 class="heading">Travlog</h2>
                 </div>
                 <p class="footer__paragraph">
@@ -593,7 +597,6 @@
                                 >205. R Street, New York BD23200</a
                             >
                         </li>
-                        <!-- <li><a href="#code">BD23200</a></li> -->
                     </ul>
                 </div>
             </div>
@@ -606,6 +609,289 @@
             </div>
         </footer>
 
+        <dialog id="special-deals-dialog" class="special-deals">
+            <button
+                class="special-deals__close"
+                type="button"
+                aria-label="Close special deals"
+                data-action="close"
+            >
+                <img
+                    src="./public/assets/images/close.svg"
+                    alt="dialog-close"
+                    aria-label="Close the dialog"
+                />
+            </button>
+            <section class="wheel" data-section="wheel">
+                <header class="wheel__header">
+                    <p class="wheel__subtitle">
+                        <span aria-hidden="true"
+                            ><img src="./public/assets/images/gift.svg" alt=""
+                        /></span>
+                        SPECIAL DEALS
+                    </p>
+                    <h2 class="wheel__title">Spin & Win!</h2>
+                    <p class="wheel__description">
+                        Tap the center of the wheel to spin
+                    </p>
+                </header>
+                <div
+                    class="wheel__loading wheel__container"
+                    data-wheel-view="loading"
+                    hidden
+                >
+                    <div
+                        class="wheel__pointer wheel__pointer--loading"
+                        aria-hidden="true"
+                    ></div>
+                    <div class="wheel__body wheel__body--loading">
+                        <span>Loading...</span>
+                    </div>
+                </div>
+                <div class="wheel__interactive" data-wheel-view="interactive">
+                    <div class="wheel__container">
+                        <div
+                            class="wheel__pointer wheel__pointer--spin"
+                            aria-hidden="true"
+                        ></div>
+                        <div
+                            class="wheel__body wheel__body--spin"
+                            data-wheel
+                            role="img"
+                            aria-label="Prize wheel with four segments"
+                        >
+                            <div class="wheel__segments" data-wheel-segments>
+                                <div class="wheel__segment">
+                                    <span
+                                        class="wheel__segment-title"
+                                        data-bind="title"
+                                    >
+                                        Free Hotel Nights
+                                    </span>
+                                </div>
+
+                                <div class="wheel__segment">
+                                    <span
+                                        class="wheel__segment-title"
+                                        data-bind="title"
+                                    >
+                                        VIP Lounge Access
+                                    </span>
+                                </div>
+
+                                <div class="wheel__segment">
+                                    <span
+                                        class="wheel__segment-title"
+                                        data-bind="title"
+                                    >
+                                        10% off Packages
+                                    </span>
+                                </div>
+
+                                <div class="wheel__segment">
+                                    <span
+                                        class="wheel__segment-title"
+                                        data-bind="title"
+                                    >
+                                        20% off Flights.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button
+                                class="wheel__spin-button"
+                                type="button"
+                                data-action="spin"
+                            >
+                                <span class="wheel__spin-label"> Spin </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="wheel__reward" data-wheel-result hidden>
+                        <p class="wheel__deal-label">You won!</p>
+                        <div class="wheel__reward-details" data-selected-reward>
+                            <div class="deal-card">
+                                <div class="deal-card__content">
+                                    <h3
+                                        class="wheel__deal-label"
+                                        data-bind="title"
+                                    >
+                                        20% Off Flights
+                                    </h3>
+                                    <p
+                                        class="wheel__description"
+                                        data-bind="validity"
+                                    >
+                                        Expires in 7d
+                                    </p>
+                                </div>
+                                <div class="deal-card__actions">
+                                    <span
+                                        class="wheel__deal-code"
+                                        data-bind="code"
+                                    >
+                                        FLY20-ABCD
+                                    </span>
+                                    <button
+                                        class="deal-card__copy-button"
+                                        type="button"
+                                        data-action="copy-code"
+                                        aria-label="Copy deal code"
+                                    >
+                                        <img
+                                            src="/assets/images/copy.svg"
+                                            alt=""
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="wheel__footer">
+                    <button
+                        class="wheel__button"
+                        type="button"
+                        data-action="view-deals"
+                    >
+                        <span>View All Unlocked Deals</span>
+
+                        <span
+                            class="wheel__counter"
+                            data-bind="unlockedDealsCount"
+                        >
+                            2
+                        </span>
+                    </button>
+                </footer>
+            </section>
+
+            <section class="deal-section" data-section="deals" hidden>
+                <header class="wheel__header">
+                    <p class="wheel__subtitle">
+                        <span aria-hidden="true"
+                            ><img src="./public/assets/images/gift.svg" alt=""
+                        /></span>
+                        SPECIAL DEALS
+                    </p>
+                    <h2 class="wheel__title">Unlocked Deals</h2>
+                    <p class="wheel__description">
+                        All the deals you've unlocked yet!
+                    </p>
+                </header>
+                <div class="deal-section__list" data-deals-list>
+                    <div class="deal-card">
+                        <div class="deal-card__content">
+                            <h3 class="wheel__deal-label" data-bind="title">
+                                20% Off Flights
+                            </h3>
+                            <p class="wheel__description" data-bind="validity">
+                                Expires in 7d
+                            </p>
+                        </div>
+                        <div class="deal-card__actions">
+                            <span class="wheel__deal-code" data-bind="code">
+                                FLY20-ABCD
+                            </span>
+                            <button
+                                class="deal-card__copy-button"
+                                type="button"
+                                data-action="copy-code"
+                                aria-label="Copy deal code"
+                            >
+                                <img src="/assets/images/copy.svg" alt="" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="deal-card">
+                        <div class="deal-card__content">
+                            <h3 class="wheel__deal-label" data-bind="title">
+                                20% Off Flights
+                            </h3>
+                            <p class="wheel__description" data-bind="validity">
+                                Expires in 7d
+                            </p>
+                        </div>
+                        <div class="deal-card__actions">
+                            <span class="wheel__deal-code" data-bind="code">
+                                FLY20-ABCD
+                            </span>
+                            <button
+                                class="deal-card__copy-button"
+                                type="button"
+                                data-action="copy-code"
+                                aria-label="Copy deal code"
+                            >
+                                <img src="/assets/images/copy.svg" alt="" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="deal-card deal-card--expired">
+                        <div class="deal-card__content">
+                            <h3 class="wheel__deal-label" data-bind="title">
+                                20% Off Flights
+                            </h3>
+                            <p class="wheel__description" data-bind="validity">
+                                Expires in 7d
+                            </p>
+                        </div>
+                        <div class="deal-card__actions">
+                            <span class="wheel__deal-code" data-bind="code">
+                                FLY20-ABCD
+                            </span>
+                            <button
+                                class="deal-card__copy-button"
+                                type="button"
+                                data-action="copy-code"
+                                aria-label="Copy deal code"
+                            >
+                                <img
+                                    src="/assets/images/copy-disabled.svg"
+                                    alt=""
+                                />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <footer class="deal-section__footer">
+                    <button
+                        class="wheel__button"
+                        type="button"
+                        data-action="back-to-wheel"
+                    >
+                        Go Back
+                    </button>
+                </footer>
+            </section>
+        </dialog>
+
+        <template id="wheel-segment-template">
+            <div class="wheel__segment">
+                <span class="wheel__segment-title" data-bind="title"></span>
+            </div>
+        </template>
+
+        <template id="deal-card-template">
+            <div class="deal-card">
+                <div class="deal-card__content">
+                    <h3 class="wheel__deal-label" data-bind="title"></h3>
+                    <p class="wheel__description" data-bind="validity"></p>
+                </div>
+                <div class="deal-card__actions">
+                    <span class="wheel__deal-code" data-bind="code"></span>
+                    <button
+                        class="deal-card__copy-button"
+                        type="button"
+                        data-action="copy-code"
+                        aria-label="Copy deal code"
+                    >
+                        <img src="/assets/images/copy.svg" alt="" />
+                    </button>
+                </div>
+            </div>
+        </template>
         <script type="module" src="./src/script/index.js"></script>
     </body>
 </html>

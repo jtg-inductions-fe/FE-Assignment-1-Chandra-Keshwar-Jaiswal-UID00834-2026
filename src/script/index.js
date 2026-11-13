@@ -3,12 +3,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/a11y';
+import './modules/special-deals';
 
 // Your carousel initialization
 import initTestimonialsCarousel from './modules/testimonial-carousel';
 
 initTestimonialsCarousel();
-
+const dialog = document.getElementById('special-deals-dialog');
+const openBtn = document.getElementById('special-deals');
+const closeBtn = document.getElementsByClassName('special-deals__close')[0];
 const navbar = document.querySelector('.navbar');
 const menuButton = document.querySelector('.navbar__toggle');
 const navigation = document.getElementById('primary-navigation');
@@ -16,6 +19,17 @@ const backdrop = document.querySelector('.navbar__backdrop');
 const toggleIcon = menuButton.querySelector('img');
 const navbarBrand = document.querySelector('.navbar__icon');
 const navbarButtons = document.querySelector('.navbar__buttons');
+const footerAccordions = document.querySelectorAll('.footer__accordian');
+const footerTitles = document.querySelectorAll('.footer__title');
+const tabletMediaQuery = window.matchMedia('(min-width: 431px)');
+
+function updateBodyScroll() {
+    const isNavbarOpen = navbar?.classList.contains('navbar--open');
+    const isDialogOpen = dialog?.open;
+
+    document.body.style.overflowY =
+        isNavbarOpen || isDialogOpen ? 'hidden' : '';
+}
 
 if (navbar && menuButton && navigation) {
     const desktopQuery = window.matchMedia('(min-width: 1025px)');
@@ -41,7 +55,7 @@ if (navbar && menuButton && navigation) {
         navbarBrand.inert = isOpen;
         navbarButtons.inert = isOpen;
 
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        updateBodyScroll();
     }
 
     /**
@@ -104,7 +118,10 @@ if (navbar && menuButton && navigation) {
      * @returns {void}
      */
     function handleEscapeKey(event) {
-        if (event.key === 'Escape' && navbar.classList.contains('is-open')) {
+        if (
+            event.key === 'Escape' &&
+            navbar.classList.contains('navbar--open')
+        ) {
             setMenuOpen(false);
             menuButton.focus();
         }
@@ -120,11 +137,6 @@ if (navbar && menuButton && navigation) {
 
     syncNavigation();
 }
-
-const footerAccordions = document.querySelectorAll('.footer__accordian');
-const footerTitles = document.querySelectorAll('.footer__title');
-
-const tabletMediaQuery = window.matchMedia('(min-width: 431px)');
 
 function handleFooterClick(event) {
     if (tabletMediaQuery.matches) return;
@@ -157,3 +169,16 @@ footerTitles.forEach((title) => {
 updateFooterAccordions();
 
 tabletMediaQuery.addEventListener('change', updateFooterAccordions);
+
+openBtn.addEventListener('click', () => {
+    dialog.showModal();
+    updateBodyScroll();
+});
+
+closeBtn.addEventListener('click', () => {
+    dialog.close();
+});
+
+dialog.addEventListener('close', () => {
+    updateBodyScroll();
+});
