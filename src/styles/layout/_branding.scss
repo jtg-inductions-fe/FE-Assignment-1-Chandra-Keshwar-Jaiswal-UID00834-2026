@@ -1,0 +1,44 @@
+@use '../abstracts' as abs;
+
+.branding {
+    margin-top: abs.rem(64px);
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: abs.rem(32px);
+
+    &__row {
+        @include abs.flex-mixin($gap: 27px);
+    }
+
+    &__image {
+        display: block;
+        flex-shrink: 0;
+        height: abs.rem(20px);
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    @include abs.for-device-width('tablet') {
+        padding: abs.rem(64px);
+
+        &__image {
+            height: abs.rem(32px);
+        }
+    }
+
+    @include abs.for-device-width('desktop') {
+        flex-direction: row;
+        align-items: center;
+        gap: abs.rem(100.72px);
+        margin-top: 0px;
+        padding-left: 0;
+        padding-right: 0;
+        &__row {
+            gap: abs.rem(100.72px);
+            display: contents;
+        }
+    }
+}
