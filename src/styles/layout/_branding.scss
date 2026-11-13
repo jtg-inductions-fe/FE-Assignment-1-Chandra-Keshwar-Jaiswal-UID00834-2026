@@ -3,17 +3,29 @@
 .branding {
     margin-top: abs.rem(64px);
     width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    gap: abs.rem(32px);
+    @include abs.flex-mixin(
+        $direction: column,
+        $gap: abs.rem(32px),
+        $align: flex-start
+    );
+    transform: translateY(abs.rem(5px));
 
     @include abs.for-device-width('tablet') {
         transform: translateY(-8px);
     }
 
     &__row {
-        @include abs.flex-mixin($gap: 27px);
+        @include abs.flex-mixin($gap: 27px, $align: flex-start);
+
+        &--second {
+            align-self: center;
+            align-items: center;
+        }
+
+        @include abs.for-device-width('tablet') {
+            align-items: center;
+            align-self: center;
+        }
     }
 
     &__image {

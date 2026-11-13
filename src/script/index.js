@@ -120,3 +120,40 @@ if (navbar && menuButton && navigation) {
 
     syncNavigation();
 }
+
+const footerAccordions = document.querySelectorAll('.footer__accordian');
+const footerTitles = document.querySelectorAll('.footer__title');
+
+const tabletMediaQuery = window.matchMedia('(min-width: 431px)');
+
+function handleFooterClick(event) {
+    if (tabletMediaQuery.matches) return;
+
+    const currentAccordion = event.currentTarget.parentElement;
+
+    footerAccordions.forEach((accordion) => {
+        if (accordion !== currentAccordion) {
+            accordion.classList.remove('footer__accordian--active');
+        }
+    });
+
+    currentAccordion.classList.toggle('footer__accordian--active');
+}
+
+function updateFooterAccordions() {
+    footerAccordions.forEach((accordion) => {
+        if (tabletMediaQuery.matches) {
+            accordion.classList.add('footer__accordian--active');
+        } else {
+            accordion.classList.remove('footer__accordian--active');
+        }
+    });
+}
+
+footerTitles.forEach((title) => {
+    title.addEventListener('click', handleFooterClick);
+});
+
+updateFooterAccordions();
+
+tabletMediaQuery.addEventListener('change', updateFooterAccordions);
