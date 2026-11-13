@@ -2,7 +2,7 @@ const navbar = document.querySelector('.navbar');
 const menuButton = document.querySelector('.navbar__toggle');
 const navigation = document.getElementById('primary-navigation');
 const backdrop = document.querySelector('.navbar__backdrop');
-
+const toggleIcon = menuButton.querySelector('img');
 const navbarBrand = document.querySelector('.navbar__icon');
 const navbarButtons = document.querySelector('.navbar__buttons');
 
@@ -22,6 +22,9 @@ if (navbar && menuButton && navigation) {
             'aria-label',
             isOpen ? 'Close navigation menu' : 'Open navigation menu',
         );
+        toggleIcon.src = !isOpen
+            ? './public/assets/images/hamburger.svg'
+            : './public/assets/images/hamburger-close.svg';
 
         navigation.inert = !isOpen;
         navbarBrand.inert = isOpen;

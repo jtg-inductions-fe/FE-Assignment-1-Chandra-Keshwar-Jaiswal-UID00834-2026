@@ -1,14 +1,12 @@
 @use './functions' as *;
 
 // Typography: Font family
-
 $font: (
     default: 'Circular Std',
     secondary: 'Inter',
 );
 
 // Typography: Font weights
-
 $font-weight: (
     bold: 700,
     medium: 500,
@@ -16,7 +14,6 @@ $font-weight: (
 );
 
 // Responsive breakpoints
-
 $breakpoints: (
     'tablet': 431px,
     'desktop': 1025px,

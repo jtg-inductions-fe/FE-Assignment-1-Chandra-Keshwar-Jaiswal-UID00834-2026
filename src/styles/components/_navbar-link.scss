@@ -13,7 +13,8 @@
     cursor: pointer;
 
     &:hover {
-        color: theme.$color-primary;
+        color: theme.$color-black;
+        font-weight: abs.get(abs.$font-weight, bold);
     }
 
     &:focus-visible {
