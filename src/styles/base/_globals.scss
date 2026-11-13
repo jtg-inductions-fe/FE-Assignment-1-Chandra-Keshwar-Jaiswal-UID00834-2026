@@ -1,0 +1,21 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+// Global body styles including the default font, text color, and page background color.
+body {
+    font-family: abs.get(abs.$font, default);
+    color: theme.$color-primary;
+    background-color: theme.$color-white;
+    padding-top: abs.rem(35px);
+    @include abs.for-device-width('tablet') {
+        padding-top: 0;
+    }
+    @include abs.for-device-width('desktop') {
+        padding-top: abs.rem(34px);
+    }
+}
+
+// Maintains the image's aspect ratio when its width is resized.
+img {
+    height: auto;
+}
