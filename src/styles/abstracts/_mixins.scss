@@ -1,12 +1,40 @@
-@use './variables' as *;
+@use './variables' as var;
+@use './functions' as func;
+@use '../themes/' as theme;
+
+@mixin flex-mixin($justify: center, $align: center, $direction: row, $gap: 0) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+    gap: $gap;
+}
+
+@mixin text-ellipsis($max-width: 100%) {
+    max-width: $max-width;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin fonts(
+    $size,
+    $font: func.get(var.$font, default),
+    $align: start,
+    $color: theme.$color-primary,
+    $line-height: 1.2,
+    $weight: func.get(var.$font-weight, regular)
+) {
+    font-family: $font;
+    font-size: $size;
+    text-align: $align;
+    color: $color;
+    line-height: $line-height;
+    font-weight: $weight;
+}
 
 @mixin for-device-width($width) {
-    $value: map-get($breakpoints, $width);
-    // Check if the key exists in the map
-    @if $value == null {
-        @error "Invalid breakpoint '#{$width}'. Expected one of: #{map-keys($breakpoints)}.";
-    }
-
+    $value: func.get(var.$breakpoints, $width);
     @media screen and (min-width: $value) {
         @content;
     }
