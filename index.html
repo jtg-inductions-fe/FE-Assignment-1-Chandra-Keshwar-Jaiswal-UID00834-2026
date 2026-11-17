@@ -741,43 +741,10 @@
                             data-wheel
                             aria-label="Prize wheel with four segments"
                         >
-                            <div class="wheel__segments" data-wheel-segments>
-                                <div class="wheel__segment">
-                                    <span
-                                        class="wheel__segment-title"
-                                        data-bind="title"
-                                    >
-                                        Free Hotel Nights
-                                    </span>
-                                </div>
-
-                                <div class="wheel__segment">
-                                    <span
-                                        class="wheel__segment-title"
-                                        data-bind="title"
-                                    >
-                                        VIP Lounge Access
-                                    </span>
-                                </div>
-
-                                <div class="wheel__segment">
-                                    <span
-                                        class="wheel__segment-title"
-                                        data-bind="title"
-                                    >
-                                        10% off Packages
-                                    </span>
-                                </div>
-
-                                <div class="wheel__segment">
-                                    <span
-                                        class="wheel__segment-title"
-                                        data-bind="title"
-                                    >
-                                        20% off Flights.
-                                    </span>
-                                </div>
-                            </div>
+                            <div
+                                class="wheel__segments"
+                                data-wheel-segments
+                            ></div>
 
                             <button
                                 class="wheel__spin-button"
@@ -790,61 +757,26 @@
                     </div>
                     <div class="wheel__reward" data-wheel-result hidden>
                         <p class="wheel__deal-label">You won!</p>
-                        <div class="wheel__reward-details" data-selected-reward>
-                            <div class="deal-card">
-                                <div class="deal-card__content">
-                                    <h3
-                                        class="wheel__deal-label"
-                                        data-bind="title"
-                                    >
-                                        20% Off Flights
-                                    </h3>
-                                    <p
-                                        class="wheel__description"
-                                        data-bind="validity"
-                                    >
-                                        Expires in 7d
-                                    </p>
-                                </div>
-                                <div class="deal-card__actions">
-                                    <span
-                                        class="wheel__deal-code"
-                                        data-bind="code"
-                                    >
-                                        FLY20-ABCD
-                                    </span>
-                                    <button
-                                        class="deal-card__copy-button"
-                                        type="button"
-                                        data-action="copy-code"
-                                        aria-label="Copy deal code"
-                                    >
-                                        <img
-                                            src="/assets/images/copy.svg"
-                                            alt=""
-                                        />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <div
+                            class="wheel__reward-details"
+                            data-selected-reward
+                        ></div>
                     </div>
-                </div>
-                <footer class="wheel__footer">
-                    <button
-                        class="wheel__button"
-                        type="button"
-                        data-action="view-deals"
-                    >
-                        <span>View All Unlocked Deals</span>
-
-                        <span
-                            class="wheel__counter"
-                            data-bind="unlockedDealsCount"
+                    <footer class="wheel__footer">
+                        <button
+                            class="wheel__button"
+                            type="button"
+                            data-action="view-deals"
                         >
-                            2
-                        </span>
-                    </button>
-                </footer>
+                            <span>View All Unlocked Deals</span>
+
+                            <span
+                                class="wheel__counter"
+                                data-bind="unlockedDealsCount"
+                            ></span>
+                        </button>
+                    </footer>
+                </div>
             </section>
 
             <section class="deal-section" data-section="deals" hidden>
@@ -860,82 +792,7 @@
                         All the deals you've unlocked yet!
                     </p>
                 </header>
-                <div class="deal-section__list" data-deals-list>
-                    <div class="deal-card">
-                        <div class="deal-card__content">
-                            <h3 class="wheel__deal-label" data-bind="title">
-                                20% Off Flights
-                            </h3>
-                            <p class="wheel__description" data-bind="validity">
-                                Expires in 7d
-                            </p>
-                        </div>
-                        <div class="deal-card__actions">
-                            <span class="wheel__deal-code" data-bind="code">
-                                FLY20-ABCD
-                            </span>
-                            <button
-                                class="deal-card__copy-button"
-                                type="button"
-                                data-action="copy-code"
-                                aria-label="Copy deal code"
-                            >
-                                <img src="/assets/images/copy.svg" alt="" />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="deal-card">
-                        <div class="deal-card__content">
-                            <h3 class="wheel__deal-label" data-bind="title">
-                                20% Off Flights
-                            </h3>
-                            <p class="wheel__description" data-bind="validity">
-                                Expires in 7d
-                            </p>
-                        </div>
-                        <div class="deal-card__actions">
-                            <span class="wheel__deal-code" data-bind="code">
-                                FLY20-ABCD
-                            </span>
-                            <button
-                                class="deal-card__copy-button"
-                                type="button"
-                                data-action="copy-code"
-                                aria-label="Copy deal code"
-                            >
-                                <img src="/assets/images/copy.svg" alt="" />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="deal-card deal-card--expired">
-                        <div class="deal-card__content">
-                            <h3 class="wheel__deal-label" data-bind="title">
-                                20% Off Flights
-                            </h3>
-                            <p class="wheel__description" data-bind="validity">
-                                Expires in 7d
-                            </p>
-                        </div>
-                        <div class="deal-card__actions">
-                            <span class="wheel__deal-code" data-bind="code">
-                                FLY20-ABCD
-                            </span>
-                            <button
-                                class="deal-card__copy-button"
-                                type="button"
-                                data-action="copy-code"
-                                aria-label="Copy deal code"
-                            >
-                                <img
-                                    src="/assets/images/copy-disabled.svg"
-                                    alt=""
-                                />
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <div class="deal-section__list" data-deals-list></div>
                 <footer class="deal-section__footer">
                     <button
                         class="wheel__button"
