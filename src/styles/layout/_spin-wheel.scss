@@ -71,7 +71,7 @@
         &--loading {
             border-top: abs.rem(16px) solid theme.$color-neutral-light;
         }
-        &--spin {
+        &--wheel {
             border-top: abs.rem(16px) solid theme.$color-accent-pink;
         }
     }
@@ -101,7 +101,7 @@
             @include abs.flex-mixin();
         }
 
-        &--spin {
+        &--wheel {
             background: conic-gradient(
                 theme.$color-accent-violet 0deg 90deg,
                 theme.$color-accent-yellow 90deg 180deg,
@@ -110,6 +110,9 @@
             );
             border: 4px solid theme.$color-white;
             box-shadow: 0 0 abs.rem(50px) abs.rem(7px) rgba(0, 0, 0, 0.25);
+        }
+
+        &--spinning {
             transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
     }
@@ -192,6 +195,10 @@
         border: 2px solid theme.$color-accent-pink;
         border-radius: 50%;
         cursor: pointer;
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
     }
 
     &__footer {

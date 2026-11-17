@@ -4,6 +4,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/a11y';
 
 import initTestimonialsCarousel from './modules/testimonial-carousel.js';
+import { initSpecialDeals } from './modules/special-deals.js';
 
 initTestimonialsCarousel();
 
@@ -34,6 +35,8 @@ function updateBodyScroll() {
     document.body.style.overflowY =
         isNavbarOpen || isDialogOpen ? 'hidden' : '';
 }
+
+initSpecialDeals({ updateBodyScroll });
 
 if (navbar && menuButton && navigation) {
     const desktopQuery = window.matchMedia('(min-width: 1025px)');
@@ -203,4 +206,5 @@ footerTitles.forEach((title) => {
 });
 
 updateFooterAccordions();
+
 tabletMediaQuery.addEventListener('change', updateFooterAccordions);
