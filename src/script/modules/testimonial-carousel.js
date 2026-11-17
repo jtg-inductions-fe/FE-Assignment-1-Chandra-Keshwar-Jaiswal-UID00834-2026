@@ -2,6 +2,10 @@ import Swiper from 'swiper';
 
 import { Navigation, Pagination, A11y } from 'swiper/modules';
 
+/**
+ * Initializes the Swiper Carousel and slide with navigation, pagination and accessibility
+ * @returns {void}
+ */
 const initTestimonialsCarousel = () => {
     const slider = document.querySelector('.testimonials__slider');
 
@@ -16,6 +20,10 @@ const initTestimonialsCarousel = () => {
         lazyPreloadPrevNext: 1,
 
         speed: 600,
+        simulateTouch: true,
+        grabCursor: true,
+        allowTouchMove: true,
+        loop: true,
 
         // Navigation
         navigation: {

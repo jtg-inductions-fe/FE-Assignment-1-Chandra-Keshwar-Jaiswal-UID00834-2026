@@ -325,7 +325,8 @@
                 <div class="testimonials__background-image">
                     <img
                         src="./public/assets/images/testimonial_background.png"
-                        alt=""
+                        alt="testimonial-background"
+                        aria-hidden="true"
                     />
                 </div>
 
@@ -334,7 +335,10 @@
                     <h2 class="heading--lg">Trust our clients</h2>
                 </div>
 
-                <div class="swiper testimonials__slider">
+                <div
+                    class="swiper testimonials__slider"
+                    aria-label="Client Testimonials"
+                >
                     <div class="swiper-wrapper">
                         <article class="swiper-slide testimonials__slide">
                             <div class="testimonials__card">
@@ -353,27 +357,27 @@
                                     </h3>
                                     <div class="testimonials__rating">
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
@@ -406,22 +410,22 @@
                                     </h3>
                                     <div class="testimonials__rating">
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
@@ -454,27 +458,27 @@
                                     </h3>
                                     <div class="testimonials__rating">
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
                                         <img
-                                            class="testimonial__star"
+                                            class="testimonials__star"
                                             src="./public/assets/images/star.png"
                                             alt="rating-star"
                                         />
@@ -492,11 +496,17 @@
                 </div>
 
                 <div class="testimonials__controls">
-                    <button class="testimonials__prev" aria-label="Previous">
+                    <button
+                        class="testimonials__prev"
+                        aria-label="Previous testimonial"
+                    >
                         ←
                     </button>
 
-                    <button class="testimonials__next" aria-label="Next">
+                    <button
+                        class="testimonials__next"
+                        aria-label="Next testimonial"
+                    >
                         →
                     </button>
                 </div>
