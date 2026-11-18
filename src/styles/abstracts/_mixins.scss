@@ -18,19 +18,31 @@
 }
 
 @mixin fonts(
-    $size,
-    $font: func.get(var.$font, default),
-    $align: start,
-    $color: theme.$color-primary,
-    $line-height: 1.2,
-    $weight: func.get(var.$font-weight, regular)
+    $size: null,
+    $font: null,
+    $align: null,
+    $color: null,
+    $line-height: null,
+    $weight: null
 ) {
-    font-family: $font;
-    font-size: $size;
-    text-align: $align;
-    color: $color;
-    line-height: $line-height;
-    font-weight: $weight;
+    @if $font {
+        font-family: $font;
+    }
+    @if $size {
+        font-size: $size;
+    }
+    @if $align {
+        text-align: $align;
+    }
+    @if $color {
+        color: $color;
+    }
+    @if $line-height {
+        line-height: $line-height;
+    }
+    @if $weight {
+        font-weight: $weight;
+    }
 }
 
 @mixin for-device-width($width) {

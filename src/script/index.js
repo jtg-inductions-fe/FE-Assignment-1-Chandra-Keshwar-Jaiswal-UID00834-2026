@@ -23,8 +23,8 @@ if (navbar && menuButton && navigation) {
             isOpen ? 'Close navigation menu' : 'Open navigation menu',
         );
         toggleIcon.src = !isOpen
-            ? './public/assets/images/hamburger.svg'
-            : './public/assets/images/hamburger-close.svg';
+            ? '/assets/images/hamburger.svg'
+            : '/assets/images/hamburger-close.svg';
 
         navigation.inert = !isOpen;
         navbarBrand.inert = isOpen;

@@ -8,11 +8,9 @@ body {
     min-width: 0;
     margin-inline: auto;
     overflow-x: clip;
-
     font-family: abs.get(abs.$font, default);
     color: theme.$color-primary;
     background-color: theme.$color-white;
-
     padding-top: abs.rem(35px);
     @include abs.for-device-width('tablet') {
         padding-top: 0;
