@@ -263,40 +263,31 @@
 
         <main>
             <section class="travel-point">
-                <div class="travel-point__blur-div"></div>
+                <div class="travel-point__blur-div" aria-hidden="true"></div>
+
                 <div class="travel-point__image-wrapper">
                     <img
                         class="travel-point__image"
-                        src="./public/assets/images/travel-point.png"
-                        alt="Traveller-image"
+                        src="/assets/images/travel-point.avif"
+                        alt="Traveller exploring destination"
                     />
                 </div>
                 <div class="travel-point__content">
                     <div class="travel-point__text-wrapper">
-                        <div class="subtitle--sm travel-point__subtitle">
+                        <p class="subtitle subtitle--sm travel-point__subtitle">
                             Travel Point
-                        </div>
-                        <h1 class="heading--lg travel-point__heading">
-                            We helping you find your
-                            <span
-                                class="travel-point__line-break travel-point__line-break--dream"
-                            ></span
-                            >dream location
+                        </p>
+
+                        <h1 class="heading heading--lg travel-point__heading">
+                            We helping you find your dream location
                         </h1>
-                        <p class="paragraph--md travel-point__paragraph">
+
+                        <p
+                            class="paragraph paragraph--md travel-point__paragraph"
+                        >
                             Contrary to popular belief, Lorem Ipsum is not
-                            <span
-                                class="travel-point__line-break travel-point__line-break--simply"
-                            ></span>
                             simply random text. It has roots in a piece of
-                            <span
-                                class="travel-point__line-break travel-point__line-break--classical"
-                            ></span>
-                            classical
-                            <span
-                                class="travel-point__line-break travel-point__line-break--Latin"
-                            ></span>
-                            Latin literature from 45 BC.
+                            classical Latin literature from 45 BC.
                         </p>
                     </div>
                     <div class="travel-point__card-wrapper">
@@ -309,8 +300,8 @@
                             <div class="card__voucher card__voucher-wrapper">
                                 <img
                                     class="card__voucher-image"
-                                    src="./public/assets/images/voucher.png"
-                                    alt="coupon"
+                                    src="/assets/images/voucher.svg"
+                                    alt="Voucher icon"
                                 />
                             </div>
                             <span class="card__value">100</span>
@@ -330,7 +321,6 @@
                 </div>
             </section>
         </main>
-
         <script src="./src/script/index.js"></script>
     </body>
 </html>
