@@ -4,7 +4,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/a11y';
 
-// Your carousel initialization
 import initTestimonialsCarousel from './modules/testimonial-carousel';
 
 initTestimonialsCarousel();
