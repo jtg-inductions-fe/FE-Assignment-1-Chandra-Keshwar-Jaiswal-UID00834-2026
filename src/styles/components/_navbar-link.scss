@@ -15,7 +15,6 @@
     &:hover {
         color: theme.$color-black;
         font-weight: abs.get(abs.$font-weight, bold);
-        letter-spacing: abs.rem(-0.25px);
     }
 
     &:focus-visible {

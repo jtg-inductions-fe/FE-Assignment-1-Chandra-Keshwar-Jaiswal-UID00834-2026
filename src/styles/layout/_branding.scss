@@ -9,12 +9,7 @@
     }
 
     &__image {
-        display: block;
-        flex-shrink: 0;
         height: abs.rem(20px);
-        width: auto;
-        max-width: 100%;
-        object-fit: contain;
     }
 
     @include abs.for-device-width('tablet') {
