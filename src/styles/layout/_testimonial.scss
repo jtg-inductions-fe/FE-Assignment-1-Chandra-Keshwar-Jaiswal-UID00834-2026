@@ -38,7 +38,7 @@
             display: block;
         }
         @include abs.for-device-width('desktop') {
-            width: 1440px;
+            width: abs.rem(1440px);
             top: 62%;
             left: 50%;
         }
@@ -95,7 +95,6 @@
         &-review {
             width: 100%;
             margin-top: abs.rem(12px);
-            font-weight: 450;
             letter-spacing: 0;
         }
     }
@@ -128,7 +127,7 @@
         position: absolute;
         padding: 0 abs.rem(16px);
         z-index: 2;
-        top: abs.rem(233px);
+        top: abs.rem(232px);
         left: 0;
         @include abs.flex-mixin($justify: space-between);
         width: 100%;

@@ -28,11 +28,11 @@
             display: block;
             bottom: abs.rem(1384px);
             right: abs.rem(-348px);
-            filter: blur(144px);
+            filter: blur(abs.rem(144px));
         }
         @include abs.for-device-width('desktop') {
             bottom: abs.rem(508px);
-            filter: blur(192px);
+            filter: blur(abs.rem(192px));
         }
     }
 

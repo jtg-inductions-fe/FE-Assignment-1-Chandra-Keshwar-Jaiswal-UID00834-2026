@@ -523,88 +523,159 @@
         <footer class="footer">
             <div class="footer__header">
                 <div class="footer__brand">
-                    <img src="./public/assets/images/logo.png" alt="Logo" />
+                    <img
+                        src="/assets/images/logo.svg"
+                        alt=""
+                        aria-hidden="true"
+                    />
                     <h2 class="heading">Travlog</h2>
                 </div>
-                <p class="footer__paragraph">
+                <p class="footer__paragraph paragraph paragraph--lg">
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text. It has roots in a piece of classical Latin literature
                     from 45 BC
                 </p>
-                <div class="footer__icons">
-                    <img
-                        src="./public/assets/images/facebook.png"
-                        alt="facebook"
-                    />
-                    <img
-                        src="./public/assets/images/twitter.png"
-                        alt="twitter"
-                    />
-                    <img
-                        src="./public/assets/images/instagram.png"
-                        alt="instagram"
-                    />
+                <div class="footer__icons" aria-label="Social media">
+                    <a href="#facebook" aria-label="Travlog on Facebook">
+                        <img
+                            src="/assets/images/facebook.svg"
+                            alt=""
+                            aria-hidden="true"
+                        />
+                    </a>
+                    <a href="#twitter" aria-label="Travlog on Twitter">
+                        <img
+                            src="/assets/images/twitter.svg"
+                            alt=""
+                            aria-hidden="true"
+                        />
+                    </a>
+                    <a href="#instagram" aria-label="Travlog on Instagram">
+                        <img
+                            src="/assets/images/instagram.svg"
+                            alt=""
+                            aria-hidden="true"
+                        />
+                    </a>
                 </div>
             </div>
 
             <div class="footer__content">
                 <div class="footer__accordian">
-                    <button class="footer__title">
+                    <button
+                        type="button"
+                        class="footer__title heading"
+                        aria-expanded="false"
+                        aria-controls="footer-company-list"
+                    >
                         Company
                         <img
-                            src="./public/assets/images/arrow-circle-down.9 1.png"
-                            alt="down-arrow"
+                            src="/assets/images/arrow-circle-down.svg"
+                            alt=""
+                            aria-hidden="true"
                         />
                     </button>
-                    <ul class="footer__list">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                        <li><a href="#mobile">Mobile</a></li>
+                    <ul id="footer-company-list" class="footer__list">
+                        <li>
+                            <a href="#about" class="paragraph paragraph--lg"
+                                >About</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#careers" class="paragraph paragraph--lg"
+                                >Careers</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#mobile" class="paragraph paragraph--lg"
+                                >Mobile</a
+                            >
+                        </li>
                     </ul>
                 </div>
 
                 <div class="footer__accordian">
-                    <button class="footer__title">
+                    <button
+                        type="button"
+                        class="footer__title heading"
+                        aria-expanded="false"
+                        aria-controls="footer-contact-list"
+                    >
                         Contact Us
                         <img
-                            src="./public/assets/images/arrow-circle-down.9 1.png"
-                            alt="down-arrow"
+                            src="/assets/images/arrow-circle-down.svg"
+                            alt=""
+                            aria-hidden="true"
                         />
                     </button>
-                    <ul class="footer__list">
-                        <li><a href="#why-travlog">Why Travlog?</a></li>
-                        <li><a href="#partner-with-us">Partner with us</a></li>
-                        <li><a href="#faqs">FAQ's</a></li>
-                        <li><a href="#blog">Blog</a></li>
+                    <ul id="footer-contact-list" class="footer__list">
+                        <li>
+                            <a
+                                href="#why-travlog"
+                                class="paragraph paragraph--lg"
+                                >Why Travlog?</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#partner-with-us"
+                                class="paragraph paragraph--lg"
+                                >Partner with us</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#faqs" class="paragraph paragraph--lg"
+                                >FAQ's</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#blog" class="paragraph paragraph--lg"
+                                >Blog</a
+                            >
+                        </li>
                     </ul>
                 </div>
 
                 <div class="footer__accordian">
-                    <button class="footer__title">
+                    <button
+                        type="button"
+                        class="footer__title heading"
+                        aria-expanded="false"
+                        aria-controls="footer-meet-list"
+                    >
                         Meet Us
                         <img
-                            src="./public/assets/images/arrow-circle-down.9 1.png"
-                            alt="down-arrow"
+                            src="/assets/images/arrow-circle-down.svg"
+                            alt=""
+                            aria-hidden="true"
                         />
                     </button>
-                    <ul class="footer__list">
-                        <li><a href="#phone">+00 92 1234 56789</a></li>
-                        <li><a href="#email">info@travlog.com</a></li>
+                    <ul id="footer-meet-list" class="footer__list">
                         <li>
-                            <a href="#address"
+                            <a
+                                href="tel:+0092123456789"
+                                class="paragraph paragraph--lg"
+                                >+00 92 1234 56789</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="mailto:info@travlog.com"
+                                class="paragraph paragraph--lg"
+                                >info@travlog.com</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#address" class="paragraph paragraph--lg"
                                 >205. R Street, New York BD23200</a
                             >
                         </li>
-                        <!-- <li><a href="#code">BD23200</a></li> -->
                     </ul>
                 </div>
             </div>
 
-            <div class="footer__background">
-                <img
-                    src="./public/assets/images/footer-background.png"
-                    alt="footer-background"
-                />
+            <div class="footer__background" aria-hidden="true">
+                <img src="/assets/images/footer-background.svg" alt="" />
             </div>
         </footer>
 
