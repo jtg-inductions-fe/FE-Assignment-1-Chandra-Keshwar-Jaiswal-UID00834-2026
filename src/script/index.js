@@ -3,7 +3,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/a11y';
 
-import { initSpecialDeals } from './modules/special-deals.js';
 import initTestimonialsCarousel from './modules/testimonial-carousel.js';
 
 initTestimonialsCarousel();
@@ -36,11 +35,16 @@ function updateBodyScroll() {
         isNavbarOpen || isDialogOpen ? 'hidden' : '';
 }
 
-initSpecialDeals({ onDialogChange: updateBodyScroll });
-
 if (navbar && menuButton && navigation) {
     const desktopQuery = window.matchMedia('(min-width: 1025px)');
 
+    /**
+     * Opens or closes the navbar drawer and synchronizes its accessibility
+     * attributes, toggle icon, inert states, and body scroll behavior.
+     *
+     * @param {boolean} isOpen - Whether the navigation drawer should be open.
+     * @returns {void}
+     */
     function setMenuOpen(isOpen) {
         navbar.classList.toggle('navbar--open', isOpen);
 
@@ -60,6 +64,15 @@ if (navbar && menuButton && navigation) {
         updateBodyScroll();
     }
 
+    /**
+     * Updates the active state of navigation links based on the
+     * current URL hash.
+     *
+     * A link receives the active modifier when its href matches
+     * the current location hash.
+     *
+     * @returns {void}
+     */
     function syncActiveLink() {
         const currentHash = window.location.hash;
 
@@ -71,6 +84,14 @@ if (navbar && menuButton && navigation) {
         });
     }
 
+    /**
+     * Synchronizes the navbar state with the current viewport breakpoint.
+     *
+     * Closes the drawer and updates the navigation's inert state
+     * according to whether the desktop layout is active.
+     *
+     * @returns {void}
+     */
     function syncNavigation() {
         setMenuOpen(false);
         navigation.inert = !desktopQuery.matches;
@@ -85,6 +106,15 @@ if (navbar && menuButton && navigation) {
         setMenuOpen(false);
     });
 
+    /**
+     * Handles clicks on navbar navigation links.
+     *
+     * Closes the drawer on non-desktop layouts after navigation
+     * and restores focus to the menu button when appropriate.
+     *
+     * @param {MouseEvent} event - The navigation click event.
+     * @returns {void}
+     */
     function handleNavigationClick(event) {
         const link = event.target.closest(
             '.navbar__link, .navbar__drawer-buttons a',
