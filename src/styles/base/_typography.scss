@@ -1,53 +1,49 @@
 @use '../abstracts' as abs;
+@use '../themes' as theme;
 
 .heading {
     @include abs.fonts(
         $size: abs.rem(24px),
+        $font: abs.get(abs.$font, default),
+        $color: theme.$color-black,
         $weight: abs.get(abs.$font-weight, bold),
         $line-height: 1.2
     );
 
     &--sm {
-        font-size: abs.rem(24px);
-
+        @include abs.fonts($size: abs.rem(24px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(28px);
+            @include abs.fonts($size: abs.rem(28px));
         }
     }
 
     &--md {
-        font-size: abs.rem(32px);
-
+        @include abs.fonts($size: abs.rem(32px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(40px);
+            @include abs.fonts($size: abs.rem(40px));
         }
-
         @include abs.for-device-width('desktop') {
-            font-size: abs.rem(44px);
+            @include abs.fonts($size: abs.rem(44px));
         }
     }
 
     &--lg {
-        font-size: abs.rem(32px);
-
+        @include abs.fonts($size: abs.rem(32px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(40px);
+            @include abs.fonts($size: abs.rem(40px));
         }
-
         @include abs.for-device-width('desktop') {
-            font-size: abs.rem(44px);
+            @include abs.fonts($size: abs.rem(44px));
         }
     }
 
     &--xl {
-        font-size: abs.rem(40px);
-
+        @include abs.fonts($size: abs.rem(40px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(56px);
+            @include abs.fonts($size: abs.rem(56px));
         }
-
         @include abs.for-device-width('desktop') {
-            font-size: abs.rem(69px);
+            @include abs.fonts($size: abs.rem(69px));
         }
     }
 }
@@ -55,16 +51,17 @@
 .subtitle {
     @include abs.fonts(
         $size: abs.rem(16px),
-        $weight: abs.get(abs.$font-weight, bold)
+        $font: abs.get(abs.$font, default),
+        $weight: abs.get(abs.$font-weight, bold),
+        $line-height: 1.2
     );
     text-transform: uppercase;
-    letter-spacing: 1.2;
+    letter-spacing: 0.2;
 
     &--sm {
-        font-size: abs.rem(16px);
-
+        @include abs.fonts($size: abs.rem(16px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(23px);
+            @include abs.fonts($size: abs.rem(23px));
         }
     }
 }
@@ -73,27 +70,34 @@
     @include abs.fonts(
         $size: abs.rem(16px),
         $font: abs.get(abs.$font, secondary),
+        $color: theme.$color-grey,
         $weight: abs.get(abs.$font-weight, regular),
         $line-height: 1.6
     );
 
+    &--xxs {
+        @include abs.fonts($size: abs.rem(10px));
+    }
+
+    &--xs {
+        @include abs.fonts($size: abs.rem(12px));
+    }
+
     &--sm {
-        font-size: abs.rem(14px);
+        @include abs.fonts($size: abs.rem(14px));
     }
 
     &--md {
-        font-size: abs.rem(16px);
-
+        @include abs.fonts($size: abs.rem(16px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(18px);
+            @include abs.fonts($size: abs.rem(18px));
         }
     }
 
     &--lg {
-        font-size: abs.rem(18px);
-
+        @include abs.fonts($size: abs.rem(18px));
         @include abs.for-device-width('tablet') {
-            font-size: abs.rem(23px);
+            @include abs.fonts($size: abs.rem(24px));
         }
     }
 }
