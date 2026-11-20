@@ -38,7 +38,8 @@
             display: block;
         }
         @include abs.for-device-width('desktop') {
-            top: 73%;
+            width: abs.rem(1440px);
+            top: 62%;
             left: 50%;
         }
     }
@@ -63,6 +64,7 @@
         padding-bottom: abs.rem(40px);
         @include abs.for-device-width('tablet') {
             max-width: abs.rem(584px);
+            transform: none;
         }
         @include abs.for-device-width('desktop') {
             max-width: abs.rem(880px);
@@ -93,7 +95,6 @@
         &-review {
             width: 100%;
             margin-top: abs.rem(12px);
-            font-weight: 450;
             letter-spacing: 0;
         }
     }
@@ -126,18 +127,18 @@
         position: absolute;
         padding: 0 abs.rem(16px);
         z-index: 2;
-        top: abs.rem(233px);
+        top: abs.rem(232px);
         left: 0;
         @include abs.flex-mixin($justify: space-between);
         width: 100%;
         pointer-events: none;
         @include abs.for-device-width('tablet') {
             padding: 0 abs.rem(64px);
-            top: abs.rem(352px);
+            top: abs.rem(288px);
         }
         @include abs.for-device-width('desktop') {
             padding: 0;
-            top: abs.rem(384px);
+            top: abs.rem(336px);
         }
     }
 

@@ -54,9 +54,9 @@
         background-color: transparent;
         cursor: pointer;
         &:focus-visible {
-            outline: 2px solid theme.$color-primary;
-            outline-offset: 3px;
-            border-radius: abs.rem(6px);
+            outline: abs.rem(2px) solid theme.$color-primary;
+            outline-offset: abs.rem(4px);
+            border-radius: abs.rem(8px);
         }
     }
 
@@ -106,7 +106,6 @@
         margin: 0;
         overflow-y: auto;
         @include abs.for-device-width('desktop') {
-            transform: translateX(-6px);
             white-space: nowrap;
             flex-direction: row;
             align-items: center;
@@ -184,8 +183,8 @@
         &:focus-visible {
             outline: none;
             .navbar__logo {
-                outline: 2px solid theme.$color-primary;
-                outline-offset: 3px;
+                outline: abs.rem(2px) solid theme.$color-primary;
+                outline-offset: abs.rem(4px);
                 border-radius: abs.rem(4px);
             }
         }
@@ -194,8 +193,8 @@
     // Navigation link focus
     &__link {
         &:focus-visible {
-            outline: 2px solid theme.$color-primary;
-            outline-offset: 2px;
+            outline: abs.rem(2px) solid theme.$color-primary;
+            outline-offset: abs.rem(2px);
             border-radius: abs.rem(4px);
         }
     }
@@ -205,8 +204,8 @@
     &__drawer-buttons {
         a {
             &:focus-visible {
-                outline: 2px solid theme.$color-primary;
-                outline-offset: -3px;
+                outline: abs.rem(2px) solid theme.$color-primary;
+                outline-offset: abs.rem(-3px);
                 border-radius: inherit;
             }
         }

@@ -31,7 +31,7 @@
         height: abs.rem(348px);
         background-color: theme.$color-orange;
         border-radius: 50%;
-        filter: blur(144px);
+        filter: blur(abs.rem(144px));
         opacity: 50%;
         pointer-events: none;
         @include abs.for-device-width('tablet') {
@@ -43,7 +43,7 @@
         @include abs.for-device-width('desktop') {
             top: abs.rem(-80px);
             left: abs.rem(-164px);
-            filter: blur(192px);
+            filter: blur(abs.rem(192px));
         }
     }
 
@@ -145,7 +145,7 @@
         padding: abs.rem(8px) abs.rem(16px);
         border-radius: abs.rem(52px);
         box-shadow: abs.get(abs.$box-shadow, 'icon');
-        @include abs.flex-mixin($gap: abs.rem(4.11px));
+        @include abs.flex-mixin($gap: abs.rem(4px));
 
         img {
             display: block;
@@ -201,7 +201,7 @@
         width: 100%;
         margin-top: abs.rem(16px);
         @include abs.for-device-width('tablet') {
-            margin-top: abs.rem(43px);
+            margin-top: abs.rem(44px);
         }
     }
 
@@ -300,7 +300,7 @@
     }
 
     &__get-started-button {
-        padding-block: abs.rem(20px) abs.rem(19px);
+        padding-block: abs.rem(20px) abs.rem(20px);
         box-shadow: abs.get(abs.$box-shadow, 'button');
     }
 

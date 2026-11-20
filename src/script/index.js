@@ -15,6 +15,9 @@ const backdrop = document.querySelector('.navbar__backdrop');
 const toggleIcon = menuButton.querySelector('img');
 const navbarBrand = document.querySelector('.navbar__icon');
 const navbarButtons = document.querySelector('.navbar__buttons');
+const footerAccordions = document.querySelectorAll('.footer__accordian');
+const footerTitles = document.querySelectorAll('.footer__title');
+const tabletMediaQuery = window.matchMedia('(min-width: 431px)');
 
 if (navbar && menuButton && navigation) {
     const desktopQuery = window.matchMedia('(min-width: 1025px)');
@@ -119,3 +122,61 @@ if (navbar && menuButton && navigation) {
 
     syncNavigation();
 }
+
+/**
+ * Handles clicks on footer accordion titles.
+ *
+ * On mobile layouts, toggles the clicked accordion and closes
+ * all other accordions to maintain a single-open accordion behavior.
+ *
+ * Does nothing on tablet and larger layouts.
+ *
+ * @param {MouseEvent} event - The footer title click event.
+ * @returns {void}
+ */
+function handleFooterClick(event) {
+    if (tabletMediaQuery.matches) return;
+
+    const currentAccordion = event.currentTarget.parentElement;
+
+    footerAccordions.forEach((accordion) => {
+        if (accordion !== currentAccordion) {
+            accordion.classList.remove('footer__accordian--active');
+            accordion
+                .querySelector('.footer__title')
+                ?.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    const isExpanded = currentAccordion.classList.toggle(
+        'footer__accordian--active',
+    );
+    event.currentTarget.setAttribute('aria-expanded', String(isExpanded));
+}
+
+/**
+ * Updates footer accordion states according to the current viewport.
+ *
+ * On tablet and larger layouts, all accordion sections are expanded.
+ * On mobile layouts, all accordion sections are collapsed initially.
+ *
+ * @returns {void}
+ */
+function updateFooterAccordions() {
+    const isTablet = tabletMediaQuery.matches;
+
+    footerAccordions.forEach((accordion) => {
+        accordion.classList.toggle('footer__accordian--active', isTablet);
+        accordion
+            .querySelector('.footer__title')
+            ?.setAttribute('aria-expanded', String(isTablet));
+    });
+}
+
+footerTitles.forEach((title) => {
+    title.addEventListener('click', handleFooterClick);
+});
+
+updateFooterAccordions();
+
+tabletMediaQuery.addEventListener('change', updateFooterAccordions);
