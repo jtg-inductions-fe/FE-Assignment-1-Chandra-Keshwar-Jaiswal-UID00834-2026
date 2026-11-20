@@ -1,0 +1,53 @@
+@use './variables' as var;
+@use './functions' as func;
+@use '../themes/' as theme;
+
+@mixin flex-mixin($justify: center, $align: center, $direction: row, $gap: 0) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+    gap: $gap;
+}
+
+@mixin text-ellipsis($max-width: 100%) {
+    max-width: $max-width;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin fonts(
+    $size: null,
+    $font: null,
+    $align: null,
+    $color: null,
+    $line-height: null,
+    $weight: null
+) {
+    @if $font {
+        font-family: $font;
+    }
+    @if $size {
+        font-size: $size;
+    }
+    @if $align {
+        text-align: $align;
+    }
+    @if $color {
+        color: $color;
+    }
+    @if $line-height {
+        line-height: $line-height;
+    }
+    @if $weight {
+        font-weight: $weight;
+    }
+}
+
+@mixin for-device-width($width) {
+    $value: func.get(var.$breakpoints, $width);
+    @media screen and (min-width: $value) {
+        @content;
+    }
+}

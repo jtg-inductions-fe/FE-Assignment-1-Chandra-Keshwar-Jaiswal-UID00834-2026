@@ -1,0 +1,108 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.travel-point {
+    position: relative;
+    margin-top: abs.rem(64px);
+    padding-block: abs.rem(64px);
+    @include abs.flex-mixin($direction: column, $gap: 32px);
+    @include abs.for-device-width('tablet') {
+        margin-top: 0;
+        gap: abs.rem(64px);
+    }
+    @include abs.for-device-width('desktop') {
+        flex-direction: row;
+        margin-right: abs.rem(116px);
+        gap: 0;
+    }
+
+    &__blur-div {
+        position: absolute;
+        display: none;
+        width: abs.rem(504px);
+        height: abs.rem(496px);
+        background-color: theme.$back-gradient-yellow;
+        border-radius: 50%;
+        pointer-events: none;
+        @include abs.for-device-width('tablet') {
+            display: block;
+            bottom: abs.rem(1384px);
+            right: abs.rem(-348px);
+            filter: blur(abs.rem(144px));
+        }
+        @include abs.for-device-width('desktop') {
+            bottom: abs.rem(508px);
+            filter: blur(abs.rem(192px));
+        }
+    }
+
+    &__image-wrapper {
+        width: 100%;
+        max-width: abs.rem(428px);
+        flex-shrink: 0;
+        @include abs.for-device-width('tablet') {
+            max-width: abs.rem(1024px);
+        }
+        @include abs.for-device-width('desktop') {
+            max-width: abs.rem(864px);
+        }
+    }
+
+    &__image {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    &__content {
+        padding-inline: abs.rem(40px);
+        @include abs.for-device-width('tablet') {
+            padding-inline: abs.rem(64px);
+            width: 100%;
+        }
+        @include abs.for-device-width('desktop') {
+            padding: 0;
+            padding-top: abs.rem(18px);
+        }
+    }
+
+    &__text-wrapper {
+        @include abs.flex-mixin($direction: column);
+    }
+
+    &__subtitle {
+        color: theme.$color-secondary;
+        align-self: center;
+        text-align: center;
+        @include abs.for-device-width('desktop') {
+            align-self: flex-start;
+            text-align: left;
+        }
+    }
+
+    &__heading {
+        margin-top: abs.rem(16px);
+        text-align: center;
+        @include abs.for-device-width('desktop') {
+            text-align: left;
+        }
+    }
+
+    &__paragraph {
+        margin-top: abs.rem(32px);
+        text-align: center;
+        @include abs.for-device-width('desktop') {
+            text-align: left;
+        }
+    }
+
+    &__card-wrapper {
+        margin-top: abs.rem(32px);
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(16px));
+        @include abs.for-device-width('tablet') {
+            margin-top: abs.rem(64px);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: abs.rem(32px);
+        }
+    }
+}

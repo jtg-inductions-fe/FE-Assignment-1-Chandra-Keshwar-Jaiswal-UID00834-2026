@@ -1,0 +1,103 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.heading {
+    @include abs.fonts(
+        $size: abs.rem(24px),
+        $font: abs.get(abs.$font, default),
+        $color: theme.$color-black,
+        $weight: abs.get(abs.$font-weight, bold),
+        $line-height: 1.2
+    );
+
+    &--sm {
+        @include abs.fonts($size: abs.rem(24px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(28px));
+        }
+    }
+
+    &--md {
+        @include abs.fonts($size: abs.rem(32px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(40px));
+        }
+        @include abs.for-device-width('desktop') {
+            @include abs.fonts($size: abs.rem(44px));
+        }
+    }
+
+    &--lg {
+        @include abs.fonts($size: abs.rem(32px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(40px));
+        }
+        @include abs.for-device-width('desktop') {
+            @include abs.fonts($size: abs.rem(44px));
+        }
+    }
+
+    &--xl {
+        @include abs.fonts($size: abs.rem(40px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(56px));
+        }
+        @include abs.for-device-width('desktop') {
+            @include abs.fonts($size: abs.rem(69px));
+        }
+    }
+}
+
+.subtitle {
+    @include abs.fonts(
+        $size: abs.rem(16px),
+        $font: abs.get(abs.$font, default),
+        $weight: abs.get(abs.$font-weight, bold),
+        $line-height: 1.2
+    );
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+
+    &--sm {
+        @include abs.fonts($size: abs.rem(16px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(23px));
+        }
+    }
+}
+
+.paragraph {
+    @include abs.fonts(
+        $size: abs.rem(16px),
+        $font: abs.get(abs.$font, secondary),
+        $color: theme.$color-grey,
+        $weight: abs.get(abs.$font-weight, regular),
+        $line-height: 1.6
+    );
+
+    &--xxs {
+        @include abs.fonts($size: abs.rem(10px));
+    }
+
+    &--xs {
+        @include abs.fonts($size: abs.rem(12px));
+    }
+
+    &--sm {
+        @include abs.fonts($size: abs.rem(14px));
+    }
+
+    &--md {
+        @include abs.fonts($size: abs.rem(16px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(18px));
+        }
+    }
+
+    &--lg {
+        @include abs.fonts($size: abs.rem(18px));
+        @include abs.for-device-width('tablet') {
+            @include abs.fonts($size: abs.rem(24px));
+        }
+    }
+}
