@@ -3,7 +3,7 @@
 
 .navbar__link {
     @include abs.fonts(
-        $size: abs.rem(14px),
+        $size: abs.rem(18px),
         $color: theme.$color-black,
         $weight: abs.get(abs.$font-weight, regular)
     );
@@ -15,7 +15,6 @@
     &:hover {
         color: theme.$color-black;
         font-weight: abs.get(abs.$font-weight, bold);
-        letter-spacing: abs.rem(-0.25px);
     }
 
     &:focus-visible {
@@ -29,5 +28,6 @@
 
     @include abs.for-device-width('desktop') {
         color: theme.$color-grey;
+        font-size: abs.rem(14px);
     }
 }
