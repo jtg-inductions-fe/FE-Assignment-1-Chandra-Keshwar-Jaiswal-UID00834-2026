@@ -7,7 +7,7 @@ body {
     max-width: 1440px;
     min-width: 0;
     margin-inline: auto;
-    overflow-x: clip;
+    overflow-x: inherit;
     font-family: abs.get(abs.$font, default);
     color: theme.$color-primary;
     background-color: theme.$color-white;

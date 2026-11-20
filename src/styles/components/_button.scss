@@ -12,7 +12,7 @@
     text-decoration: none;
     line-height: 1.2;
     @include abs.text-ellipsis;
-    border: 1px solid #eeeeee;
+    border: abs.rem(1px) solid theme.$color-light-grey;
 
     &--primary {
         background-color: theme.$color-primary;
