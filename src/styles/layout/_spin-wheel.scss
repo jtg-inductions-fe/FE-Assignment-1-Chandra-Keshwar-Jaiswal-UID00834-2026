@@ -2,7 +2,6 @@
 @use '../themes' as theme;
 
 .special-deals {
-    z-index: 40;
     position: fixed;
     top: auto;
     right: 0;
@@ -14,7 +13,6 @@
     border: none;
     border-top-left-radius: abs.rem(24px);
     border-top-right-radius: abs.rem(24px);
-
     &::backdrop {
         background-color: rgba(0, 0, 0, 0.6);
     }
@@ -26,6 +24,7 @@
         padding: abs.rem(4px);
         background-color: transparent;
         border: none;
+        cursor: pointer;
     }
 
     @include abs.for-device-width('tablet') {
@@ -43,8 +42,8 @@
     }
 
     &__subtitle {
-        @include abs.flex-mixin($gap: abs.rem(3.08px));
-        padding: abs.rem(0.5px);
+        @include abs.flex-mixin($gap: abs.rem(4px));
+        padding: abs.rem(1px);
         color: theme.$color-accent-pink;
     }
 
@@ -54,14 +53,14 @@
 
     &__container {
         position: relative;
-        width: abs.rem(227px);
-        padding-top: abs.rem(9px);
+        width: abs.rem(228px);
+        padding-top: abs.rem(8px);
         margin-inline: auto;
     }
 
     &__pointer {
         position: absolute;
-        z-index: 2;
+        z-index: 1;
         top: 0;
         left: 50%;
         width: 0;
@@ -69,13 +68,11 @@
         transform: translateX(-50%);
         border-left: abs.rem(8px) solid transparent;
         border-right: abs.rem(8px) solid transparent;
-
         &--loading {
-            border-top: abs.rem(15px) solid theme.$color-neutral-light;
+            border-top: abs.rem(16px) solid theme.$color-neutral-light;
         }
-
         &--spin {
-            border-top: abs.rem(15px) solid theme.$color-accent-pink;
+            border-top: abs.rem(16px) solid theme.$color-accent-pink;
         }
     }
 
@@ -86,6 +83,7 @@
 
     &__reward {
         width: 100%;
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(8px));
     }
 
     &__reward-details {
@@ -94,19 +92,13 @@
 
     &__body {
         position: relative;
-        width: abs.rem(227px);
-        height: abs.rem(227px);
+        width: abs.rem(228px);
+        height: abs.rem(228px);
         box-sizing: border-box;
         border-radius: 50%;
         &--loading {
             background-color: theme.$color-light-grey;
-
-            & > span {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
+            @include abs.flex-mixin();
         }
 
         &--spin {
@@ -135,7 +127,6 @@
             height: 100%;
             background-color: theme.$color-white;
             pointer-events: none;
-            z-index: 1;
         }
 
         &::before {
@@ -153,18 +144,22 @@
         pointer-events: none;
 
         &:nth-child(1) {
+            // First Quadrant Angle
             --angle: 45deg;
         }
 
         &:nth-child(2) {
+            // Second Quadrant Angle
             --angle: 135deg;
         }
 
         &:nth-child(3) {
+            // Third Quadrant Angle
             --angle: 225deg;
         }
 
         &:nth-child(4) {
+            // Fourth Quadrant Angle
             --angle: 315deg;
         }
     }
@@ -185,7 +180,6 @@
 
     &__spin-button {
         position: absolute;
-        z-index: 3;
         top: 50%;
         left: 50%;
         display: grid;
@@ -223,14 +217,10 @@
         line-height: abs.rem(18px);
     }
 
-    &__reward {
-        @include abs.flex-mixin($direction: column, $gap: abs.rem(8px));
-    }
-
     &__deal-code {
         padding: abs.rem(4px) abs.rem(10px);
         border-radius: abs.rem(8px);
-        border: 1px solid #e5e7eb;
+        border: 1px solid theme.$color-border-light;
         background-color: theme.$color-white;
     }
 }
@@ -258,16 +248,16 @@
         border-radius: abs.rem(16px);
         background: linear-gradient(
             100deg,
-            #fef6f8 0%,
-            #fbf5fb 55%,
-            #f9f5fe 100%
+            theme.$color-tint-pink 0%,
+            theme.$color-tint-lavender 55%,
+            theme.$color-tint-violet 100%
         );
 
         &--expired {
             background: theme.$color-light-grey;
             border: 1px solid rgba($color: theme.$color-black, $alpha: 0.2);
             .wheel__description {
-                color: #999999;
+                color: theme.$color-muted-grey;
             }
         }
 

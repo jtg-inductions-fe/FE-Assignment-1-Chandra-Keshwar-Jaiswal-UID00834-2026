@@ -689,28 +689,30 @@
             </div>
         </footer>
 
-        <dialog id="special-deals-dialog" class="special-deals">
+        <dialog
+            id="special-deals-dialog"
+            class="special-deals"
+            aria-labelledby="special-deal-title"
+        >
             <button
                 class="special-deals__close"
                 type="button"
                 aria-label="Close special deals"
                 data-action="close"
             >
-                <img
-                    src="./public/assets/images/close.svg"
-                    alt="dialog-close"
-                    aria-label="Close the dialog"
-                />
+                <img src="/assets/images/close.svg" alt="" />
             </button>
             <section class="wheel" data-section="wheel">
                 <header class="wheel__header">
                     <p class="wheel__subtitle">
                         <span aria-hidden="true"
-                            ><img src="./public/assets/images/gift.svg" alt=""
+                            ><img src="/assets/images/gift.svg" alt=""
                         /></span>
                         SPECIAL DEALS
                     </p>
-                    <h2 class="wheel__title">Spin & Win!</h2>
+                    <h2 class="wheel__title" id="special-deal-title">
+                        Spin & Win!
+                    </h2>
                     <p class="wheel__description">
                         Tap the center of the wheel to spin
                     </p>
@@ -725,7 +727,7 @@
                         aria-hidden="true"
                     ></div>
                     <div class="wheel__body wheel__body--loading">
-                        <span>Loading...</span>
+                        <span class="wheel__loading-text">Loading...</span>
                     </div>
                 </div>
                 <div class="wheel__interactive" data-wheel-view="interactive">
@@ -737,7 +739,6 @@
                         <div
                             class="wheel__body wheel__body--spin"
                             data-wheel
-                            role="img"
                             aria-label="Prize wheel with four segments"
                         >
                             <div class="wheel__segments" data-wheel-segments>
@@ -850,7 +851,7 @@
                 <header class="wheel__header">
                     <p class="wheel__subtitle">
                         <span aria-hidden="true"
-                            ><img src="./public/assets/images/gift.svg" alt=""
+                            ><img src="/assets/images/gift.svg" alt=""
                         /></span>
                         SPECIAL DEALS
                     </p>

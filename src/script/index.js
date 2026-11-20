@@ -22,6 +22,14 @@ const footerAccordions = document.querySelectorAll('.footer__accordian');
 const footerTitles = document.querySelectorAll('.footer__title');
 const tabletMediaQuery = window.matchMedia('(min-width: 431px)');
 
+/**
+ * Updates the document body's vertical scrolling behavior based on
+ * whether the navbar drawer or Special Deals dialog is open.
+ *
+ * Prevents background scrolling whenever either overlay is active.
+ *
+ * @returns {void}
+ */
 function updateBodyScroll() {
     const isNavbarOpen = navbar?.classList.contains('navbar--open');
     const isDialogOpen = dialog?.open;
