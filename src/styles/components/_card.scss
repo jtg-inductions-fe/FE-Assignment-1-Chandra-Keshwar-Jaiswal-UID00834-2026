@@ -37,7 +37,6 @@
         @include abs.for-device-width('desktop') {
             display: block;
             position: absolute;
-            pointer-events: none;
             &-wrapper {
                 width: abs.rem(280px);
                 height: abs.rem(348px);

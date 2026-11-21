@@ -57,7 +57,6 @@
 
     &__slider {
         position: relative;
-        z-index: 1;
         width: 100%;
         margin: 0;
         overflow: hidden;
@@ -126,7 +125,7 @@
     &__controls {
         position: absolute;
         padding: 0 abs.rem(16px);
-        z-index: 2;
+        z-index: 1;
         top: abs.rem(232px);
         left: 0;
         @include abs.flex-mixin($justify: space-between);
