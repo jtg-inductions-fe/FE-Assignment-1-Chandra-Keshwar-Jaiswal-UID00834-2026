@@ -19,8 +19,8 @@
 
     &__close {
         position: absolute;
-        top: abs.rem(16.5px);
-        right: abs.rem(15.5px);
+        top: abs.rem(16px);
+        right: abs.rem(16px);
         padding: abs.rem(4px);
         background-color: transparent;
         border: none;
@@ -43,7 +43,6 @@
 
     &__subtitle {
         @include abs.flex-mixin($gap: abs.rem(4px));
-        padding: abs.rem(1px);
         color: theme.$color-accent-pink;
     }
 
@@ -71,7 +70,7 @@
         &--loading {
             border-top: abs.rem(16px) solid theme.$color-neutral-light;
         }
-        &--spin {
+        &--wheel {
             border-top: abs.rem(16px) solid theme.$color-accent-pink;
         }
     }
@@ -101,15 +100,18 @@
             @include abs.flex-mixin();
         }
 
-        &--spin {
+        &--wheel {
             background: conic-gradient(
                 theme.$color-accent-violet 0deg 90deg,
                 theme.$color-accent-yellow 90deg 180deg,
                 theme.$color-accent-cyan 180deg 270deg,
                 theme.$color-accent-pink 270deg 360deg
             );
-            border: 4px solid theme.$color-white;
-            box-shadow: 0 0 abs.rem(50px) abs.rem(7px) rgba(0, 0, 0, 0.25);
+            border: abs.rem(4px) solid theme.$color-white;
+            box-shadow: 0 0 abs.rem(50px) abs.rem(8px) rgba(0, 0, 0, 0.25);
+        }
+
+        &--spinning {
             transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
     }
@@ -123,7 +125,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 4px;
+            width: abs.rem(4px);
             height: 100%;
             background-color: theme.$color-white;
             pointer-events: none;
@@ -169,7 +171,7 @@
         top: 50%;
         left: 50%;
         color: theme.$color-white;
-        width: abs.rem(65px);
+        width: abs.rem(64px);
         text-align: center;
         font-size: abs.rem(12px);
         font-weight: 700;
@@ -184,14 +186,18 @@
         left: 50%;
         display: grid;
         place-items: center;
-        width: abs.rem(43.79px);
-        height: abs.rem(43.79px);
+        width: abs.rem(44px);
+        height: abs.rem(44px);
         transform: translate(-50%, -50%);
         color: theme.$color-accent-pink;
         background-color: theme.$color-white;
-        border: 2px solid theme.$color-accent-pink;
+        border: abs.rem(2px) solid theme.$color-accent-pink;
         border-radius: 50%;
         cursor: pointer;
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
     }
 
     &__footer {
@@ -201,17 +207,17 @@
     &__button {
         @include abs.flex-mixin($gap: abs.rem(8px));
         width: 100%;
-        height: abs.rem(49px);
-        padding: abs.rem(10px) abs.rem(32px);
+        height: abs.rem(48px);
+        padding: abs.rem(12px) abs.rem(32px);
         background-color: transparent;
-        border: 1px solid theme.$color-light-grey;
+        border: abs.rem(1px) solid theme.$color-light-grey;
         border-radius: abs.rem(100px);
         cursor: pointer;
     }
 
     &__counter {
-        width: 18px;
-        height: 18px;
+        width: abs.rem(20px);
+        height: abs.rem(20px);
         color: theme.$color-white;
         background-color: theme.$color-primary;
         border-radius: 50%;
@@ -219,9 +225,9 @@
     }
 
     &__deal-code {
-        padding: abs.rem(4px) abs.rem(10px);
+        padding: abs.rem(4px) abs.rem(12px);
         border-radius: abs.rem(8px);
-        border: 1px solid theme.$color-border-light;
+        border: abs.rem(1px) solid theme.$color-border-light;
         background-color: theme.$color-white;
     }
 }
@@ -231,7 +237,7 @@
         @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
 
         &__list {
-            @include abs.flex-mixin($direction: column, $gap: abs.rem(10px));
+            @include abs.flex-mixin($direction: column, $gap: abs.rem(12px));
             width: 100%;
         }
 
@@ -245,7 +251,8 @@
         width: 100%;
         box-sizing: border-box;
         padding: abs.rem(16px);
-        border: 1px solid rgba($color: theme.$color-accent-pink, $alpha: 0.2);
+        border: abs.rem(1px) solid
+            rgba($color: theme.$color-accent-pink, $alpha: 0.2);
         border-radius: abs.rem(16px);
         background: linear-gradient(
             100deg,
@@ -256,7 +263,8 @@
 
         &--expired {
             background: theme.$color-light-grey;
-            border: 1px solid rgba($color: theme.$color-black, $alpha: 0.2);
+            border: abs.rem(1px) solid
+                rgba($color: theme.$color-black, $alpha: 0.2);
             .wheel__description {
                 color: theme.$color-muted-grey;
             }
@@ -266,7 +274,7 @@
             @include abs.flex-mixin(
                 $direction: column,
                 $align: flex-start,
-                $gap: abs.rem(3px)
+                $gap: abs.rem(4px)
             );
 
             & > p {
