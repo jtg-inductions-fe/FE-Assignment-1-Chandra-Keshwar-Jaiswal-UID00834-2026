@@ -34,6 +34,8 @@ function updateBodyScroll() {
 
     document.body.style.overflowY =
         isNavbarOpen || isDialogOpen ? 'hidden' : '';
+    document.documentElement.style.overflowY =
+        isNavbarOpen || isDialogOpen ? 'hidden' : '';
 }
 
 initSpecialDeals({ updateBodyScroll });

@@ -15,23 +15,19 @@ import {
     COPY_SVG_PATH,
 } from './constants.js';
 
-const wheel = document.querySelector('[data-wheel]');
-const wheelSegments = document.querySelector('[data-wheel-segments]');
+const wheel = document.querySelector('.wheel__body--wheel');
+const wheelSegments = document.querySelector('.wheel__segments');
 const spinButton = document.querySelector('[data-action="spin"]');
-const wheelResult = document.querySelector('[data-wheel-result]');
+const wheelResult = document.querySelector('.wheel__reward');
 const wheelSegmentTemplate = document.querySelector('#wheel-segment-template');
 const dealCardTemplate = document.querySelector('#deal-card-template');
-const dealsList = document.querySelector('[data-deals-list]');
-const unlockedDealsCount = document.querySelector(
-    '[data-bind="unlockedDealsCount"]',
-);
-const selectedReward = document.querySelector('[data-selected-reward]');
-const wheelSection = document.querySelector('[data-section="wheel"]');
-const dealsSection = document.querySelector('[data-section="deals"]');
-const loadingView = document.querySelector('[data-wheel-view="loading"]');
-const interactiveView = document.querySelector(
-    '[data-wheel-view="interactive"]',
-);
+const dealsList = document.querySelector('.deal-section__list');
+const unlockedDealsCount = document.querySelector('.wheel__counter');
+const selectedReward = document.querySelector('.wheel__reward-details');
+const wheelSection = document.querySelector('.wheel');
+const dealsSection = document.querySelector('.deal-section');
+const loadingView = document.querySelector('.wheel__loading');
+const interactiveView = document.querySelector('.wheel__interactive');
 const specialDealsDialog = document.querySelector('#special-deals-dialog');
 const openButton = document.querySelector('#special-deals');
 
@@ -217,7 +213,7 @@ function renderWheel() {
     state.wheelDeals.forEach((deal, index) => {
         const fragment = wheelSegmentTemplate.content.cloneNode(true);
         const segment = fragment.querySelector('.wheel__segment');
-        const title = fragment.querySelector('[data-bind="title"]');
+        const title = fragment.querySelector('.wheel__segment-title');
         segment.dataset.segmentIndex = String(index);
         title.textContent = deal?.label ?? 'No Coupon';
         wheelSegments.append(fragment);
@@ -232,10 +228,10 @@ function renderWheel() {
 function createDealCard(deal) {
     const fragment = dealCardTemplate.content.cloneNode(true);
     const card = fragment.querySelector('.deal-card');
-    card.querySelector('[data-bind="title"]').textContent = deal.label;
-    card.querySelector('[data-bind="validity"]').textContent =
+    card.querySelector('.wheel__deal-label').textContent = deal.label;
+    card.querySelector('.wheel__description').textContent =
         getValidityText(deal);
-    card.querySelector('[data-bind="code"]').textContent = deal.promoCode;
+    card.querySelector('.wheel__deal-code').textContent = deal.promoCode;
 
     const expired = isDealExpired(deal);
     const copyButton = card.querySelector('[data-action="copy-code"]');
@@ -435,7 +431,7 @@ function finishSpin() {
 async function handleCopyCode(element) {
     if (element.disabled) return;
     const dealCard = element.closest('.deal-card');
-    const code = dealCard.querySelector('[data-bind="code"]').textContent;
+    const code = dealCard.querySelector('.wheel__deal-code').textContent;
 
     try {
         await navigator.clipboard.writeText(code);
