@@ -1,21 +1,18 @@
-// Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/a11y';
-import './modules/special-deals';
 
-import initTestimonialsCarousel from './modules/testimonial-carousel';
+import initTestimonialsCarousel from './modules/testimonial-carousel.js';
 
 initTestimonialsCarousel();
+
 const dialog = document.getElementById('special-deals-dialog');
-const openBtn = document.getElementById('special-deals');
-const closeBtn = document.getElementsByClassName('special-deals__close')[0];
 const navbar = document.querySelector('.navbar');
 const menuButton = document.querySelector('.navbar__toggle');
 const navigation = document.getElementById('primary-navigation');
 const backdrop = document.querySelector('.navbar__backdrop');
-const toggleIcon = menuButton.querySelector('img');
+const toggleIcon = menuButton?.querySelector('img');
 const navbarBrand = document.querySelector('.navbar__icon');
 const navbarButtons = document.querySelector('.navbar__buttons');
 const footerAccordions = document.querySelectorAll('.footer__accordian');
@@ -42,7 +39,9 @@ if (navbar && menuButton && navigation) {
     const desktopQuery = window.matchMedia('(min-width: 1025px)');
 
     /**
-     * Opens or closes the navigation drawer and updates its accessibility states.
+     * Opens or closes the navbar drawer and synchronizes its accessibility
+     * attributes, toggle icon, inert states, and body scroll behavior.
+     *
      * @param {boolean} isOpen - Whether the navigation drawer should be open.
      * @returns {void}
      */
@@ -59,14 +58,19 @@ if (navbar && menuButton && navigation) {
             : '/assets/images/hamburger-close.svg';
 
         navigation.inert = !isOpen;
-        navbarBrand.inert = isOpen;
-        navbarButtons.inert = isOpen;
+        if (navbarBrand) navbarBrand.inert = isOpen;
+        if (navbarButtons) navbarButtons.inert = isOpen;
 
         updateBodyScroll();
     }
 
     /**
-     * Updates the active navigation link based on the current URL fragment.
+     * Updates the active state of navigation links based on the
+     * current URL hash.
+     *
+     * A link receives the active modifier when its href matches
+     * the current location hash.
+     *
      * @returns {void}
      */
     function syncActiveLink() {
@@ -81,7 +85,11 @@ if (navbar && menuButton && navigation) {
     }
 
     /**
-     * Resets the navigation drawer and synchronizes its inert state with the viewport.
+     * Synchronizes the navbar state with the current viewport breakpoint.
+     *
+     * Closes the drawer and updates the navigation's inert state
+     * according to whether the desktop layout is active.
+     *
      * @returns {void}
      */
     function syncNavigation() {
@@ -91,7 +99,6 @@ if (navbar && menuButton && navigation) {
 
     menuButton.addEventListener('click', () => {
         if (desktopQuery.matches) return;
-
         setMenuOpen(!navbar.classList.contains('navbar--open'));
     });
 
@@ -100,7 +107,11 @@ if (navbar && menuButton && navigation) {
     });
 
     /**
-     * Handles navigation link clicks and closes the drawer on mobile and tablet.
+     * Handles clicks on navbar navigation links.
+     *
+     * Closes the drawer on non-desktop layouts after navigation
+     * and restores focus to the menu button when appropriate.
+     *
      * @param {MouseEvent} event - The navigation click event.
      * @returns {void}
      */
@@ -113,18 +124,15 @@ if (navbar && menuButton && navigation) {
 
         if (!desktopQuery.matches) {
             setMenuOpen(false);
-            menuButton.focus();
+            if (link.id !== 'special-deals') {
+                menuButton.focus();
+            }
         }
     }
 
     navigation.addEventListener('click', handleNavigationClick);
 
-    /**
-     * Closes the navigation drawer and restores focus when Escape is pressed.
-     * @param {KeyboardEvent} event - The keyboard event.
-     * @returns {void}
-     */
-    function handleEscapeKey(event) {
+    document.addEventListener('keydown', (event) => {
         if (
             event.key === 'Escape' &&
             navbar.classList.contains('navbar--open')
@@ -132,16 +140,11 @@ if (navbar && menuButton && navigation) {
             setMenuOpen(false);
             menuButton.focus();
         }
-    }
+    });
 
-    document.addEventListener('keydown', handleEscapeKey);
-
-    // Update active link on initial load and browser navigation
     syncActiveLink();
     window.addEventListener('hashchange', syncActiveLink);
-
     desktopQuery.addEventListener('change', syncNavigation);
-
     syncNavigation();
 }
 
@@ -200,18 +203,4 @@ footerTitles.forEach((title) => {
 });
 
 updateFooterAccordions();
-
 tabletMediaQuery.addEventListener('change', updateFooterAccordions);
-
-openBtn.addEventListener('click', () => {
-    dialog.showModal();
-    updateBodyScroll();
-});
-
-closeBtn.addEventListener('click', () => {
-    dialog.close();
-});
-
-dialog.addEventListener('close', () => {
-    updateBodyScroll();
-});
