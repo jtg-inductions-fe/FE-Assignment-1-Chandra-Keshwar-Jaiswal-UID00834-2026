@@ -101,3 +101,98 @@
         }
     }
 }
+
+.wheel {
+    &__title {
+        @include abs.fonts(
+            $size: abs.rem(20px),
+            $font: abs.get(abs.$font, secondary),
+            $align: center,
+            $weight: 700,
+            $line-height: 1
+        );
+    }
+
+    &__subtitle {
+        @include abs.fonts(
+            $size: abs.rem(12px),
+            $font: abs.get(abs.$font, secondary),
+            $align: center,
+            $weight: 500,
+            $line-height: 1
+        );
+        letter-spacing: 20%;
+    }
+
+    &__button {
+        @include abs.fonts(
+            $size: abs.rem(14px),
+            $font: abs.get(abs.$font, ternary),
+            $align: center,
+            $weight: 700,
+            $line-height: 1.2
+        );
+    }
+
+    &__description {
+        @include abs.fonts(
+            $size: abs.rem(12px),
+            $font: abs.get(abs.$font, secondary),
+            $align: center,
+            $weight: 400,
+            $line-height: 1
+        );
+    }
+
+    &__spin-label {
+        @include abs.fonts(
+            $size: abs.rem(12px),
+            $font: abs.get(abs.$font, secondary),
+            $align: center,
+            $weight: 700,
+            $line-height: 1
+        );
+    }
+
+    &__spin-button {
+        @include abs.fonts(
+            $size: abs.rem(10px),
+            $font: abs.get(abs.$font, secondary),
+            $align: center,
+            $weight: 700,
+            $line-height: 1
+        );
+        letter-spacing: 4%;
+    }
+
+    &__deal-label {
+        @include abs.fonts(
+            $size: abs.rem(14px),
+            $font: abs.get(abs.$font, secondary),
+            $align: left,
+            $weight: 500,
+            $line-height: 1
+        );
+    }
+
+    &__counter {
+        @include abs.fonts(
+            $size: abs.rem(12px),
+            $font: abs.get(abs.$font, ternary),
+            $align: center,
+            $weight: 500,
+            $line-height: 1.2
+        );
+    }
+
+    &__deal-code {
+        @include abs.fonts(
+            $size: abs.rem(12px),
+            $font: abs.get(abs.$font, monospace),
+            $align: center,
+            $weight: 700,
+            $line-height: 1
+        );
+        letter-spacing: 5%;
+    }
+}
