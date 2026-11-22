@@ -23,13 +23,13 @@ $breakpoints: (
 
 // box-shadows
 $box-shadow: (
-    'icon': (
+    'shadow-1': (
         0 func.rem(19px) func.rem(19px) rgba(0, 0, 0, 0.09),
         0 func.rem(43px) func.rem(26px) rgba(0, 0, 0, 0.05),
         0 func.rem(77px) func.rem(31px) rgba(0, 0, 0, 0.01),
         0 func.rem(120px) func.rem(34px) rgba(0, 0, 0, 0),
     ),
-    'button': (
+    'shadow-2': (
         0 0 0 0 rgba(0, 0, 0, 0.1),
         0 func.rem(5px) func.rem(11px) rgba(0, 0, 0, 0.1),
         0 func.rem(20px) func.rem(20px) rgba(0, 0, 0, 0.09),
@@ -37,7 +37,7 @@ $box-shadow: (
         0 func.rem(81px) func.rem(32px) rgba(0, 0, 0, 0.01),
         0 func.rem(126px) func.rem(35px) rgba(0, 0, 0, 0),
     ),
-    'explore': (
+    'shadow-3': (
         0 0 0 0 rgba(0, 0, 0, 0.07),
         0 func.rem(34px) func.rem(75px) 0 rgba(0, 0, 0, 0.07),
         0 func.rem(137px) func.rem(137px) 0 rgba(0, 0, 0, 0.06),

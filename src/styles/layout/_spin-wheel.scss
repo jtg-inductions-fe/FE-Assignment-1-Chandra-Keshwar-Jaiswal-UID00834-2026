@@ -2,11 +2,7 @@
 @use '../themes' as theme;
 
 .special-deals {
-    position: fixed;
     top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
     margin: 0 auto;
     width: abs.rem(360px);
     padding: abs.rem(24px);

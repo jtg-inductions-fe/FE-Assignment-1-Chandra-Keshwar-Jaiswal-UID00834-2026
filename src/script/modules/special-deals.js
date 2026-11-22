@@ -33,7 +33,6 @@ const openButton = document.querySelector('#special-deals');
 
 let isInitialized = false;
 let initializationPromise = null;
-let onDialogToggle = () => {};
 
 /**
  * Returns cached deals or fetches and caches them from the API.
@@ -210,11 +209,9 @@ function restoreUserState() {
  */
 function renderWheel() {
     wheelSegments.replaceChildren();
-    state.wheelDeals.forEach((deal, index) => {
+    state.wheelDeals.forEach((deal) => {
         const fragment = wheelSegmentTemplate.content.cloneNode(true);
-        const segment = fragment.querySelector('.wheel__segment');
         const title = fragment.querySelector('.wheel__segment-title');
-        segment.dataset.segmentIndex = String(index);
         title.textContent = deal?.label ?? 'No Coupon';
         wheelSegments.append(fragment);
     });
@@ -264,14 +261,15 @@ function renderUnlockedDeals() {
 }
 
 /**
- * Displays the latest spin result (`"Try Again"` or won deal card).
+ * Displays the latest spin result ("Try Again" or won deal card).
+ * @param {Object|null} deal - Won deal object, or null if no deal was won.
  * @returns {void}
  */
-function renderResult() {
+function renderResult(deal) {
     const resultLabel = wheelResult.querySelector('.wheel__deal-label');
     wheelResult.hidden = false;
 
-    if (!state.selectedDeal) {
+    if (!deal) {
         resultLabel.textContent = 'Try Again';
         selectedReward.hidden = true;
         return;
@@ -279,7 +277,7 @@ function renderResult() {
 
     resultLabel.textContent = 'You Won!';
     selectedReward.hidden = false;
-    selectedReward.replaceChildren(createDealCard(state.selectedDeal));
+    selectedReward.replaceChildren(createDealCard(deal));
 }
 
 /**
@@ -306,40 +304,12 @@ function showLoadingView() {
 }
 
 /**
- * Shows the interactive wheel view.
- * @returns {void}
- */
-function showWheelView() {
-    setView('wheel');
-}
-
-/**
- * Refreshes unlocked deals and shows the deals view.
- * @returns {void}
- */
-function showDealsView() {
-    renderUnlockedDeals();
-    setView('deals');
-}
-
-/**
  * Removes the spinning class and snaps the wheel to 0deg.
  * @returns {void}
  */
 function resetWheelTransform() {
     wheel.classList.remove('wheel__body--spinning');
     wheel.style.transform = 'rotate(0deg)';
-}
-
-/**
- * Resets selection state, snaps the wheel to 0deg, and shows the wheel view.
- * @returns {void}
- */
-function resetWheelRotation() {
-    state.selectedDeal = null;
-    state.selectedIndex = null;
-    resetWheelTransform();
-    showWheelView();
 }
 
 /**
@@ -360,7 +330,11 @@ function recordWinningDeal(deal) {
  * @returns {void}
  */
 function replaceWonSegment() {
-    if (!state.selectedDeal || state.selectedIndex === null) return;
+    if (state.selectedIndex === null) return;
+
+    const currentSlotDeal = state.wheelDeals[state.selectedIndex];
+    if (!currentSlotDeal) return;
+
     const activeWheelCodes = new Set(
         state.wheelDeals.filter(Boolean).map((deal) => deal.promoCode),
     );
@@ -380,13 +354,11 @@ function spinWheel() {
     if (state.isSpinning) return;
 
     state.isSpinning = true;
-    state.selectedDeal = null;
     state.selectedIndex = null;
     spinButton.disabled = true;
     wheelResult.hidden = true;
 
     state.selectedIndex = Math.floor(Math.random() * WHEEL_SIZE);
-    state.selectedDeal = state.wheelDeals[state.selectedIndex];
 
     const segmentAngle = SEGMENT_ANGLES[state.selectedIndex];
     const targetRotation = FULL_ROTATIONS * 360 - segmentAngle;
@@ -399,13 +371,12 @@ function spinWheel() {
  * @returns {void}
  */
 function handleSpinComplete() {
-    if (!state.isSpinning) return;
+    if (!state.isSpinning || state.selectedIndex === null) return;
 
-    if (state.selectedDeal) {
-        state.selectedDeal = recordWinningDeal(state.selectedDeal);
-    }
+    const selectedDeal = state.wheelDeals[state.selectedIndex];
+    const wonDeal = selectedDeal ? recordWinningDeal(selectedDeal) : null;
 
-    renderResult();
+    renderResult(wonDeal);
     window.setTimeout(finishSpin, RESULT_DISPLAY_DELAY);
 }
 
@@ -429,9 +400,16 @@ function finishSpin() {
  * @returns {Promise<void>}
  */
 async function handleCopyCode(element) {
-    if (element.disabled) return;
     const dealCard = element.closest('.deal-card');
     const code = dealCard.querySelector('.wheel__deal-code').textContent;
+    const dealMap = new Map(
+        state.wonDeals.map((deal) => [deal.promoCode, deal]),
+    );
+    const deal = dealMap.get(code);
+    if (isDealExpired(deal)) {
+        renderUnlockedDeals();
+        return;
+    }
 
     try {
         await navigator.clipboard.writeText(code);
@@ -458,7 +436,7 @@ async function initialize() {
     renderUnlockedDeals();
     loadingView.hidden = true;
     interactiveView.hidden = false;
-    showWheelView();
+    setView('wheel');
 }
 
 /**
@@ -467,12 +445,8 @@ async function initialize() {
  * @param {() => void} [options.onDialogChange] - Runs when dialog opens or closes.
  * @returns {void}
  */
-export function initSpecialDeals({ onDialogChange } = {}) {
+export function initSpecialDeals({ onDialogChange }) {
     if (!specialDealsDialog || !openButton || !wheel) return;
-
-    if (typeof onDialogChange === 'function') {
-        onDialogToggle = onDialogChange;
-    }
 
     specialDealsDialog.addEventListener('click', (event) => {
         if (event.target === specialDealsDialog && !state.isSpinning) {
@@ -488,9 +462,11 @@ export function initSpecialDeals({ onDialogChange } = {}) {
         if (action === 'spin') {
             spinWheel();
         } else if (action === 'view-deals') {
-            showDealsView();
+            if (state.isSpinning) return;
+            renderUnlockedDeals();
+            setView('deals');
         } else if (action === 'back-to-wheel') {
-            showWheelView();
+            setView('wheel');
         } else if (action === 'close') {
             if (!state.isSpinning) {
                 specialDealsDialog.close();
@@ -513,17 +489,16 @@ export function initSpecialDeals({ onDialogChange } = {}) {
         handleSpinComplete();
     });
 
-    openButton.addEventListener('click', async (event) => {
-        event.preventDefault();
-
+    openButton.addEventListener('click', async () => {
         if (!specialDealsDialog.open) {
             specialDealsDialog.showModal();
         }
 
-        onDialogToggle();
+        onDialogChange();
 
         if (isInitialized) {
-            resetWheelRotation();
+            resetWheelTransform();
+            setView('wheel');
             return;
         }
 
@@ -544,11 +519,10 @@ export function initSpecialDeals({ onDialogChange } = {}) {
     });
 
     specialDealsDialog.addEventListener('close', () => {
-        onDialogToggle();
+        onDialogChange();
         resetWheelTransform();
         wheelResult.hidden = true;
         selectedReward.hidden = true;
-        state.selectedDeal = null;
         state.selectedIndex = null;
     });
 }
