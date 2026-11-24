@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Untitled';
+    src: url('/assets/icomoon/Untitled.woff') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+@font-palette-values --palette0 {
+    font-family: 'Untitled';
+    base-palette: 0;
+}
+.icon {
+    font-family: 'Untitled' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.palette0 {
+    font-palette: --palette0;
+    color: currentColor;
+}
+
+.icon-add-user::before {
+    content: '\f001';
+}
+.icon-briefcase::before {
+    content: '\f002';
+}
+.icon-check::before {
+    content: '\f003';
+}
+.icon-copy::before {
+    content: '\f004';
+}
+.icon-gift::before {
+    content: '\f005';
+}
+.icon-send::before {
+    content: '\f006';
+}
+.icon-star::before {
+    content: '\f007';
+}

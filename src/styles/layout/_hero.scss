@@ -112,6 +112,7 @@
         padding: abs.rem(8px);
         border-radius: 50%;
         box-shadow: abs.get(abs.$box-shadow, 'shadow-1');
+        font-size: abs.rem(16px);
         img {
             display: block;
             width: 100%;
@@ -122,6 +123,7 @@
             width: abs.rem(64px);
             height: abs.rem(64px);
             padding: abs.rem(16px);
+            font-size: abs.rem(24px);
         }
     }
 
@@ -184,9 +186,10 @@
             align-self: flex-start;
         }
 
-        img {
-            width: abs.rem(24px);
-            height: abs.rem(24px);
+        .icon-briefcase {
+            margin-left: abs.rem(16px);
+            font-size: abs.rem(24px);
+            text-align: center;
         }
 
         &:hover {

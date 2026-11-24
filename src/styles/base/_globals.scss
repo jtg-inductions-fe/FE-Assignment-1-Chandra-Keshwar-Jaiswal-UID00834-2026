@@ -5,8 +5,8 @@
 body {
     width: 100%;
     position: relative;
-    max-width: 1440px;
-    min-width: 0;
+    max-width: abs.rem(1440px);
+    min-width: abs.rem(430px);
     margin-inline: auto;
     overflow-x: inherit;
     font-family: abs.get(abs.$font, default);
@@ -15,9 +15,11 @@ body {
     padding-top: abs.rem(35px);
     @include abs.for-device-width('tablet') {
         padding-top: 0;
+        min-width: abs.rem(1024px);
     }
     @include abs.for-device-width('desktop') {
         padding-top: abs.rem(34px);
+        min-width: abs.rem(1440px);
     }
 }
 

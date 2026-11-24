@@ -11,8 +11,6 @@ import {
     SEGMENT_ANGLES,
     FULL_ROTATIONS,
     RESULT_DISPLAY_DELAY,
-    CHECK_SVG_PATH,
-    COPY_SVG_PATH,
 } from './constants.js';
 
 const wheel = document.querySelector('.wheel__body--wheel');
@@ -430,10 +428,12 @@ async function handleCopyCode(element) {
 
     try {
         await navigator.clipboard.writeText(code);
-        const copyImg = element.querySelector('img');
-        copyImg.src = CHECK_SVG_PATH;
+        const copySymb = element.querySelector('.icon');
+        copySymb.classList.remove('icon-copy');
+        copySymb.classList.add('icon-check');
         window.setTimeout(() => {
-            copyImg.src = COPY_SVG_PATH;
+            copySymb.classList.remove('icon-check');
+            copySymb.classList.add('icon-copy');
         }, 2000);
     } catch (error) {
         console.error('Failed to copy code:', error);

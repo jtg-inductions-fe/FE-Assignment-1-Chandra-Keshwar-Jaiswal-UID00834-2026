@@ -113,6 +113,7 @@
 
     &__rating {
         @include abs.flex-mixin($gap: abs.rem(16px));
+        font-size: abs.rem(32px);
     }
 
     &__star {
