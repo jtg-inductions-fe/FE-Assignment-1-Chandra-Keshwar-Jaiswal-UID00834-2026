@@ -281,6 +281,21 @@ function renderResult(deal) {
 }
 
 /**
+ * Disables spinning and shows a message when no deals remain on the wheel.
+ * @returns {void}
+ */
+function updateWheelAvailability() {
+    const hasDeals = state.wheelDeals.some(Boolean);
+    spinButton.disabled = !hasDeals;
+
+    if (!hasDeals) {
+        const resultLabel = wheelResult.querySelector('.wheel__deal-label');
+        wheelResult.hidden = false;
+        resultLabel.textContent = 'No more deals';
+    }
+}
+
+/**
  * Toggles visibility between wheel and deals sections.
  * @param {'wheel'|'deals'} view - Target view.
  * @returns {void}
@@ -353,10 +368,12 @@ function replaceWonSegment() {
 function spinWheel() {
     if (state.isSpinning) return;
 
+    const resultLabel = wheelResult.querySelector('.wheel__deal-label');
     state.isSpinning = true;
     state.selectedIndex = null;
     spinButton.disabled = true;
-    wheelResult.hidden = true;
+    wheelResult.hidden = false;
+    resultLabel.textContent = 'Spinning...';
 
     state.selectedIndex = Math.floor(Math.random() * WHEEL_SIZE);
 
@@ -391,7 +408,7 @@ function finishSpin() {
     resetWheelTransform();
     state.selectedIndex = null;
     state.isSpinning = false;
-    spinButton.disabled = false;
+    updateWheelAvailability();
 }
 
 /**
@@ -434,6 +451,7 @@ async function initialize() {
     restoreUserState();
     renderWheel();
     renderUnlockedDeals();
+    updateWheelAvailability();
     loadingView.hidden = true;
     interactiveView.hidden = false;
     setView('wheel');
@@ -441,11 +459,11 @@ async function initialize() {
 
 /**
  * Sets up Special Deals dialog actions, spin events, and lazy initialization.
- * @param {Object} [options] - Optional dialog callbacks.
- * @param {() => void} [options.onDialogChange] - Runs when dialog opens or closes.
+ * @param {{onDialogChange: () => void}}
+ * @param {{syncLink: () => void}}
  * @returns {void}
  */
-export function initSpecialDeals({ onDialogChange }) {
+export function initSpecialDeals({ onDialogChange, syncLink }) {
     if (!specialDealsDialog || !openButton || !wheel) return;
 
     specialDealsDialog.addEventListener('click', (event) => {
@@ -481,7 +499,6 @@ export function initSpecialDeals({ onDialogChange }) {
             event.preventDefault();
             return;
         }
-        window.location.replace('http://localhost:3000/');
     });
 
     wheel.addEventListener('transitionend', (event) => {
@@ -501,6 +518,7 @@ export function initSpecialDeals({ onDialogChange }) {
         if (isInitialized) {
             resetWheelTransform();
             setView('wheel');
+            updateWheelAvailability();
             return;
         }
 
@@ -526,6 +544,7 @@ export function initSpecialDeals({ onDialogChange }) {
         wheelResult.hidden = true;
         selectedReward.hidden = true;
         state.selectedIndex = null;
-        window.location.replace('http://localhost:3000/');
+        window.history.replaceState(null, '', window.location.pathname);
+        syncLink();
     });
 }

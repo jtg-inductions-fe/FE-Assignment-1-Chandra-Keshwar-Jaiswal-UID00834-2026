@@ -11,6 +11,7 @@ import { initFooter } from './modules/footer.js';
 initTestimonialsCarousel();
 
 const dialog = document.getElementById('special-deals-dialog');
+const navigation = document.getElementById('primary-navigation');
 
 /**
  * Locks vertical scroll while the navbar drawer or dialog is open.
@@ -26,6 +27,24 @@ function updateBodyScroll() {
         isNavbarOpen || isDialogOpen ? 'hidden' : '';
 }
 
-initSpecialDeals({ onDialogChange: updateBodyScroll });
-initNavbar({ onStateChange: updateBodyScroll });
+/**
+ * Highlights nav links matching the current URL hash.
+ * @returns {void}
+ */
+function syncActiveLink() {
+    const currentHash = window.location.hash;
+
+    navigation.querySelectorAll('.navbar__link').forEach((link) => {
+        link.classList.toggle(
+            'navbar__link--active',
+            link.getAttribute('href') === currentHash,
+        );
+    });
+}
+
+initSpecialDeals({
+    onDialogChange: updateBodyScroll,
+    syncLink: syncActiveLink,
+});
+initNavbar({ onStateChange: updateBodyScroll, syncLink: syncActiveLink });
 initFooter();

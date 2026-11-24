@@ -2,10 +2,11 @@ const desktopQuery = window.matchMedia('(min-width: 1025px)');
 
 /**
  * Initializes navbar drawer, responsive state, and link/dismissal listeners.
- * @param {{onStateChange: () => void}} [options]
+ * @param {{onStateChange: () => void}}
+ * @param {{syncLink: () => void}}
  * @returns {void}
  */
-export function initNavbar({ onStateChange }) {
+export function initNavbar({ onStateChange, syncLink }) {
     const navbar = document.querySelector('.navbar');
     const menuButton = document.querySelector('.navbar__toggle');
     const navigation = document.getElementById('primary-navigation');
@@ -40,21 +41,6 @@ export function initNavbar({ onStateChange }) {
         if (navbarButtons) navbarButtons.inert = isOpen;
 
         onStateChange();
-    }
-
-    /**
-     * Highlights nav links matching the current URL hash.
-     * @returns {void}
-     */
-    function syncActiveLink() {
-        const currentHash = window.location.hash;
-
-        navigation.querySelectorAll('.navbar__link').forEach((link) => {
-            link.classList.toggle(
-                'navbar__link--active',
-                link.getAttribute('href') === currentHash,
-            );
-        });
     }
 
     /**
@@ -131,8 +117,8 @@ export function initNavbar({ onStateChange }) {
         }
     });
 
-    syncActiveLink();
-    window.addEventListener('hashchange', syncActiveLink);
+    syncLink();
+    window.addEventListener('hashchange', syncLink);
     desktopQuery.addEventListener('change', syncNavigation);
     syncNavigation();
 }
