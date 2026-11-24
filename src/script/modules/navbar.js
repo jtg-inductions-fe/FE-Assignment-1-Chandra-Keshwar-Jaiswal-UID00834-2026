@@ -99,11 +99,35 @@ export function initNavbar({ onStateChange }) {
 
     document.addEventListener('keydown', (event) => {
         if (
-            event.key === 'Escape' &&
-            navbar.classList.contains('navbar--open')
+            desktopQuery.matches ||
+            !navbar.classList.contains('navbar--open')
         ) {
+            return;
+        }
+
+        if (event.key === 'Escape') {
             setMenuOpen(false);
             menuButton.focus();
+            return;
+        }
+
+        if (event.key === 'Tab') {
+            const focusable = [
+                menuButton,
+                ...navigation.querySelectorAll(
+                    'a[href], button:not([disabled])',
+                ),
+            ];
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
         }
     });
 

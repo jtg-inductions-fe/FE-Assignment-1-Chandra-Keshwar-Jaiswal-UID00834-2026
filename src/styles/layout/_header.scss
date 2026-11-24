@@ -4,10 +4,20 @@
 .navbar {
     @include abs.flex-mixin(space-between);
     position: relative;
-    z-index: 20;
     width: 100%;
+    padding-block: abs.rem(8px);
+    background-color: white;
+    border-radius: abs.rem(40px);
+    padding-inline: abs.rem(20px);
     @include abs.for-device-width('tablet') {
-        padding-block: abs.rem(32px);
+        padding-block: abs.rem(16px);
+    }
+
+    &__header {
+        position: fixed;
+        top: abs.rem(8px);
+        z-index: 10;
+        max-width: abs.rem(1440px);
     }
 
     // Brand
@@ -19,6 +29,16 @@
         cursor: default;
         img {
             cursor: pointer;
+        }
+
+        &:focus-visible {
+            outline: none;
+
+            & img {
+                outline: abs.rem(2px) solid theme.$color-primary;
+                outline-offset: abs.rem(4px);
+                border-radius: abs.rem(4px);
+            }
         }
         @include abs.for-device-width('tablet') {
             order: 2;
@@ -102,7 +122,7 @@
         @include abs.flex-mixin(start, start, column, abs.rem(24px));
         width: 100%;
         height: 100%;
-        padding: 0;
+        padding: abs.rem(8px);
         margin: 0;
         overflow-y: auto;
         @include abs.for-device-width('desktop') {

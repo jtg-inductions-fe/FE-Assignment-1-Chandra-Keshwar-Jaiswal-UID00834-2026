@@ -479,7 +479,9 @@ export function initSpecialDeals({ onDialogChange }) {
     specialDealsDialog.addEventListener('cancel', (event) => {
         if (state.isSpinning) {
             event.preventDefault();
+            return;
         }
+        window.location.replace('http://localhost:3000/');
     });
 
     wheel.addEventListener('transitionend', (event) => {
@@ -524,5 +526,6 @@ export function initSpecialDeals({ onDialogChange }) {
         wheelResult.hidden = true;
         selectedReward.hidden = true;
         state.selectedIndex = null;
+        window.location.replace('http://localhost:3000/');
     });
 }

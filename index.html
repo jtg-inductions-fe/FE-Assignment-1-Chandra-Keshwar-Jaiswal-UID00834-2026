@@ -3,18 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Travlog helps you discover top travel destinations, holiday packages, luxury hotels, and exclusive deals around the world."
+        />
         <title>Travlog</title>
         <link rel="stylesheet" href="src/styles/main.scss" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-            rel="stylesheet"
-        />
     </head>
 
     <body>
-        <header class="container">
+        <header class="navbar__header container">
             <div class="navbar">
                 <a class="navbar__icon" href="#home" aria-label="Travlog Home">
                     <img
@@ -56,7 +54,7 @@
                         <li class="navbar__item">
                             <a
                                 class="navbar__link"
-                                href="#deals"
+                                href="#special-deals"
                                 id="special-deals"
                             >
                                 Special Deals
@@ -747,9 +745,11 @@
                             </button>
                         </div>
                     </div>
-                    <div class="wheel__reward" hidden>
-                        <p class="wheel__deal-label">You won!</p>
-                        <div class="wheel__reward-details"></div>
+                    <div class="wheel__reward-container">
+                        <div class="wheel__reward" hidden>
+                            <p class="wheel__deal-label">You won!</p>
+                            <div class="wheel__reward-details"></div>
+                        </div>
                     </div>
                     <footer class="wheel__footer">
                         <button

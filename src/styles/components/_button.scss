@@ -19,4 +19,8 @@
         color: theme.$color-white;
         border: none;
     }
+
+    &:hover {
+        box-shadow: abs.get(abs.$box-shadow, 'shadow-2');
+    }
 }

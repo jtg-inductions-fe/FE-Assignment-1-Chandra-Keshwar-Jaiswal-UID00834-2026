@@ -1,6 +1,6 @@
 {
-    "name": "static-html-base-template",
-    "description": "",
+    "name": "Travlog",
+    "description": "Travlog helps you discover top travel destinations, holiday packages, luxury hotels, and exclusive deals around the world.",
     "keywords": [],
     "version": "0.0.0",
     "private": true,
