@@ -126,6 +126,10 @@
             img {
                 display: none;
             }
+
+            &:focus-visible {
+                outline: none;
+            }
         }
     }
 

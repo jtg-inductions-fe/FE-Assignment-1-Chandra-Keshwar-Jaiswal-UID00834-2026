@@ -5,7 +5,6 @@ export const state = {
     wheelDeals: [],
     wonDeals: [],
     selectedIndex: null,
-    selectedDeal: null,
     currentView: 'loading',
     isSpinning: false,
 };

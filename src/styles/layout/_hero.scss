@@ -12,19 +12,19 @@
     );
     margin-top: abs.rem(64px);
     @include abs.for-device-width('tablet') {
+        margin-top: abs.rem(112px);
         gap: abs.rem(64px);
     }
     @include abs.for-device-width('desktop') {
         flex-direction: row-reverse;
         padding-top: abs.rem(64px);
         padding-bottom: abs.rem(64px);
-        margin: 0;
         gap: 0;
     }
 
     &__blur-div {
         position: absolute;
-        z-index: 10;
+        // z-index: 10;
         top: abs.rem(-180px);
         left: abs.rem(-32px);
         width: abs.rem(272px);
@@ -111,7 +111,7 @@
         height: abs.rem(32px);
         padding: abs.rem(8px);
         border-radius: 50%;
-        box-shadow: abs.get(abs.$box-shadow, 'icon');
+        box-shadow: abs.get(abs.$box-shadow, 'shadow-1');
         img {
             display: block;
             width: 100%;
@@ -144,7 +144,7 @@
         background-color: theme.$color-white;
         padding: abs.rem(8px) abs.rem(16px);
         border-radius: abs.rem(52px);
-        box-shadow: abs.get(abs.$box-shadow, 'icon');
+        box-shadow: abs.get(abs.$box-shadow, 'shadow-1');
         @include abs.flex-mixin($gap: abs.rem(4px));
 
         img {
@@ -178,7 +178,7 @@
     }
 
     &__explore {
-        box-shadow: abs.get(abs.$box-shadow, 'explore');
+        box-shadow: abs.get(abs.$box-shadow, 'shadow-3');
         border: none;
         @include abs.for-device-width('desktop') {
             align-self: flex-start;
@@ -187,6 +187,10 @@
         img {
             width: abs.rem(24px);
             height: abs.rem(24px);
+        }
+
+        &:hover {
+            box-shadow: abs.get(abs.$box-shadow, 'shadow-3');
         }
     }
 
@@ -301,7 +305,6 @@
 
     &__get-started-button {
         padding-block: abs.rem(20px) abs.rem(20px);
-        box-shadow: abs.get(abs.$box-shadow, 'button');
     }
 
     &__play-icon {

@@ -21,13 +21,12 @@
         outline: abs.rem(4px) solid theme.$color-primary;
     }
 
+    @include abs.for-device-width('desktop') {
+        font-size: abs.rem(14px);
+    }
+
     &--active {
         color: theme.$color-black;
         font-weight: abs.get(abs.$font-weight, bold);
-    }
-
-    @include abs.for-device-width('desktop') {
-        color: theme.$color-grey;
-        font-size: abs.rem(14px);
     }
 }

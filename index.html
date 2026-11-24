@@ -3,18 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Travlog helps you discover top travel destinations, holiday packages, luxury hotels, and exclusive deals around the world."
+        />
         <title>Travlog</title>
         <link rel="stylesheet" href="src/styles/main.scss" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-            rel="stylesheet"
-        />
     </head>
 
     <body>
-        <header class="container">
+        <header class="navbar__header container">
             <div class="navbar">
                 <a class="navbar__icon" href="#home" aria-label="Travlog Home">
                     <img
@@ -56,7 +54,7 @@
                         <li class="navbar__item">
                             <a
                                 class="navbar__link"
-                                href="#deals"
+                                href="#special-deals"
                                 id="special-deals"
                             >
                                 Special Deals
@@ -702,7 +700,7 @@
             >
                 <img src="/assets/images/close.svg" alt="" />
             </button>
-            <section class="wheel" data-section="wheel">
+            <section class="wheel">
                 <header class="wheel__header">
                     <p class="wheel__subtitle">
                         <span aria-hidden="true"
@@ -717,11 +715,7 @@
                         Tap the center of the wheel to spin
                     </p>
                 </header>
-                <div
-                    class="wheel__loading wheel__container"
-                    data-wheel-view="loading"
-                    hidden
-                >
+                <div class="wheel__loading wheel__container" hidden>
                     <div
                         class="wheel__pointer wheel__pointer--loading"
                         aria-hidden="true"
@@ -730,21 +724,17 @@
                         <span class="wheel__loading-text">Loading...</span>
                     </div>
                 </div>
-                <div class="wheel__interactive" data-wheel-view="interactive">
+                <div class="wheel__interactive">
                     <div class="wheel__container">
                         <div
-                            class="wheel__pointer wheel__pointer--spin"
+                            class="wheel__pointer wheel__pointer--wheel"
                             aria-hidden="true"
                         ></div>
                         <div
-                            class="wheel__body wheel__body--spin"
-                            data-wheel
+                            class="wheel__body wheel__body--wheel"
                             aria-label="Prize wheel with four segments"
                         >
-                            <div
-                                class="wheel__segments"
-                                data-wheel-segments
-                            ></div>
+                            <div class="wheel__segments"></div>
 
                             <button
                                 class="wheel__spin-button"
@@ -755,12 +745,11 @@
                             </button>
                         </div>
                     </div>
-                    <div class="wheel__reward" data-wheel-result hidden>
-                        <p class="wheel__deal-label">You won!</p>
-                        <div
-                            class="wheel__reward-details"
-                            data-selected-reward
-                        ></div>
+                    <div class="wheel__reward-container">
+                        <div class="wheel__reward" hidden>
+                            <p class="wheel__deal-label">You won!</p>
+                            <div class="wheel__reward-details"></div>
+                        </div>
                     </div>
                     <footer class="wheel__footer">
                         <button
@@ -770,16 +759,13 @@
                         >
                             <span>View All Unlocked Deals</span>
 
-                            <span
-                                class="wheel__counter"
-                                data-bind="unlockedDealsCount"
-                            ></span>
+                            <span class="wheel__counter"></span>
                         </button>
                     </footer>
                 </div>
             </section>
 
-            <section class="deal-section" data-section="deals" hidden>
+            <section class="deal-section" hidden>
                 <header class="wheel__header">
                     <p class="wheel__subtitle">
                         <span aria-hidden="true"
@@ -792,7 +778,7 @@
                         All the deals you've unlocked yet!
                     </p>
                 </header>
-                <div class="deal-section__list" data-deals-list></div>
+                <div class="deal-section__list"></div>
                 <footer class="deal-section__footer">
                     <button
                         class="wheel__button"
@@ -807,18 +793,18 @@
 
         <template id="wheel-segment-template">
             <div class="wheel__segment">
-                <span class="wheel__segment-title" data-bind="title"></span>
+                <span class="wheel__segment-title"></span>
             </div>
         </template>
 
         <template id="deal-card-template">
             <div class="deal-card">
                 <div class="deal-card__content">
-                    <h3 class="wheel__deal-label" data-bind="title"></h3>
-                    <p class="wheel__description" data-bind="validity"></p>
+                    <h3 class="wheel__deal-label"></h3>
+                    <p class="wheel__description"></p>
                 </div>
                 <div class="deal-card__actions">
-                    <span class="wheel__deal-code" data-bind="code"></span>
+                    <span class="wheel__deal-code"></span>
                     <button
                         class="deal-card__copy-button"
                         type="button"

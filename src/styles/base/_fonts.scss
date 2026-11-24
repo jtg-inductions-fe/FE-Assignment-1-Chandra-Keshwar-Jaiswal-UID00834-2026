@@ -49,3 +49,54 @@
     font-style: normal;
     font-display: swap;
 }
+
+// Figtree font family with regular, medium, and bold weights.
+@font-face {
+    font-display: swap;
+    font-family: abs.get(abs.$font, ternary);
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/fonts/figtree-v9-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: abs.get(abs.$font, ternary);
+    font-style: normal;
+    font-weight: 500;
+    src: url('/assets/fonts/figtree-v9-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: abs.get(abs.$font, ternary);
+    font-style: normal;
+    font-weight: 700;
+    src: url('/assets/fonts/figtree-v9-latin-700.woff2') format('woff2');
+}
+
+// Roboto Mono font family with regular, medium, and bold weights.
+@font-face {
+    font-display: swap;
+    font-family: abs.get(abs.$font, monospace);
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/fonts/roboto-mono-v31-latin-regular.woff2')
+        format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: abs.get(abs.$font, monospace);
+    font-style: normal;
+    font-weight: 500;
+    src: url('/assets/fonts/roboto-mono-v31-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: abs.get(abs.$font, monospace);
+    font-style: normal;
+    font-weight: 700;
+    src: url('/assets/fonts/roboto-mono-v31-latin-700.woff2') format('woff2');
+}

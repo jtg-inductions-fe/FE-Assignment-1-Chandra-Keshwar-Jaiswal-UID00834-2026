@@ -7,13 +7,36 @@ import {
     state,
     ONE_DAY_IN_MS,
     WHEEL_SIZE,
+    COPY_DISABLED_SVG_PATH,
+    SEGMENT_ANGLES,
+    FULL_ROTATIONS,
+    RESULT_DISPLAY_DELAY,
+    CHECK_SVG_PATH,
+    COPY_SVG_PATH,
 } from './constants.js';
 
+const wheel = document.querySelector('.wheel__body--wheel');
+const wheelSegments = document.querySelector('.wheel__segments');
+const spinButton = document.querySelector('[data-action="spin"]');
+const wheelResult = document.querySelector('.wheel__reward');
+const wheelSegmentTemplate = document.querySelector('#wheel-segment-template');
+const dealCardTemplate = document.querySelector('#deal-card-template');
+const dealsList = document.querySelector('.deal-section__list');
+const unlockedDealsCount = document.querySelector('.wheel__counter');
+const selectedReward = document.querySelector('.wheel__reward-details');
+const wheelSection = document.querySelector('.wheel');
+const dealsSection = document.querySelector('.deal-section');
+const loadingView = document.querySelector('.wheel__loading');
+const interactiveView = document.querySelector('.wheel__interactive');
+const specialDealsDialog = document.querySelector('#special-deals-dialog');
+const openButton = document.querySelector('#special-deals');
+
+let isInitialized = false;
+let initializationPromise = null;
+
 /**
- * Retrieves deal data from Cache Storage or fetches it from the deals API.
- * A successful API response is cached so subsequent loads can reuse it.
- * @async
- * @returns {Promise<Array<Object>>} The raw deals returned by the API.
+ * Returns cached deals or fetches and caches them from the API.
+ * @returns {Promise<Array<Object>>} Raw deal records.
  */
 async function getDeals() {
     const cache = await caches.open(CACHE_NAME);
@@ -27,10 +50,9 @@ async function getDeals() {
 }
 
 /**
- * Converts API deal records into the application's normalized deal shape.
- * @param {Array<Object>} apiDeals - Raw deal records returned by the API.
- * @returns {Array<{label: string, promoCode: string, validFor: number}>}
- * Normalized deals with a default validity period when one is not provided.
+ * Normalizes API deals and applies default validity days if missing.
+ * @param {Array<Object>} apiDeals - Raw API deals.
+ * @returns {Array<{label: string, promoCode: string, validFor: number}>} Normalized deals.
  */
 function normalizeDeals(apiDeals) {
     return apiDeals.map((deal) => ({
@@ -41,9 +63,8 @@ function normalizeDeals(apiDeals) {
 }
 
 /**
- * Loads the saved wheel and won-deal data from local storage.
- * Invalid or unavailable JSON is treated as an empty user-data object.
- * @returns {Object} The parsed user data, or an empty object when unavailable.
+ * Reads saved user data from local storage, or returns `{}` on error.
+ * @returns {Object} Parsed user data.
  */
 function loadUserData() {
     try {
@@ -55,8 +76,7 @@ function loadUserData() {
 }
 
 /**
- * Persists the user's won deals and current wheel arrangement in local storage.
- * Wheel entries are stored as promo codes; empty segments are stored as null.
+ * Saves won deals and wheel promo codes to local storage.
  * @returns {void}
  */
 function saveUserData() {
@@ -74,27 +94,27 @@ function saveUserData() {
 }
 
 /**
- * Calculates the timestamp at which a won deal expires.
- * @param {{wonAt: number, validFor: number}} deal - A won deal.
- * @returns {number} Expiry timestamp in milliseconds since the Unix epoch.
+ * Returns a deal's expiration timestamp in milliseconds.
+ * @param {{wonAt: number, validFor: number}} deal - Won deal object.
+ * @returns {number} Expiry timestamp.
  */
 function getExpiryTime(deal) {
     return deal.wonAt + deal.validFor * ONE_DAY_IN_MS;
 }
 
 /**
- * Checks whether a won deal has reached or passed its expiry timestamp.
- * @param {{wonAt: number, validFor: number}} deal - A won deal.
- * @returns {boolean} True when the deal has expired; otherwise false.
+ * Checks whether a won deal is expired.
+ * @param {{wonAt: number, validFor: number}} deal - Won deal object.
+ * @returns {boolean} True if expired.
  */
 function isDealExpired(deal) {
     return Date.now() >= getExpiryTime(deal);
 }
 
 /**
- * Calculates the number of whole or partial days remaining before expiry.
- * @param {{wonAt: number, validFor: number}} deal - A won deal.
- * @returns {number} Remaining days, rounded up and with a minimum of one.
+ * Calculates days remaining until a deal expires.
+ * @param {{wonAt: number, validFor: number}} deal - Won deal object.
+ * @returns {number} Remaining days (rounded up).
  */
 function getRemainingDays(deal) {
     const remainingTime = getExpiryTime(deal) - Date.now();
@@ -102,9 +122,9 @@ function getRemainingDays(deal) {
 }
 
 /**
- * Builds the validity label displayed on a won-deal card.
- * @param {{wonAt: number, validFor: number}} deal - A won deal.
- * @returns {string} Either "Expired" or a remaining-days label.
+ * Formats a deal's expiry status text for display.
+ * @param {{wonAt: number, validFor: number}} deal - Won deal object.
+ * @returns {string} `"Expired"` or `"Expires in <n>d"`.
  */
 function getValidityText(deal) {
     if (isDealExpired(deal)) {
@@ -115,19 +135,19 @@ function getValidityText(deal) {
 }
 
 /**
- * Returns deals that the user has not already won.
- * @returns {Array<Object>} Eligible deals from the current deal collection.
+ * Filters out deals already won by the user.
+ * @returns {Array<Object>} Unwon deals.
  */
 function getEligibleDeals() {
     const wonPromoCodes = new Set(state.wonDeals.map((deal) => deal.promoCode));
+
     return state.deals.filter((deal) => !wonPromoCodes.has(deal.promoCode));
 }
 
 /**
- * Returns a shuffled copy of the supplied deals using Fisher-Yates shuffle.
- * The input array is not mutated.
- * @param {Array<Object>} deals - Items to shuffle.
- * @returns {Array<Object>} A shuffled copy of the input array.
+ * Returns a non-mutating Fisher-Yates shuffled copy of deals.
+ * @param {Array<Object>} deals - Deals to shuffle.
+ * @returns {Array<Object>} Shuffled deals.
  */
 function shuffleDeals(deals) {
     const shuffledDeals = [...deals];
@@ -143,9 +163,8 @@ function shuffleDeals(deals) {
 }
 
 /**
- * Prepares the wheel with a randomized set of eligible deals.
- * Empty slots are represented by null when fewer than WHEEL_SIZE deals are available.
- * @returns {Array<Object|null>} The deals and empty slots for the wheel.
+ * Builds a randomized wheel array padded with `null` up to `WHEEL_SIZE`.
+ * @returns {Array<Object|null>} Wheel slots.
  */
 function prepareWheel() {
     const eligibleDeals = getEligibleDeals();
@@ -156,8 +175,7 @@ function prepareWheel() {
 }
 
 /**
- * Restores won deals and the saved wheel arrangement from local storage.
- * If the saved wheel is missing, a new arrangement is prepared.
+ * Restores won deals and wheel slots from storage, or initializes a new wheel.
  * @returns {void}
  */
 function restoreUserState() {
@@ -184,6 +202,349 @@ function restoreUserState() {
 
     saveUserData();
 }
-const deals = normalizeDeals(await getDeals());
-getValidityText(deals[0]);
-restoreUserState();
+
+/**
+ * Renders wheel segments from `state.wheelDeals`.
+ * @returns {void}
+ */
+function renderWheel() {
+    wheelSegments.replaceChildren();
+    state.wheelDeals.forEach((deal) => {
+        const fragment = wheelSegmentTemplate.content.cloneNode(true);
+        const title = fragment.querySelector('.wheel__segment-title');
+        title.textContent = deal?.label ?? 'No Coupon';
+        wheelSegments.append(fragment);
+    });
+}
+
+/**
+ * Builds a deal card fragment and disables copy if expired.
+ * @param {Object} deal - Deal object to render.
+ * @returns {DocumentFragment} Populated deal card fragment.
+ */
+function createDealCard(deal) {
+    const fragment = dealCardTemplate.content.cloneNode(true);
+    const card = fragment.querySelector('.deal-card');
+    card.querySelector('.wheel__deal-label').textContent = deal.label;
+    card.querySelector('.wheel__description').textContent =
+        getValidityText(deal);
+    card.querySelector('.wheel__deal-code').textContent = deal.promoCode;
+
+    const expired = isDealExpired(deal);
+    const copyButton = card.querySelector('[data-action="copy-code"]');
+    if (expired) {
+        card.classList.add('deal-card--expired');
+        copyButton.disabled = true;
+        copyButton.querySelector('img').src = COPY_DISABLED_SVG_PATH;
+    }
+    return fragment;
+}
+
+/**
+ * Renders won deals (active first, sorted by expiry) and updates counter.
+ * @returns {void}
+ */
+function renderUnlockedDeals() {
+    dealsList.replaceChildren();
+    const sortedDeals = [...state.wonDeals].sort((a, b) => {
+        const aExpired = isDealExpired(a);
+        const bExpired = isDealExpired(b);
+        if (aExpired !== bExpired) {
+            return aExpired ? 1 : -1;
+        }
+        return getExpiryTime(b) - getExpiryTime(a);
+    });
+    sortedDeals.forEach((deal) => {
+        dealsList.append(createDealCard(deal));
+    });
+    unlockedDealsCount.textContent = String(state.wonDeals.length);
+}
+
+/**
+ * Displays the latest spin result ("Try Again" or won deal card).
+ * @param {Object|null} deal - Won deal object, or null if no deal was won.
+ * @returns {void}
+ */
+function renderResult(deal) {
+    const resultLabel = wheelResult.querySelector('.wheel__deal-label');
+    wheelResult.hidden = false;
+
+    if (!deal) {
+        resultLabel.textContent = 'Try Again';
+        selectedReward.hidden = true;
+        return;
+    }
+
+    resultLabel.textContent = 'You Won!';
+    selectedReward.hidden = false;
+    selectedReward.replaceChildren(createDealCard(deal));
+}
+
+/**
+ * Disables spinning and shows a message when no deals remain on the wheel.
+ * @returns {void}
+ */
+function updateWheelAvailability() {
+    const hasDeals = state.wheelDeals.some(Boolean);
+    spinButton.disabled = !hasDeals;
+
+    if (!hasDeals) {
+        const resultLabel = wheelResult.querySelector('.wheel__deal-label');
+        wheelResult.hidden = false;
+        resultLabel.textContent = 'No more deals';
+    }
+}
+
+/**
+ * Toggles visibility between wheel and deals sections.
+ * @param {'wheel'|'deals'} view - Target view.
+ * @returns {void}
+ */
+function setView(view) {
+    state.currentView = view;
+    wheelSection.hidden = view !== 'wheel';
+    dealsSection.hidden = view !== 'deals';
+}
+
+/**
+ * Shows the loading view while deals initialize.
+ * @returns {void}
+ */
+function showLoadingView() {
+    state.currentView = 'loading';
+    wheelSection.hidden = false;
+    dealsSection.hidden = true;
+    loadingView.hidden = false;
+    interactiveView.hidden = true;
+}
+
+/**
+ * Removes the spinning class and snaps the wheel to 0deg.
+ * @returns {void}
+ */
+function resetWheelTransform() {
+    wheel.classList.remove('wheel__body--spinning');
+    wheel.style.transform = 'rotate(0deg)';
+}
+
+/**
+ * Adds a `wonAt` timestamp, saves the deal, updates storage, and re-renders deals.
+ * @param {Object} deal - Deal won on the current spin.
+ * @returns {Object} Deal with `wonAt` timestamp.
+ */
+function recordWinningDeal(deal) {
+    const winningDeal = { ...deal, wonAt: Date.now() };
+    state.wonDeals.push(winningDeal);
+    saveUserData();
+    renderUnlockedDeals();
+    return winningDeal;
+}
+
+/**
+ * Replaces the won segment with an unused eligible deal or `null`.
+ * @returns {void}
+ */
+function replaceWonSegment() {
+    if (state.selectedIndex === null) return;
+
+    const currentSlotDeal = state.wheelDeals[state.selectedIndex];
+    if (!currentSlotDeal) return;
+
+    const activeWheelCodes = new Set(
+        state.wheelDeals.filter(Boolean).map((deal) => deal.promoCode),
+    );
+    const availableReplacements = getEligibleDeals().filter(
+        (deal) => !activeWheelCodes.has(deal.promoCode),
+    );
+
+    state.wheelDeals[state.selectedIndex] =
+        shuffleDeals(availableReplacements)[0] ?? null;
+}
+
+/**
+ * Picks a random segment, enables the spin class, and rotates the wheel.
+ * @returns {void}
+ */
+function spinWheel() {
+    if (state.isSpinning) return;
+
+    const resultLabel = wheelResult.querySelector('.wheel__deal-label');
+    state.isSpinning = true;
+    state.selectedIndex = null;
+    spinButton.disabled = true;
+    wheelResult.hidden = false;
+    resultLabel.textContent = 'Spinning...';
+
+    state.selectedIndex = Math.floor(Math.random() * WHEEL_SIZE);
+
+    const segmentAngle = SEGMENT_ANGLES[state.selectedIndex];
+    const targetRotation = FULL_ROTATIONS * 360 - segmentAngle;
+    wheel.classList.add('wheel__body--spinning');
+    wheel.style.transform = `rotate(${targetRotation}deg)`;
+}
+
+/**
+ * Records a win, displays the result, and schedules `finishSpin`.
+ * @returns {void}
+ */
+function handleSpinComplete() {
+    if (!state.isSpinning || state.selectedIndex === null) return;
+
+    const selectedDeal = state.wheelDeals[state.selectedIndex];
+    const wonDeal = selectedDeal ? recordWinningDeal(selectedDeal) : null;
+
+    renderResult(wonDeal);
+    window.setTimeout(finishSpin, RESULT_DISPLAY_DELAY);
+}
+
+/**
+ * Updates wheel segments, saves state, resets rotation, and re-enables spin.
+ * @returns {void}
+ */
+function finishSpin() {
+    replaceWonSegment();
+    saveUserData();
+    renderWheel();
+    resetWheelTransform();
+    state.selectedIndex = null;
+    state.isSpinning = false;
+    updateWheelAvailability();
+}
+
+/**
+ * Copies the deal code to clipboard and briefly swaps the copy icon.
+ * @param {HTMLButtonElement} element - Clicked copy button.
+ * @returns {Promise<void>}
+ */
+async function handleCopyCode(element) {
+    const dealCard = element.closest('.deal-card');
+    const code = dealCard.querySelector('.wheel__deal-code').textContent;
+    const dealMap = new Map(
+        state.wonDeals.map((deal) => [deal.promoCode, deal]),
+    );
+    const deal = dealMap.get(code);
+    if (isDealExpired(deal)) {
+        renderUnlockedDeals();
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(code);
+        const copyImg = element.querySelector('img');
+        copyImg.src = CHECK_SVG_PATH;
+        window.setTimeout(() => {
+            copyImg.src = COPY_SVG_PATH;
+        }, 2000);
+    } catch (error) {
+        console.error('Failed to copy code:', error);
+    }
+}
+
+/**
+ * Fetches deals, restores user state, and renders initial wheel and deals views.
+ * @returns {Promise<void>}
+ */
+async function initialize() {
+    showLoadingView();
+    const apiDeals = await getDeals();
+    state.deals = normalizeDeals(apiDeals);
+    restoreUserState();
+    renderWheel();
+    renderUnlockedDeals();
+    updateWheelAvailability();
+    loadingView.hidden = true;
+    interactiveView.hidden = false;
+    setView('wheel');
+}
+
+/**
+ * Sets up Special Deals dialog actions, spin events, and lazy initialization.
+ * @param {{onDialogChange: () => void}}
+ * @param {{syncLink: () => void}}
+ * @returns {void}
+ */
+export function initSpecialDeals({ onDialogChange, syncLink }) {
+    if (!specialDealsDialog || !openButton || !wheel) return;
+
+    specialDealsDialog.addEventListener('click', (event) => {
+        if (event.target === specialDealsDialog && !state.isSpinning) {
+            specialDealsDialog.close();
+            return;
+        }
+
+        const actionElement = event.target.closest('[data-action]');
+        if (!actionElement) return;
+
+        const action = actionElement.dataset.action;
+
+        if (action === 'spin') {
+            spinWheel();
+        } else if (action === 'view-deals') {
+            if (state.isSpinning) return;
+            renderUnlockedDeals();
+            setView('deals');
+        } else if (action === 'back-to-wheel') {
+            setView('wheel');
+        } else if (action === 'close') {
+            if (!state.isSpinning) {
+                specialDealsDialog.close();
+            }
+        } else if (action === 'copy-code') {
+            handleCopyCode(actionElement);
+        }
+    });
+
+    specialDealsDialog.addEventListener('cancel', (event) => {
+        if (state.isSpinning) {
+            event.preventDefault();
+            return;
+        }
+    });
+
+    wheel.addEventListener('transitionend', (event) => {
+        if (event.target !== wheel || event.propertyName !== 'transform') {
+            return;
+        }
+        handleSpinComplete();
+    });
+
+    openButton.addEventListener('click', async () => {
+        if (!specialDealsDialog.open) {
+            specialDealsDialog.showModal();
+        }
+
+        onDialogChange();
+
+        if (isInitialized) {
+            resetWheelTransform();
+            setView('wheel');
+            updateWheelAvailability();
+            return;
+        }
+
+        if (initializationPromise) {
+            return;
+        }
+
+        try {
+            initializationPromise = initialize();
+            await initializationPromise;
+            isInitialized = true;
+        } catch (error) {
+            console.error(error);
+            showLoadingView();
+        } finally {
+            initializationPromise = null;
+        }
+    });
+
+    specialDealsDialog.addEventListener('close', () => {
+        onDialogChange();
+        resetWheelTransform();
+        wheelResult.hidden = true;
+        selectedReward.hidden = true;
+        state.selectedIndex = null;
+        window.history.replaceState(null, '', window.location.pathname);
+        syncLink();
+    });
+}
