@@ -1,0 +1,297 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.special-deals {
+    top: auto;
+    margin: 0 auto;
+    width: abs.rem(360px);
+    padding: abs.rem(24px);
+    border: none;
+    border-top-left-radius: abs.rem(24px);
+    border-top-right-radius: abs.rem(24px);
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    &__close {
+        position: absolute;
+        top: abs.rem(16px);
+        right: abs.rem(16px);
+        padding: abs.rem(4px);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    @include abs.for-device-width('tablet') {
+        inset: 50% auto auto 50%;
+        transform: translate(-50%, -50%);
+        border-radius: abs.rem(24px);
+    }
+}
+
+.wheel {
+    @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
+
+    &__header {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(8px));
+    }
+
+    &__subtitle {
+        @include abs.flex-mixin($gap: abs.rem(4px));
+        color: theme.$color-accent-pink;
+    }
+
+    &__description {
+        color: theme.$color-cool-grey;
+    }
+
+    &__container {
+        position: relative;
+        width: abs.rem(228px);
+        padding-top: abs.rem(8px);
+        margin-inline: auto;
+    }
+
+    &__pointer {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 0;
+        transform: translateX(-50%);
+        border-left: abs.rem(8px) solid transparent;
+        border-right: abs.rem(8px) solid transparent;
+        &--loading {
+            border-top: abs.rem(16px) solid theme.$color-neutral-light;
+        }
+        &--wheel {
+            border-top: abs.rem(16px) solid theme.$color-accent-pink;
+        }
+    }
+
+    &__interactive {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
+        width: 100%;
+    }
+
+    &__reward {
+        width: 100%;
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(8px));
+
+        &-details {
+            width: 100%;
+        }
+
+        &-container {
+            width: 100%;
+            height: abs.rem(80px);
+        }
+    }
+
+    &__body {
+        position: relative;
+        width: abs.rem(228px);
+        height: abs.rem(228px);
+        box-sizing: border-box;
+        border-radius: 50%;
+        &--loading {
+            background-color: theme.$color-light-grey;
+            @include abs.flex-mixin();
+        }
+
+        &--wheel {
+            background: conic-gradient(
+                theme.$color-accent-violet 0deg 90deg,
+                theme.$color-accent-yellow 90deg 180deg,
+                theme.$color-accent-cyan 180deg 270deg,
+                theme.$color-accent-pink 270deg 360deg
+            );
+            border: abs.rem(4px) solid theme.$color-white;
+            box-shadow: 0 0 abs.rem(50px) abs.rem(8px) rgba(0, 0, 0, 0.25);
+        }
+
+        &--spinning {
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+    }
+
+    &__segments {
+        position: absolute;
+        inset: 0;
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: abs.rem(4px);
+            height: 100%;
+            background-color: theme.$color-white;
+            pointer-events: none;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+    }
+
+    &__segment {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        &:nth-child(1) {
+            // First Quadrant Angle
+            --angle: 45deg;
+        }
+
+        &:nth-child(2) {
+            // Second Quadrant Angle
+            --angle: 135deg;
+        }
+
+        &:nth-child(3) {
+            // Third Quadrant Angle
+            --angle: 225deg;
+        }
+
+        &:nth-child(4) {
+            // Fourth Quadrant Angle
+            --angle: 315deg;
+        }
+    }
+
+    &__segment-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: theme.$color-white;
+        width: abs.rem(64px);
+        text-align: center;
+        font-size: abs.rem(12px);
+        font-weight: 700;
+        line-height: 1.2;
+        transform: translate(-50%, -50%) rotate(var(--angle))
+            translateY(abs.rem(-72px));
+    }
+
+    &__spin-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: grid;
+        place-items: center;
+        width: abs.rem(44px);
+        height: abs.rem(44px);
+        transform: translate(-50%, -50%);
+        color: theme.$color-accent-pink;
+        background-color: theme.$color-white;
+        border: abs.rem(2px) solid theme.$color-accent-pink;
+        border-radius: 50%;
+        cursor: pointer;
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+    }
+
+    &__footer {
+        width: 100%;
+    }
+
+    &__button {
+        @include abs.flex-mixin($gap: abs.rem(8px));
+        width: 100%;
+        height: abs.rem(48px);
+        padding: abs.rem(12px) abs.rem(32px);
+        background-color: transparent;
+        border: abs.rem(1px) solid theme.$color-light-grey;
+        border-radius: abs.rem(100px);
+        cursor: pointer;
+    }
+
+    &__counter {
+        width: abs.rem(20px);
+        height: abs.rem(20px);
+        color: theme.$color-white;
+        background-color: theme.$color-primary;
+        border-radius: 50%;
+        line-height: abs.rem(18px);
+    }
+
+    &__deal-code {
+        padding: abs.rem(4px) abs.rem(12px);
+        border-radius: abs.rem(8px);
+        border: abs.rem(1px) solid theme.$color-border-light;
+        background-color: theme.$color-white;
+    }
+}
+
+.deal {
+    &-section {
+        @include abs.flex-mixin($direction: column, $gap: abs.rem(20px));
+
+        &__list {
+            @include abs.flex-mixin($direction: column, $gap: abs.rem(12px));
+            width: 100%;
+        }
+
+        &__footer {
+            width: 100%;
+        }
+    }
+
+    &-card {
+        @include abs.flex-mixin($justify: space-between, $align: center);
+        width: 100%;
+        box-sizing: border-box;
+        padding: abs.rem(16px);
+        border: abs.rem(1px) solid
+            rgba($color: theme.$color-accent-pink, $alpha: 0.2);
+        border-radius: abs.rem(16px);
+        background: linear-gradient(
+            100deg,
+            theme.$color-tint-pink 0%,
+            theme.$color-tint-lavender 55%,
+            theme.$color-tint-violet 100%
+        );
+
+        &--expired {
+            background: theme.$color-light-grey;
+            border: abs.rem(1px) solid
+                rgba($color: theme.$color-black, $alpha: 0.2);
+            .wheel__description {
+                color: theme.$color-muted-grey;
+            }
+        }
+
+        &__content {
+            @include abs.flex-mixin(
+                $direction: column,
+                $align: flex-start,
+                $gap: abs.rem(4px)
+            );
+
+            & > p {
+                color: theme.$color-accent-violet;
+            }
+        }
+
+        &__actions {
+            @include abs.flex-mixin($gap: abs.rem(8px));
+            flex-shrink: 0;
+        }
+
+        &__copy-button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+    }
+}

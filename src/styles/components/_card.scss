@@ -1,0 +1,53 @@
+@use '../abstracts' as abs;
+@use '../themes' as theme;
+
+.card {
+    &__wrapper {
+        position: relative;
+        width: 100%;
+        min-height: abs.rem(152px);
+        padding: abs.rem(32px);
+        border-radius: abs.rem(32px);
+        border: abs.rem(1px) solid rgba(theme.$color-deep-black, 0.5);
+        @include abs.flex-mixin($gap: abs.rem(16px), $direction: column);
+    }
+
+    &__value {
+        font-weight: abs.get(abs.$font-weight, bold);
+        font-size: abs.rem(35px);
+        line-height: 1.2;
+        letter-spacing: 0;
+        color: theme.$color-orange;
+        text-align: center;
+    }
+
+    &__content {
+        font-family: abs.get(abs.$font, secondary);
+        font-size: abs.rem(18px);
+        font-weight: abs.get(abs.$font-weight, regular);
+        white-space: nowrap;
+        text-align: center;
+        line-height: 1.6;
+        letter-spacing: 0;
+        color: theme.$color-black;
+    }
+
+    &__voucher {
+        display: none;
+        @include abs.for-device-width('desktop') {
+            display: block;
+            position: absolute;
+            &-wrapper {
+                width: abs.rem(280px);
+                height: abs.rem(348px);
+                top: -40%;
+                left: 35%;
+            }
+            &-image {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+}
